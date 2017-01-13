@@ -40,10 +40,18 @@ class Chile extends AbstractProvider
         $this->calculateNewYearsDay();
 
         // Add common Christian holidays (common in Chile)
+        $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
 
         // Calculate other holidays
     }
 
+    /**
+     * New Year's Day is celebrated on January 1st. Law 20,983 declares a holiday on days that are Monday January 2
+     * (2017 going forward).
+     *
+     * @link https://www.timeanddate.com/holidays/chile/new-year-day
+     * @link https://www.leychile.cl/Navegar?idNorma=1098384&idParte=&idVersion=2016-12-30
+     */
     public function calculateNewYearsDay()
     {
         // Add regular New Years Day Holiday
