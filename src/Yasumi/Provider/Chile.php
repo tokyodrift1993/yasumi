@@ -41,6 +41,7 @@ class Chile extends AbstractProvider
 
         // Add common Christian holidays (common in Chile)
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
+        $this->addHoliday($this->holySaturday($this->year, $this->timezone, $this->locale));
 
         // Calculate other holidays
     }
