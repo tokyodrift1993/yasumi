@@ -25,6 +25,7 @@ return [
     'en_US' => 'New Year\'s Day',
     'en_ZA' => 'New Year\'s Day',
     'es_ES' => 'Año Nuevo',
+    'es_CL' => 'Año Nuevo',
     'fi_FI' => 'Uudenvuodenpäivä',
     'fr_FR' => 'Jour de l\'An',
     'ga_IE' => 'Lá Caille',
