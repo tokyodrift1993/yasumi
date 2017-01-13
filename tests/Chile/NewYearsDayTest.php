@@ -13,6 +13,7 @@
 namespace Yasumi\tests\Chile;
 
 use DateTime;
+use DateTimeZone;
 use Yasumi\Holiday;
 use Yasumi\tests\YasumiTestCaseInterface;
 
@@ -36,7 +37,14 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
      */
     public function testHoliday($year, $expected)
     {
-        $this->assertHoliday(self::REGION, self::HOLIDAY, $year, $expected);
+        $date = new DateTime($expected, new DateTimeZone(self::TIMEZONE));
+        $this->assertHoliday(self::REGION, self::HOLIDAY, $year, $date);
+
+        // Law 20,983 declares a holiday on days that are Monday January 2 (2017 going forward)
+        if ($year >= 2017 && (0 == $date->format('w'))) {
+            $date->modify('next monday');
+            $this->assertHoliday(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year, $date);
+        }
     }
 
     /**
@@ -46,7 +54,15 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
      */
     public function HolidayDataProvider()
     {
-        return $this->generateRandomDates(1, 1, self::TIMEZONE);
+        $data = [];
+
+        for ($y = 0; $y < self::TEST_ITERATIONS; $y++) {
+            $year   = $this->generateRandomYear();
+            $date   = new DateTime("$year-1-1", new DateTimeZone(self::TIMEZONE));
+            $data[] = [$year, $date->format('Y-m-d')];
+        }
+
+        return $data;
     }
 
     /**

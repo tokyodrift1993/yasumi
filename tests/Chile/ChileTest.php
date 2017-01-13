@@ -12,6 +12,7 @@
 
 namespace Yasumi\tests\Chile;
 
+use DateTime;
 use Yasumi\Holiday;
 
 /**
@@ -39,7 +40,17 @@ class ChileTest extends ChileBaseTestCase
      */
     public function testObservedHolidays()
     {
-        $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_OBSERVANCE);
+        $observedHolidays = [];
+
+        // Law 20,983 declares a holiday on days that are Monday January 2 (2017 going forward)
+        if ($this->year >= 2017) {
+            $new_years_day = new DateTime("$this->year-1-1");
+            if ($new_years_day->format('w') === 0) {
+                $observedHolidays[] = 'substituteHoliday:newYearsDay';
+            }
+        }
+
+        $this->assertDefinedHolidays($observedHolidays, self::REGION, $this->year, Holiday::TYPE_OBSERVANCE);
     }
 
     /**
