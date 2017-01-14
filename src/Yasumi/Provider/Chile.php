@@ -65,7 +65,7 @@ class Chile extends AbstractProvider
             $substituteHoliday->modify('next monday');
 
             $this->addHoliday(new Holiday('substituteHoliday:' . $substituteHoliday->shortName, [
-                'es_CL' => $substituteHoliday->getName(),
+                'es_CL' => 'San Lunes',
             ], $substituteHoliday, $this->locale));
         }
     }

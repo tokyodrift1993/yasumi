@@ -44,6 +44,8 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
         if ($year >= 2017 && (0 == $date->format('w'))) {
             $date->modify('next monday');
             $this->assertHoliday(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year, $date);
+            $this->assertTranslatedHolidayName(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year,
+                ['es_CL' => 'San Lunes']);
         }
     }
 
