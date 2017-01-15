@@ -76,30 +76,6 @@ class Chile extends AbstractProvider
     }
 
     /**
-     * 2017 Census
-     *
-     * Censuses, held every ten years, are also declared holidays since 1982; that year's census and 1992's were so due
-     * to ad-hoc laws; censuses taken from 1992 onwards are declared holidays due to a reform in the Census law.
-     * (This did not occur in 2012, where the census was carried out in the space of two months, using a different
-     * methodology.)
-     *
-     * Due to a number of problems with the implementation and results of the census of 2012, in June 2014 it was
-     * decided to supplement it with an abbreviated census to take place on  Wednesday, April 19, 2017.
-     *
-     * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
-     * @link http://www.feriadoschilenos.cl/#singular.19.04.2017
-     */
-    public function calculateCensusDay2017()
-    {
-        if ($this->year != 2017) {
-            return;
-        }
-
-        $this->addHoliday(new Holiday('2017CensusDay', ['es_CL' => 'Censo abreviado 2017'],
-            new DateTime('2017-4-19', new DateTimeZone($this->timezone)), $this->locale));
-    }
-
-    /**
      * 1982 Census
      *
      * Censuses, held every ten years, are also declared holidays since 1982; that year's census and 1992's were so due
@@ -139,5 +115,29 @@ class Chile extends AbstractProvider
 
         $this->addHoliday(new Holiday('1992CensusDay', ['es_CL' => 'XVI censo nacional de población y V de vivienda'],
             new DateTime('1992-4-22', new DateTimeZone($this->timezone)), $this->locale));
+    }
+
+    /**
+     * 2017 Census
+     *
+     * Censuses, held every ten years, are also declared holidays since 1982; that year's census and 1992's were so due
+     * to ad-hoc laws; censuses taken from 1992 onwards are declared holidays due to a reform in the Census law.
+     * (This did not occur in 2012, where the census was carried out in the space of two months, using a different
+     * methodology.)
+     *
+     * Due to a number of problems with the implementation and results of the census of 2012, in June 2014 it was
+     * decided to supplement it with an abbreviated census to take place on  Wednesday, April 19, 2017.
+     *
+     * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
+     * @link http://www.feriadoschilenos.cl/#singular.19.04.2017
+     */
+    public function calculateCensusDay2017()
+    {
+        if ($this->year != 2017) {
+            return;
+        }
+
+        $this->addHoliday(new Holiday('2017CensusDay', ['es_CL' => 'Censo abreviado 2017'],
+            new DateTime('2017-4-19', new DateTimeZone($this->timezone)), $this->locale));
     }
 }
