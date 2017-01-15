@@ -18,7 +18,7 @@ use Yasumi\Holiday;
 use Yasumi\tests\YasumiTestCaseInterface;
 
 /**
- * Class for testing the public holiday in respect of the 1982 Census in Chile (April 19th, 2017).
+ * Class for testing the public holiday in respect of the 1982 Census in Chile (April 19th, 1982).
  *
  */
 class CensusDay1982Test extends ChileBaseTestCase implements YasumiTestCaseInterface
