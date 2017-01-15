@@ -46,8 +46,9 @@ class Chile extends AbstractProvider
         $this->addHoliday($this->holySaturday($this->year, $this->timezone, $this->locale));
 
         // Calculate other holidays
-        $this->calculateCensusDay2017();
         $this->calculateCensusDay1982();
+        $this->calculateCensusDay1992();
+        $this->calculateCensusDay2017();
     }
 
     /**
@@ -117,5 +118,26 @@ class Chile extends AbstractProvider
 
         $this->addHoliday(new Holiday('1982CensusDay', ['es_CL' => 'XV censo nacional de población y IV de vivienda'],
             new DateTime('1982-4-21', new DateTimeZone($this->timezone)), $this->locale));
+    }
+
+    /**
+     * 1992 Census
+     *
+     * Censuses, held every ten years, are also declared holidays since 1982; that year's census and 1992's were so due
+     * to ad-hoc laws; censuses taken from 1992 onwards are declared holidays due to a reform in the Census law.
+     * (This did not occur in 2012, where the census was carried out in the space of two months, using a different
+     * methodology.)
+     *
+     * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
+     * @link http://www.feriadoschilenos.cl/index.html#singular.22.04.1992
+     */
+    public function calculateCensusDay1992()
+    {
+        if ($this->year != 1992) {
+            return;
+        }
+
+        $this->addHoliday(new Holiday('1992CensusDay', ['es_CL' => 'XVI censo nacional de población y V de vivienda'],
+            new DateTime('1992-4-22', new DateTimeZone($this->timezone)), $this->locale));
     }
 }
