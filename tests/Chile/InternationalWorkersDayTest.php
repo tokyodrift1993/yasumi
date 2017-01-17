@@ -78,7 +78,7 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
     public function testTranslation()
     {
         $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY,
-            $this->generateRandomYear(self::ESTABLISHMENT_YEAR), [self::LOCALE => 'Día Nacional del Trabajo']);
+            $this->generateRandomYear(self::ESTABLISHMENT_YEAR), [self::LOCALE => 'Día del Trabajo']);
     }
 
     /**
