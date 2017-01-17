@@ -40,6 +40,7 @@ class Chile extends AbstractProvider
 
         // Add common holidays
         $this->calculateNewYearsDay();
+        $this->calculateInternationalWorkersDay();
 
         // Add common Christian holidays (common in Chile)
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
@@ -161,5 +162,22 @@ class Chile extends AbstractProvider
 
         $this->addHoliday(new Holiday('2017CensusDay', ['es_CL' => 'Censo abreviado 2017'],
             new DateTime('2017-4-19', new DateTimeZone($this->timezone)), $this->locale));
+    }
+
+    /**
+     * International Workers Day
+     *
+     * The DFL 178 of 1931 of the Ministry of Social Welfare instituted Labor Day (International Workers Day) as an
+     * official recurring holiday (effective from 1932).
+     *
+     * @link http://www.feriadoschilenos.cl/index.html#DiaNacionalDelTrabajo
+     */
+    private function calculateInternationalWorkersDay()
+    {
+        if ($this->year <= 1932) {
+            return;
+        }
+
+        $this->addHoliday($this->internationalWorkersDay($this->year, $this->timezone, $this->locale));
     }
 }
