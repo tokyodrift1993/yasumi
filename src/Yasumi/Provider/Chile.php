@@ -174,7 +174,7 @@ class Chile extends AbstractProvider
      */
     private function calculateInternationalWorkersDay()
     {
-        if ($this->year <= 1932) {
+        if ($this->year < 1932) {
             return;
         }
 
