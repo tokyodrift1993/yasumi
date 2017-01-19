@@ -51,6 +51,7 @@ class Chile extends AbstractProvider
         $this->calculateCensusDay1992();
         $this->calculateCensusDay2002();
         $this->calculateCensusDay2017();
+        $this->calculateNavyDay();
     }
 
     /**
@@ -60,7 +61,7 @@ class Chile extends AbstractProvider
      * @link https://www.timeanddate.com/holidays/chile/new-year-day
      * @link https://www.leychile.cl/Navegar?idNorma=1098384&idParte=&idVersion=2016-12-30
      */
-    public function calculateNewYearsDay()
+    private function calculateNewYearsDay()
     {
         // Add regular New Years Day Holiday
         $holiday = $this->newYearsDay($this->year, $this->timezone, $this->locale);
@@ -88,7 +89,7 @@ class Chile extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/index.html#singular.21.04.1982
      */
-    public function calculateCensusDay1982()
+    private function calculateCensusDay1982()
     {
         if ($this->year != 1982) {
             return;
@@ -109,7 +110,7 @@ class Chile extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/index.html#singular.22.04.1992
      */
-    public function calculateCensusDay1992()
+    private function calculateCensusDay1992()
     {
         if ($this->year != 1992) {
             return;
@@ -130,7 +131,7 @@ class Chile extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/index.html#singular.24.04.2002
      */
-    public function calculateCensusDay2002()
+    private function calculateCensusDay2002()
     {
         if ($this->year != 2002) {
             return;
@@ -154,7 +155,7 @@ class Chile extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/#singular.19.04.2017
      */
-    public function calculateCensusDay2017()
+    private function calculateCensusDay2017()
     {
         if ($this->year != 2017) {
             return;
@@ -179,5 +180,26 @@ class Chile extends AbstractProvider
         }
 
         $this->addHoliday($this->internationalWorkersDay($this->year, $this->timezone, $this->locale));
+    }
+
+    /**
+     * Navy Day (Día de las Glorias Navales)
+     *
+     * Navy Day is a Chilean national holiday (Spanish: Día de las Glorias Navales, literally Day of Naval Glories)
+     * celebrated on May 21 each year. The day was selected to commemorate the Battle of Iquique, which occurred on
+     * Wednesday, May 21, 1879 during the War of the Pacific. The day is an office holiday and the traditional day for
+     * the Annual Statement of the President of the Republic of Chile.
+     *
+     * @link https://en.wikipedia.org/wiki/Navy_Day_(Chile)
+     * @link http://www.feriadoschilenos.cl/index.html#DiaDeLasGloriasNavales
+     */
+    private function calculateNavyDay()
+    {
+        if ($this->year < 1915) {
+            return;
+        }
+
+        $this->addHoliday(new Holiday('navyDay', ['es_CL' => 'Día de las Glorias Navales'],
+            new DateTime("$this->year-5-21", new DateTimeZone($this->timezone)), $this->locale));
     }
 }
