@@ -30,7 +30,31 @@ class ChileTest extends ChileBaseTestCase
      */
     public function testNationalHolidays()
     {
-        $nationalHolidays = ['newYearsDay'];
+        $nationalHolidays = ['newYearsDay', 'goodFriday', 'holySaturday'];
+
+        if ($this->year >= 1932) {
+            $nationalHolidays[] = 'internationalWorkersDay';
+        }
+
+        if ($this->year == 1982) {
+            $nationalHolidays[] = '1982CensusDay';
+        }
+
+        if ($this->year == 1992) {
+            $nationalHolidays[] = '1992CensusDay';
+        }
+
+        if ($this->year == 2002) {
+            $nationalHolidays[] = '2002CensusDay';
+        }
+
+        if ($this->year == 2017) {
+            $nationalHolidays[] = '2017CensusDay';
+        }
+
+        if ($this->year >= 1915) {
+            $nationalHolidays[] = 'navyDay';
+        }
 
         $this->assertDefinedHolidays($nationalHolidays, self::REGION, $this->year, Holiday::TYPE_NATIONAL);
     }
