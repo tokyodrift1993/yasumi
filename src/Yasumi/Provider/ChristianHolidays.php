@@ -342,6 +342,8 @@ trait ChristianHolidays
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default this is considered to be observed.
      *
      * @return \Yasumi\Holiday
+     *
+     * @throws \InvalidArgumentException
      */
     public function holySaturday($year, $timezone, $locale, $type = Holiday::TYPE_OBSERVANCE)
     {

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of the Yasumi package.
  *
@@ -33,6 +32,8 @@ class Chile extends AbstractProvider
 
     /**
      * Initialize holidays for Chile.
+     *
+     * @throws \InvalidArgumentException
      */
     public function initialize()
     {
@@ -60,6 +61,8 @@ class Chile extends AbstractProvider
      *
      * @link https://www.timeanddate.com/holidays/chile/new-year-day
      * @link https://www.leychile.cl/Navegar?idNorma=1098384&idParte=&idVersion=2016-12-30
+     *
+     * @throws \InvalidArgumentException
      */
     private function calculateNewYearsDay()
     {
@@ -68,7 +71,7 @@ class Chile extends AbstractProvider
         $this->addHoliday($holiday);
 
         // Law 20,983 declares a holiday on days that are Monday January 2 (2017 going forward)
-        if ($this->year >= 2017 && (0 == $holiday->format('w'))) {
+        if ($this->year >= 2017 && (0 === (int)$holiday->format('w'))) {
             $substituteHoliday = clone $holiday;
             $substituteHoliday->modify('next monday');
 
@@ -88,10 +91,12 @@ class Chile extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/index.html#singular.21.04.1982
+     *
+     * @throws \InvalidArgumentException
      */
     private function calculateCensusDay1982()
     {
-        if ($this->year != 1982) {
+        if ($this->year !== 1982) {
             return;
         }
 
@@ -109,10 +114,12 @@ class Chile extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/index.html#singular.22.04.1992
+     *
+     * @throws \InvalidArgumentException
      */
     private function calculateCensusDay1992()
     {
-        if ($this->year != 1992) {
+        if ($this->year !== 1992) {
             return;
         }
 
@@ -130,10 +137,12 @@ class Chile extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/index.html#singular.24.04.2002
+     *
+     * @throws \InvalidArgumentException
      */
     private function calculateCensusDay2002()
     {
-        if ($this->year != 2002) {
+        if ($this->year !== 2002) {
             return;
         }
 
@@ -154,10 +163,12 @@ class Chile extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/#singular.19.04.2017
+     *
+     * @throws \InvalidArgumentException
      */
     private function calculateCensusDay2017()
     {
-        if ($this->year != 2017) {
+        if ($this->year !== 2017) {
             return;
         }
 
@@ -172,6 +183,8 @@ class Chile extends AbstractProvider
      * official recurring holiday (effective from 1932).
      *
      * @link http://www.feriadoschilenos.cl/index.html#DiaNacionalDelTrabajo
+     *
+     * @throws \InvalidArgumentException
      */
     private function calculateInternationalWorkersDay()
     {
@@ -192,6 +205,7 @@ class Chile extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Navy_Day_(Chile)
      * @link http://www.feriadoschilenos.cl/index.html#DiaDeLasGloriasNavales
+     * @throws \InvalidArgumentException
      */
     private function calculateNavyDay()
     {
