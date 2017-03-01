@@ -41,7 +41,7 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
         $this->assertHoliday(self::REGION, self::HOLIDAY, $year, $date);
 
         // Law 20,983 declares a holiday on days that are Monday January 2 (2017 going forward)
-        if ($year >= 2017 && (0 == $date->format('w'))) {
+        if ($year >= 2017 && (0 === (int) $date->format('w'))) {
             $date->modify('next monday');
             $this->assertHoliday(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year, $date);
             $this->assertTranslatedHolidayName(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year,
