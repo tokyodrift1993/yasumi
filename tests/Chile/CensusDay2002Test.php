@@ -39,8 +39,8 @@ class CensusDay2002Test extends ChileBaseTestCase implements YasumiTestCaseInter
     public function testHolidayOnEstablishment()
     {
         $this->assertHoliday(self::REGION, self::HOLIDAY, self::ESTABLISHMENT_YEAR,
-            new DateTime(self::ESTABLISHMENT_YEAR . "-4-24", new DateTimeZone(self::TIMEZONE)));
-        $this->assertDayOfWeek(self::REGION, self::HOLIDAY, self::ESTABLISHMENT_YEAR, "Wednesday");
+            new DateTime(self::ESTABLISHMENT_YEAR . '-4-24', new DateTimeZone(self::TIMEZONE)));
+        $this->assertDayOfWeek(self::REGION, self::HOLIDAY, self::ESTABLISHMENT_YEAR, 'Wednesday');
     }
 
     /**
