@@ -226,7 +226,7 @@ class Chile extends AbstractProvider
      * preceding Monday. If the holiday falls on a Friday, the following Monday is the day of observance.
      *
      * @link https://www.timeanddate.com/holidays/chile/saint-peter-and-saint-paul
-     * @link https://www.leychile.cl/Navegar?idNorma=1098384&idParte=&idVersion=2016-12-30
+     * @link https://www.leychile.cl/Navegar?idNorma=160270
      *
      * @throws \InvalidArgumentException
      */
