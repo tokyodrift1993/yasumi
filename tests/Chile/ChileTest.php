@@ -30,7 +30,7 @@ class ChileTest extends ChileBaseTestCase
      */
     public function testNationalHolidays()
     {
-        $nationalHolidays = ['newYearsDay', 'goodFriday'];
+        $nationalHolidays = ['newYearsDay', 'goodFriday', 'stPeterPaulsDay'];
 
         if ($this->year >= 1932) {
             $nationalHolidays[] = 'internationalWorkersDay';

@@ -46,6 +46,7 @@ class Chile extends AbstractProvider
         // Add common Christian holidays (common in Chile)
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->holySaturday($this->year, $this->timezone, $this->locale));
+        $this->calculatestPeterPaulsDay();
 
         // Calculate other holidays
         $this->calculateCensusDay1982();
@@ -215,5 +216,38 @@ class Chile extends AbstractProvider
 
         $this->addHoliday(new Holiday('navyDay', ['es_CL' => 'Día de las Glorias Navales'],
             new DateTime("$this->year-5-21", new DateTimeZone($this->timezone)), $this->locale));
+    }
+
+    /**
+     * The Feast of Saints Peter and Paul is a liturgical feast in honour of the martyrdom in Rome of the apostles
+     * Saint Peter and Saint Paul, which is observed on 29 June.
+     *
+     * Law 19,668 declares certain holidays that fall on Tuesday, Wednesday or Thursday are observed the
+     * preceding Monday. If the holiday falls on a Friday, the following Monday is the day of observance.
+     *
+     * @link https://www.timeanddate.com/holidays/chile/saint-peter-and-saint-paul
+     * @link https://www.leychile.cl/Navegar?idNorma=1098384&idParte=&idVersion=2016-12-30
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function calculatestPeterPaulsDay()
+    {
+        // Add regular New Years Day Holiday
+        $holiday = $this->stPeterPaulsDay($this->year, $this->timezone, $this->locale);
+        $this->addHoliday($holiday);
+
+        if ($this->year >= 2000) {
+            $substituteHoliday = clone $holiday;
+
+            if (in_array((int)$holiday->format('w'), [2, 3, 4], true)) {
+                $substituteHoliday->modify('previous monday');
+            } elseif (5 === (int)$holiday->format('w')) {
+                $substituteHoliday->modify('next monday');
+            }
+
+            $this->addHoliday(new Holiday('substituteHoliday:' . $substituteHoliday->shortName, [
+                'es_CL' => 'San Pedro y San Pablo',
+            ], $substituteHoliday, $this->locale));
+        }
     }
 }

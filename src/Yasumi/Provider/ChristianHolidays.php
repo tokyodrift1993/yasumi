@@ -650,6 +650,34 @@ trait ChristianHolidays
             $type);
     }
 
+
+    /**
+     * Calculates the Feast of Saints Peter and Paul.
+     *
+     * The Feast of Saints Peter and Paul or Solemnity of Saints Peter and Paul is a liturgical feast in honour of the
+     * martyrdom in Rome of the apostles Saint Peter and Saint Paul, which is observed on 29 June.
+     * The celebration is of ancient origin, the date selected being the anniversary of either their death or the
+     * translation of their relics.
+     *
+     * @link https://en.wikipedia.org/wiki/Feast_of_Saints_Peter_and_Paul
+     *
+     * @param int    $year     the year for which the Feast of Saints Peter and Paul need to be created
+     * @param string $timezone the timezone in which the Feast of Saints Peter and Paul is celebrated
+     * @param string $locale   the locale for which the Feast of Saints Peter and Paul need to be displayed in.
+     * @param string $type     The type of holiday. Use the following constants: TYPE_NATIONAL, TYPE_OBSERVANCE,
+     *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default a national holiday is considered.
+     *
+     * @return \Yasumi\Holiday
+     *
+     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \InvalidArgumentException
+     */
+    public function stPeterPaulsDay($year, $timezone, $locale, $type = Holiday::TYPE_NATIONAL)
+    {
+        return new Holiday('stPeterPaulsDay', [], new DateTime($year . '-06-29', new DateTimeZone($timezone)), $locale,
+            $type);
+    }
+
     /**
      * Calculates the date for Easter.
      *
