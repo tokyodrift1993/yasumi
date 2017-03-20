@@ -36,6 +36,9 @@ class Geneva extends Switzerland
 
     /**
      * Initialize holidays for Geneva (Switzerland).
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Yasumi\Exception\UnknownLocaleException
      */
     public function initialize()
     {
@@ -59,11 +62,14 @@ class Geneva extends Switzerland
      * on the Thursday following the first Sunday of September. It dates back to the 16th century.
      *
      * @link https://en.wikipedia.org/wiki/Je%C3%BBne_genevois
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Yasumi\Exception\UnknownLocaleException
      */
     public function calculateJeuneGenevois()
     {
         // Find first Sunday of September
-        $date = new DateTime('First Sunday of '.$this->year.'-09', new DateTimeZone($this->timezone));
+        $date = new DateTime('First Sunday of ' . $this->year . '-09', new DateTimeZone($this->timezone));
         // Go to next Thursday
         $date->add(new DateInterval('P4D'));
 
@@ -89,6 +95,9 @@ class Geneva extends Switzerland
      * Restoration of the Republic of Geneva was declared.
      *
      * @link https://fr.wikipedia.org/wiki/Restauration_genevoise
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Yasumi\Exception\UnknownLocaleException
      */
     public function calculateRestaurationGenevoise()
     {
@@ -96,7 +105,8 @@ class Geneva extends Switzerland
             $this->addHoliday(new Holiday('restaurationGenevoise', [
                 'fr_FR' => 'Restauration de la République',
                 'fr_CH' => 'Restauration de la République',
-            ], new DateTime($this->year.'-12-31', new DateTimeZone($this->timezone)), $this->locale, Holiday::TYPE_OTHER));
+            ], new DateTime($this->year . '-12-31', new DateTimeZone($this->timezone)), $this->locale,
+                Holiday::TYPE_OTHER));
         }
     }
 }

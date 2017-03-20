@@ -32,6 +32,9 @@ class Switzerland extends AbstractProvider
 
     /**
      * Initialize holidays for Switzerland.
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Yasumi\Exception\UnknownLocaleException
      */
     public function initialize()
     {
@@ -48,6 +51,9 @@ class Switzerland extends AbstractProvider
      * of the Swiss Confederacy for the first time in 1891, and than repeated annually since 1899.
      *
      * @link https://en.wikipedia.org/wiki/Swiss_National_Day
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Yasumi\Exception\UnknownLocaleException
      */
     public function calculateNationalDay()
     {
@@ -62,9 +68,13 @@ class Switzerland extends AbstractProvider
             'rm_CH' => 'Fiasta naziunala',
         ];
         if ($this->year >= 1994) {
-            $this->addHoliday(new Holiday('swissNationalDay', $translations, new DateTime($this->year.'-08-01', new DateTimeZone($this->timezone)), $this->locale, Holiday::TYPE_NATIONAL));
-        } elseif ($this->year >= 1899 || $this->year == 1891) {
-            $this->addHoliday(new Holiday('swissNationalDay', $translations, new DateTime($this->year.'-08-01', new DateTimeZone($this->timezone)), $this->locale, Holiday::TYPE_OBSERVANCE));
+            $this->addHoliday(new Holiday('swissNationalDay', $translations,
+                new DateTime($this->year . '-08-01', new DateTimeZone($this->timezone)), $this->locale,
+                Holiday::TYPE_NATIONAL));
+        } elseif ($this->year >= 1899 || $this->year === 1891) {
+            $this->addHoliday(new Holiday('swissNationalDay', $translations,
+                new DateTime($this->year . '-08-01', new DateTimeZone($this->timezone)), $this->locale,
+                Holiday::TYPE_OBSERVANCE));
         }
     }
 
@@ -76,6 +86,9 @@ class Switzerland extends AbstractProvider
      * with the status of a public holiday in a number of cantons
      *
      * @link https://en.wikipedia.org/wiki/Berchtoldstag
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Yasumi\Exception\UnknownLocaleException
      */
     public function calculateBerchtoldsTag()
     {
@@ -85,7 +98,8 @@ class Switzerland extends AbstractProvider
             'fr_FR' => 'Jour de la Saint-Berthold',
             'fr_CH' => 'Jour de la Saint-Berthold',
             'en_US' => 'Berchtoldstag',
-        ], new DateTime($this->year.'-01-02', new DateTimeZone($this->timezone)), $this->locale, Holiday::TYPE_OTHER));
+        ], new DateTime($this->year . '-01-02', new DateTimeZone($this->timezone)), $this->locale,
+            Holiday::TYPE_OTHER));
     }
 
     /**
@@ -97,12 +111,15 @@ class Switzerland extends AbstractProvider
      * The subsequent Monday (Lundi du Jeûne) is a public holiday in the canton of Vaud and Neuchâtel.
      *
      * @link https://en.wikipedia.org/wiki/Federal_Day_of_Thanksgiving,_Repentance_and_Prayer
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Yasumi\Exception\UnknownLocaleException
      */
     public function calculateBettagsMontag()
     {
         if ($this->year >= 1832) {
             // Find third Sunday of September
-            $date = new DateTime('Third Sunday of '.$this->year.'-09', new DateTimeZone($this->timezone));
+            $date = new DateTime('Third Sunday of ' . $this->year . '-09', new DateTimeZone($this->timezone));
             // Go to next Thursday
             $date->add(new DateInterval('P1D'));
 
