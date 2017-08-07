@@ -38,8 +38,12 @@ class BattleOfAricaTest extends AricaAndParinacotaBaseTestCase implements Yasumi
     public function testHolidayOnAfterEstablishment()
     {
         $year = $this->generateRandomYear(self::ESTABLISHMENT_YEAR);
-        $this->assertHoliday(self::REGION, self::HOLIDAY, $year,
-            new DateTime("$year-6-7", new DateTimeZone(self::TIMEZONE)));
+        $this->assertHoliday(
+            self::REGION,
+            self::HOLIDAY,
+            $year,
+            new DateTime("$year-6-7", new DateTimeZone(self::TIMEZONE))
+        );
     }
 
     /**
@@ -47,8 +51,11 @@ class BattleOfAricaTest extends AricaAndParinacotaBaseTestCase implements Yasumi
      */
     public function testHolidayBeforeEstablishment()
     {
-        $this->assertNotHoliday(self::REGION, self::HOLIDAY,
-            $this->generateRandomYear(1000, self::ESTABLISHMENT_YEAR - 1));
+        $this->assertNotHoliday(
+            self::REGION,
+            self::HOLIDAY,
+            $this->generateRandomYear(1000, self::ESTABLISHMENT_YEAR - 1)
+        );
     }
 
     /**
@@ -56,9 +63,12 @@ class BattleOfAricaTest extends AricaAndParinacotaBaseTestCase implements Yasumi
      */
     public function testTranslation()
     {
-        $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY,
+        $this->assertTranslatedHolidayName(
+            self::REGION,
+            self::HOLIDAY,
             $this->generateRandomYear(self::ESTABLISHMENT_YEAR),
-            [self::LOCALE => 'Aniversario del Asalto y Toma del Morro de Arica']);
+            [self::LOCALE => 'Aniversario del Asalto y Toma del Morro de Arica']
+        );
     }
 
     /**
@@ -66,7 +76,11 @@ class BattleOfAricaTest extends AricaAndParinacotaBaseTestCase implements Yasumi
      */
     public function testHolidayType()
     {
-        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(self::ESTABLISHMENT_YEAR),
-            Holiday::TYPE_NATIONAL);
+        $this->assertHolidayType(
+            self::REGION,
+            self::HOLIDAY,
+            $this->generateRandomYear(self::ESTABLISHMENT_YEAR),
+            Holiday::TYPE_NATIONAL
+        );
     }
 }

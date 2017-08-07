@@ -58,7 +58,6 @@ class AricaAndParinacotaTest extends AricaAndParinacotaBaseTestCase
         $nationalHolidays[] = 'battleOfArica';
 
         $this->assertDefinedHolidays($nationalHolidays, self::REGION, $this->year, Holiday::TYPE_NATIONAL);
-
     }
 
     /**

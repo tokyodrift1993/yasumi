@@ -68,9 +68,12 @@ class AricaAndParinacota extends Chile
     public function calculateBattleOfArica()
     {
         if ($this->year >= 2013) {
-            $this->addHoliday(new Holiday('battleOfArica',
+            $this->addHoliday(new Holiday(
+                'battleOfArica',
                 ['es_CL' => 'Aniversario del Asalto y Toma del Morro de Arica'],
-                new DateTime("$this->year-6-7", new DateTimeZone($this->timezone)), $this->locale));
+                new DateTime("$this->year-6-7", new DateTimeZone($this->timezone)),
+                $this->locale
+            ));
         }
     }
 }
