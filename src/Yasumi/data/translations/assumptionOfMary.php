@@ -17,6 +17,7 @@ return [
     'de_DE' => 'Mariä Himmelfahrt',
     'el_GR' => 'Κοίμηση της Θεοτόκου',
     'en_US' => 'Assumption of Mary',
+    'es_CL' => 'Asunción de la Virgen',
     'es_ES' => 'Asunción de la Virgen María',
     'fr_CH' => 'Assomption',
     'fr_FR' => 'L\'Assomption de Marie',

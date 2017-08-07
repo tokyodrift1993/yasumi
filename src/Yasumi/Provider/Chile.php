@@ -47,6 +47,7 @@ class Chile extends AbstractProvider
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->holySaturday($this->year, $this->timezone, $this->locale));
         $this->calculatestPeterPaulsDay();
+        $this->addHoliday($this->assumptionOfMary($this->year, $this->timezone, $this->locale));
 
         // Calculate other holidays
         $this->calculateCensusDay1982();
