@@ -397,8 +397,13 @@ trait ChristianHolidays
      */
     public function holySaturday($year, $timezone, $locale, $type = Holiday::TYPE_OBSERVANCE)
     {
-        return new Holiday('holySaturday', [], $this->calculateEaster($year, $timezone)->sub(new DateInterval('P1D')),
-            $locale, $type);
+        return new Holiday(
+            'holySaturday',
+            [],
+            $this->calculateEaster($year, $timezone)->sub(new DateInterval('P1D')),
+            $locale,
+            $type
+        );
     }
 
     /**
@@ -754,8 +759,13 @@ trait ChristianHolidays
      */
     public function stPeterPaulsDay($year, $timezone, $locale, $type = Holiday::TYPE_NATIONAL)
     {
-        return new Holiday('stPeterPaulsDay', [], new DateTime($year . '-06-29', new DateTimeZone($timezone)), $locale,
-            $type);
+        return new Holiday(
+            'stPeterPaulsDay',
+            [],
+            new DateTime($year . '-06-29', new DateTimeZone($timezone)),
+            $locale,
+            $type
+        );
     }
 
     /**

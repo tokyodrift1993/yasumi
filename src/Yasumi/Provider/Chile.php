@@ -101,8 +101,12 @@ class Chile extends AbstractProvider
             return;
         }
 
-        $this->addHoliday(new Holiday('1982CensusDay', ['es_CL' => 'XV censo nacional de población y IV de vivienda'],
-            new DateTime('1982-4-21', new DateTimeZone($this->timezone)), $this->locale));
+        $this->addHoliday(new Holiday(
+            '1982CensusDay',
+            ['es_CL' => 'XV censo nacional de población y IV de vivienda'],
+            new DateTime('1982-4-21', new DateTimeZone($this->timezone)),
+            $this->locale
+        ));
     }
 
     /**
@@ -124,8 +128,12 @@ class Chile extends AbstractProvider
             return;
         }
 
-        $this->addHoliday(new Holiday('1992CensusDay', ['es_CL' => 'XVI censo nacional de población y V de vivienda'],
-            new DateTime('1992-4-22', new DateTimeZone($this->timezone)), $this->locale));
+        $this->addHoliday(new Holiday(
+            '1992CensusDay',
+            ['es_CL' => 'XVI censo nacional de población y V de vivienda'],
+            new DateTime('1992-4-22', new DateTimeZone($this->timezone)),
+            $this->locale
+        ));
     }
 
     /**
@@ -147,8 +155,12 @@ class Chile extends AbstractProvider
             return;
         }
 
-        $this->addHoliday(new Holiday('2002CensusDay', ['es_CL' => 'XVII censo nacional de población y VI de vivienda'],
-            new DateTime('2002-4-24', new DateTimeZone($this->timezone)), $this->locale));
+        $this->addHoliday(new Holiday(
+            '2002CensusDay',
+            ['es_CL' => 'XVII censo nacional de población y VI de vivienda'],
+            new DateTime('2002-4-24', new DateTimeZone($this->timezone)),
+            $this->locale
+        ));
     }
 
     /**
@@ -173,8 +185,12 @@ class Chile extends AbstractProvider
             return;
         }
 
-        $this->addHoliday(new Holiday('2017CensusDay', ['es_CL' => 'Censo abreviado 2017'],
-            new DateTime('2017-4-19', new DateTimeZone($this->timezone)), $this->locale));
+        $this->addHoliday(new Holiday(
+            '2017CensusDay',
+            ['es_CL' => 'Censo abreviado 2017'],
+            new DateTime('2017-4-19', new DateTimeZone($this->timezone)),
+            $this->locale
+        ));
     }
 
     /**
@@ -214,8 +230,12 @@ class Chile extends AbstractProvider
             return;
         }
 
-        $this->addHoliday(new Holiday('navyDay', ['es_CL' => 'Día de las Glorias Navales'],
-            new DateTime("$this->year-5-21", new DateTimeZone($this->timezone)), $this->locale));
+        $this->addHoliday(new Holiday(
+            'navyDay',
+            ['es_CL' => 'Día de las Glorias Navales'],
+            new DateTime("$this->year-5-21", new DateTimeZone($this->timezone)),
+            $this->locale
+        ));
     }
 
     /**

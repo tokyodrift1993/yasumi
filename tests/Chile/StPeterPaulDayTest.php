@@ -50,8 +50,12 @@ class StPeterPaulDayTest extends ChileBaseTestCase implements YasumiTestCaseInte
             }
 
             $this->assertHoliday(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year, $date);
-            $this->assertTranslatedHolidayName(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year,
-                ['es_CL' => 'San Pedro y San Pablo']);
+            $this->assertTranslatedHolidayName(
+                self::REGION,
+                'substituteHoliday:' . self::HOLIDAY,
+                $year,
+                ['es_CL' => 'San Pedro y San Pablo']
+            );
         }
     }
 
@@ -78,8 +82,12 @@ class StPeterPaulDayTest extends ChileBaseTestCase implements YasumiTestCaseInte
      */
     public function testTranslation()
     {
-        $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
-            [self::LOCALE => 'San Pedro y San Pablo']);
+        $this->assertTranslatedHolidayName(
+            self::REGION,
+            self::HOLIDAY,
+            $this->generateRandomYear(),
+            [self::LOCALE => 'San Pedro y San Pablo']
+        );
     }
 
     /**
