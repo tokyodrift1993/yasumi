@@ -50,7 +50,7 @@ class GoodFridayTest extends HautRhinBaseTestCase implements YasumiTestCaseInter
             self::REGION,
             self::HOLIDAY,
             $this->generateRandomYear(),
-            [self::LOCALE => 'Vendredi saint']
+            [self::LOCALE => 'Vendredi Saint']
         );
     }
 
@@ -59,6 +59,6 @@ class GoodFridayTest extends HautRhinBaseTestCase implements YasumiTestCaseInter
      */
     public function testHolidayType()
     {
-        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_OFFICIAL);
     }
 }

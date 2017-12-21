@@ -25,32 +25,43 @@ class GenevaTest extends GenevaBaseTestCase
     protected $year;
 
     /**
-     * Tests if all national holidays in Geneva are defined by the provider class
+     * Tests if all official holidays in Geneva (Switzerland) are defined by the provider class
      */
-    public function testNationalHolidays()
+    public function testOfficialHolidays()
     {
-        $nationalHolidays = [];
+        $officialHolidays = [];
         if ($this->year >= 1994) {
-            $nationalHolidays[] = 'swissNationalDay';
+            $officialHolidays[] = 'swissNationalDay';
         }
-        $this->assertDefinedHolidays($nationalHolidays, self::REGION, $this->year, Holiday::TYPE_NATIONAL);
+        $this->assertDefinedHolidays($officialHolidays, self::REGION, $this->year, Holiday::TYPE_OFFICIAL);
     }
 
     /**
-     * Tests if all national holidays in Geneva are defined by the provider class
+     * Tests if all regional holidays in Geneva (Switzerland) are defined by the provider class
      */
     public function testRegionalHolidays()
     {
-        $this->assertDefinedHolidays([
+        $regionalHolidays = [
             'goodFriday',
             'newYearsDay',
             'christmasDay',
             'ascensionDay',
             'easterMonday',
             'pentecostMonday',
-            'jeuneGenevois',
-            'restaurationGenevoise'
-        ], self::REGION, $this->year, Holiday::TYPE_OTHER);
+
+        ];
+
+        if (($this->year >= 1840 && $this->year <= 1869) || $this->year >= 1966) {
+            $regionalHolidays[] = 'jeuneGenevois';
+        } elseif ($this->year > 1869 && $this->year < 1966) {
+            $regionalHolidays[] = 'jeuneGenevois';
+        }
+
+        if ($this->year > 1813) {
+            $regionalHolidays[] = 'restaurationGenevoise';
+        }
+
+        $this->assertDefinedHolidays($regionalHolidays, self::REGION, $this->year, Holiday::TYPE_OTHER);
     }
 
     /**
