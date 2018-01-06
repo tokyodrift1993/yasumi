@@ -2,7 +2,7 @@
 <!--
   ~  This file is part of the Yasumi package.
   ~
-  ~  Copyright (c) 2015 - 2017 AzuyaLabs
+  ~  Copyright (c) 2015 - 2018 AzuyaLabs
   ~
   ~  For the full copyright and license information, please view the LICENSE
   ~  file that was distributed with this source code.
@@ -156,6 +156,11 @@
             <!-- Test Suite for holidays in Romania -->
             <testsuite name="Romania">
                 <directory suffix="Test.php">./tests/Romania</directory>
+            </testsuite>
+
+            <!-- Test Suite for holidays in Russia -->
+            <testsuite name="Russia">
+                <directory suffix="Test.php">./tests/Russia</directory>
             </testsuite>
 
             <!-- Test Suite for holidays in Slovakia -->

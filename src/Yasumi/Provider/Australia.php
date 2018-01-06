@@ -2,7 +2,7 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2017 AzuyaLabs
+ * Copyright (c) 2015 - 2018 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -80,11 +80,11 @@ class Australia extends AbstractProvider
     /**
      * Function to simplify moving holidays to mondays if required
      *
-     * @param       $shortName
-     * @param array $names
-     * @param       $date
-     * @param bool  $moveFromSaturday
-     * @param bool  $moveFromSunday
+     * @param string          $shortName
+     * @param array           $names
+     * @param string|DateTime $date
+     * @param bool            $moveFromSaturday
+     * @param bool            $moveFromSunday
      *
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
