@@ -33,7 +33,7 @@ class StJosephDayTest extends TicinoBaseTestCase implements YasumiTestCaseInterf
      *
      * @dataProvider StJosephDayDataProvider
      *
-     * @param int      $year     the year for which St. Joseph's Day needs to be tested
+     * @param int       $year     the year for which St. Joseph's Day needs to be tested
      * @param \DateTime $expected the expected date
      */
     public function testStJosephDay($year, $expected)
@@ -46,7 +46,7 @@ class StJosephDayTest extends TicinoBaseTestCase implements YasumiTestCaseInterf
      *
      * @return array list of test dates for St. Joseph's Day
      */
-    public function StJosephDayDataProvider()
+    public function StJosephDayDataProvider(): array
     {
         return $this->generateRandomDates(3, 19, self::TIMEZONE);
     }

@@ -12,7 +12,6 @@
 
 namespace Yasumi\tests\Base;
 
-use DateTime;
 use Faker\Factory;
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
@@ -79,7 +78,7 @@ class YasumiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that classes that Yasumi allows external classes that extend the ProviderInterface.
+     * Tests that Yasumi allows external classes that extend the ProviderInterface.
      */
     public function testCreateWithAbstractExtension()
     {
@@ -123,10 +122,12 @@ class YasumiTest extends PHPUnit_Framework_TestCase
      */
     public function testCount()
     {
+        // There are 16 holidays in Japan in the year 2015, with 1 substituted holiday.
         $holidays = Yasumi::create('Japan', 2015);
 
         $this->assertInternalType('int', $holidays->count());
-        $this->assertEquals(17, $holidays->count());
+        $this->assertEquals(16, $holidays->count());
+        $this->assertNotEquals(17, $holidays->count());
     }
 
     /**
@@ -301,6 +302,8 @@ class YasumiTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($providers);
         $this->assertInternalType('array', $providers);
         $this->assertContains('Netherlands', $providers);
+        $this->assertEquals('USA', $providers['US']);
+        $this->assertNotContains('AbstractProvider', $providers);
     }
 
     /**
@@ -328,9 +331,17 @@ class YasumiTest extends PHPUnit_Framework_TestCase
      */
     public function testIsHoliday()
     {
-        $year      = 2110;
-        $isHoliday = Yasumi::create('Spain', $year)->isHoliday(new DateTime($year . '-08-15'));
+        $year     = 2110;
+        $provider = 'Spain';
+        $date     = $year . '-08-15';
 
+        // Assertion using a DateTime instance
+        $isHoliday = Yasumi::create($provider, $year)->isHoliday(new \DateTime($date));
+        $this->assertInternalType('bool', $isHoliday);
+        $this->assertTrue($isHoliday);
+
+        // Assertion using a DateTimeImmutable instance
+        $isHoliday = Yasumi::create($provider, $year)->isHoliday(new \DateTimeImmutable($date));
         $this->assertInternalType('bool', $isHoliday);
         $this->assertTrue($isHoliday);
 
@@ -342,9 +353,17 @@ class YasumiTest extends PHPUnit_Framework_TestCase
      */
     public function testIsNotHoliday()
     {
-        $year      = 5220;
-        $isHoliday = Yasumi::create('Japan', $year)->isHoliday(new DateTime($year . '-06-10'));
+        $year     = 5220;
+        $provider = 'Japan';
+        $date     = $year . '-06-10';
 
+        // Assertion using a DateTime instance
+        $isHoliday = Yasumi::create($provider, $year)->isHoliday(new \DateTime($date));
+        $this->assertInternalType('bool', $isHoliday);
+        $this->assertFalse($isHoliday);
+
+        // Assertion using a DateTimeImmutable instance
+        $isHoliday = Yasumi::create($provider, $year)->isHoliday(new \DateTimeImmutable($date));
         $this->assertInternalType('bool', $isHoliday);
         $this->assertFalse($isHoliday);
 
@@ -352,14 +371,38 @@ class YasumiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that the IsWorkingDay function returns a boolean true for a date that is defined as a holiday or falls in
+     * Tests that the isHoliday function throws a TypeError when the given argument is not an instance that
+     * implements the DateTimeInterface (e.g. DateTime or DateTimeImmutable)
+     */
+    public function testIsHolidayException()
+    {
+        $this->expectException(\TypeError::class);
+
+        Yasumi::create('Spain', Factory::create()->numberBetween(
+            self::YEAR_LOWER_BOUND,
+            self::YEAR_UPPER_BOUND
+        ))->isHoliday(new \stdClass());
+    }
+
+    /**
+     * Tests that the isWorkingDay function returns a boolean true for a date that is defined as a holiday or falls in
      * the weekend.
+     *
+     * @TODO Add additional unit tests for those holiday providers that differ from the global definition
      */
     public function testIsWorkingDay()
     {
-        $year         = 2020;
-        $isWorkingDay = Yasumi::create('Netherlands', $year)->isWorkingDay(new DateTime($year . '-06-02'));
+        $year     = 2020;
+        $provider = 'Netherlands';
+        $date     = $year . '-06-02';
 
+        // Assertion using a DateTime instance
+        $isWorkingDay = Yasumi::create($provider, $year)->isWorkingDay(new \DateTime($date));
+        $this->assertInternalType('bool', $isWorkingDay);
+        $this->assertTrue($isWorkingDay);
+
+        // Assertion using a DateTimeImmutable instance
+        $isWorkingDay = Yasumi::create($provider, $year)->isWorkingDay(new \DateTimeImmutable($date));
         $this->assertInternalType('bool', $isWorkingDay);
         $this->assertTrue($isWorkingDay);
 
@@ -367,17 +410,92 @@ class YasumiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that the IsWorkingDay function returns a boolean true for a date that is defined as a holiday or falls in
+     * Tests that the isWorkingDay function returns a boolean true for a date that is defined as a holiday or falls in
      * the weekend.
+     *
+     * @TODO Add additional unit tests for those holiday providers that differ from the global definition
      */
     public function testIsNotWorkingDay()
     {
-        $year            = 2016;
-        $isNotWorkingDay = Yasumi::create('Japan', $year)->isWorkingDay(new DateTime($year . '-01-11'));
+        $year     = 2016;
+        $provider = 'Japan';
+        $date     = $year . '-01-11';
 
+        // Assertion using a DateTime instance
+        $isNotWorkingDay = Yasumi::create($provider, $year)->isWorkingDay(new \DateTime($date));
         $this->assertInternalType('bool', $isNotWorkingDay);
         $this->assertFalse($isNotWorkingDay);
 
-        unset($isWorkingDay);
+        // Assertion using a DateTimeImmutable instance
+        $isNotWorkingDay = Yasumi::create($provider, $year)->isWorkingDay(new \DateTimeImmutable($date));
+        $this->assertInternalType('bool', $isNotWorkingDay);
+        $this->assertFalse($isNotWorkingDay);
+
+        unset($isNotWorkingDay);
+    }
+
+    /**
+     * Tests that the isWorkingDay function throws a TypeError when the given argument is not an instance
+     * that implements the DateTimeInterface (e.g. DateTime or DateTimeImmutable)
+     *
+     * @TODO Add additional unit tests for those holiday providers that differ from the global definition
+     */
+    public function testIsWorkingDayException()
+    {
+        $this->expectException(\TypeError::class);
+
+        Yasumi::create('SouthAfrica', Factory::create()->numberBetween(
+            self::YEAR_LOWER_BOUND,
+            self::YEAR_UPPER_BOUND
+        ))->isWorkingDay(new \stdClass());
+    }
+
+    /**
+     * Tests that holidays successfully can be removed from the list of holidays of a provider
+     *
+     * @throws \ReflectionException
+     */
+    public function testRemoveHoliday()
+    {
+        $provider = Yasumi::create('Ireland', 2018);
+        $holidays = $provider->getHolidays();
+
+        // Assert initial list of holidays
+        $this->assertCount(13, $holidays);
+        $this->assertArrayHasKey('newYearsDay', $holidays);
+        $this->assertArrayHasKey('stPatricksDay', $holidays);
+        $this->assertArrayHasKey('substituteHoliday:stPatricksDay', $holidays);
+        $this->assertArrayHasKey('goodFriday', $holidays);
+        $this->assertArrayHasKey('easter', $holidays);
+        $this->assertArrayHasKey('easterMonday', $holidays);
+        $this->assertArrayHasKey('mayDay', $holidays);
+        $this->assertArrayHasKey('pentecost', $holidays);
+        $this->assertArrayHasKey('juneHoliday', $holidays);
+        $this->assertArrayHasKey('augustHoliday', $holidays);
+        $this->assertArrayHasKey('octoberHoliday', $holidays);
+        $this->assertArrayHasKey('christmasDay', $holidays);
+        $this->assertArrayHasKey('stStephensDay', $holidays);
+
+        $provider->removeHoliday('juneHoliday');
+        $provider->removeHoliday('augustHoliday');
+        $provider->removeHoliday('octoberHoliday');
+
+        $holidaysAfterRemoval = $provider->getHolidays();
+
+        // Assert list of holidays after removal of some holidays
+        $this->assertCount(10, $holidaysAfterRemoval);
+        $this->assertArrayHasKey('newYearsDay', $holidaysAfterRemoval);
+        $this->assertArrayHasKey('stPatricksDay', $holidaysAfterRemoval);
+        $this->assertArrayHasKey('substituteHoliday:stPatricksDay', $holidaysAfterRemoval);
+        $this->assertArrayHasKey('goodFriday', $holidaysAfterRemoval);
+        $this->assertArrayHasKey('easter', $holidaysAfterRemoval);
+        $this->assertArrayHasKey('easterMonday', $holidaysAfterRemoval);
+        $this->assertArrayHasKey('mayDay', $holidaysAfterRemoval);
+        $this->assertArrayHasKey('pentecost', $holidaysAfterRemoval);
+        $this->assertArrayHasKey('christmasDay', $holidaysAfterRemoval);
+        $this->assertArrayHasKey('stStephensDay', $holidaysAfterRemoval);
+        $this->assertArrayNotHasKey('juneHoliday', $holidaysAfterRemoval);
+        $this->assertArrayNotHasKey('augustHoliday', $holidaysAfterRemoval);
+        $this->assertArrayNotHasKey('octoberHoliday', $holidaysAfterRemoval);
     }
 }

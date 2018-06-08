@@ -13,10 +13,9 @@
 
 namespace Yasumi\Filters;
 
-use DateTime;
+use Countable;
 use FilterIterator;
 use Iterator;
-use Countable;
 
 /**
  * BetweenFilter is a class used for filtering holidays based on given date range.
@@ -31,12 +30,12 @@ use Countable;
 class BetweenFilter extends FilterIterator implements Countable
 {
     /**
-     * @var \DateTime start date of the time frame to check against
+     * @var string start date of the time frame to check against
      */
     private $start_date;
 
     /**
-     * @var \DateTime end date of the time frame to check against
+     * @var string end date of the time frame to check against
      */
     private $end_date;
 
@@ -48,29 +47,30 @@ class BetweenFilter extends FilterIterator implements Countable
     /**
      * Construct the Between FilterIterator Object
      *
-     * @param \Iterator $iterator   Iterator object of the Holidays Provider
-     * @param \DateTime $start_date Start date of the time frame to check against
-     * @param \DateTime $end_date   End date of the time frame to check against
-     * @param  bool     $equal      Indicate whether the start and end dates should be included in the comparison
+     * @param \Iterator          $iterator   Iterator object of the Holidays Provider
+     * @param \DateTimeInterface $start_date Start date of the time frame to check against
+     * @param \DateTimeInterface $end_date   End date of the time frame to check against
+     * @param  bool              $equal      Indicate whether the start and end dates should be included in the
+     *                                       comparison
      */
     public function __construct(
         Iterator $iterator,
-        DateTime $start_date,
-        DateTime $end_date,
+        \DateTimeInterface $start_date,
+        \DateTimeInterface $end_date,
         $equal = true
     ) {
         parent::__construct($iterator);
         $this->equal      = $equal;
-        $this->start_date = $start_date;
-        $this->end_date   = $end_date;
+        $this->start_date = $start_date->format('Y-m-d');
+        $this->end_date   = $end_date->format('Y-m-d');
     }
 
     /**
      * @return bool Check whether the current element of the iterator is acceptable
      */
-    public function accept()
+    public function accept(): bool
     {
-        $holiday = $this->getInnerIterator()->current();
+        $holiday = $this->getInnerIterator()->current()->format('Y-m-d');
 
         if ($this->equal && $holiday >= $this->start_date && $holiday <= $this->end_date) {
             return true;
@@ -82,8 +82,14 @@ class BetweenFilter extends FilterIterator implements Countable
     /**
      * @return integer Returns the number of holidays between the given start and end date.
      */
-    public function count()
+    public function count(): int
     {
-        return iterator_count($this);
+        $days = \array_keys(\iterator_to_array($this));
+
+        \array_walk($days, function (&$day) {
+            $day = \str_replace('substituteHoliday:', '', $day);
+        });
+
+        return \count(\array_unique($days));
     }
 }

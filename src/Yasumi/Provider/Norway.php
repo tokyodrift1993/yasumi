@@ -32,8 +32,10 @@ class Norway extends AbstractProvider
     /**
      * Initialize holidays for Norway.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -62,14 +64,15 @@ class Norway extends AbstractProvider
      * Constitution Day
      *
      * Norway’s Constitution Day is May 17 and commemorates the signing of Norways's constitution at Eidsvoll on
-     * May 17, 1814. It’s usually referred to as syttende mai (May 17) or Nasjonaldagen (The National Day) in Norwegian.
+     * May 17, 1814. It’s usually referred to as Grunnlovsdag(en) ((The) Constitution Day), syttende mai (May 17) or Nasjonaldagen (The National Day) in Norwegian.
      *
      * Norway adopted its constitution on May 16 1814 and it was signed on May 17, 1814, ending almost 100 years of a
      * coalition with Sweden, proceeded by nearly 400 years of Danish rule. The Norwegian Parliament, known as
      * Stortinget, held the first May 17 celebrations in 1836, and since it has been regarded as Norway’s National Day.
      *
-     * @link https://en.wikipedia.org/wiki/Store_Bededag
+     * @link https://en.wikipedia.org/wiki/Norwegian_Constitution_Day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -78,7 +81,7 @@ class Norway extends AbstractProvider
         if ($this->year >= 1836) {
             $this->addHoliday(new Holiday(
                 'constitutionDay',
-                ['nb_NO' => 'Nasjonaldagen'],
+                ['nb_NO' => 'Grunnlovsdagen'],
                 new DateTime("$this->year-5-17", new DateTimeZone($this->timezone)),
                 $this->locale
             ));

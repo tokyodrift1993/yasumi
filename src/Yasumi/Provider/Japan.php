@@ -74,8 +74,10 @@ class Japan extends AbstractProvider
     /**
      * Initialize holidays for Japan.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -92,13 +94,12 @@ class Japan extends AbstractProvider
          * National Foundation Day. National Foundation Day is held on February 11th and established since 1966.
          */
         if ($this->year >= 1966) {
-            $holiday = new Holiday(
+            $this->addHoliday(new Holiday(
                 'nationalFoundationDay',
                 ['en_US' => 'National Foundation Day', 'ja_JP' => '建国記念の日'],
                 new DateTime("$this->year-2-11", new DateTimeZone($this->timezone)),
                 $this->locale
-            );
-            $this->addHoliday($holiday);
+            ));
         }
 
         /**
@@ -206,22 +207,21 @@ class Japan extends AbstractProvider
      *
      * @link http://www.h3.dion.ne.jp/~sakatsu/holiday_topic.htm (in Japanese)
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
     private function calculateVernalEquinoxDay()
     {
         $day = null;
-        if ($this->year < 1948) {
+        if ($this->year < 1948 || $this->year > 2150) {
             $day = null;
         } elseif ($this->year >= 1948 && $this->year <= 1979) {
-            $day = floor(self::VERNAL_EQUINOX_PARAM_1979 + self::EQUINOX_GRADIENT * ($this->year - 1980) - floor(($this->year - 1983) / 4));
+            $day = \floor(self::VERNAL_EQUINOX_PARAM_1979 + self::EQUINOX_GRADIENT * ($this->year - 1980) - \floor(($this->year - 1983) / 4));
         } elseif ($this->year <= 2099) {
-            $day = floor(self::VERNAL_EQUINOX_PARAM_2099 + self::EQUINOX_GRADIENT * ($this->year - 1980) - floor(($this->year - 1980) / 4));
+            $day = \floor(self::VERNAL_EQUINOX_PARAM_2099 + self::EQUINOX_GRADIENT * ($this->year - 1980) - \floor(($this->year - 1980) / 4));
         } elseif ($this->year <= 2150) {
-            $day = floor(self::VERNAL_EQUINOX_PARAM_2150 + self::EQUINOX_GRADIENT * ($this->year - 1980) - floor(($this->year - 1980) / 4));
-        } elseif ($this->year > 2150) {
-            $day = null;
+            $day = \floor(self::VERNAL_EQUINOX_PARAM_2150 + self::EQUINOX_GRADIENT * ($this->year - 1980) - \floor(($this->year - 1980) / 4));
         }
 
         if (null !== $day) {
@@ -240,6 +240,7 @@ class Japan extends AbstractProvider
      * Coming of Age Day was established after 1948 on January 15th. After 2000 it was changed to be the second monday
      * of January.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -251,6 +252,7 @@ class Japan extends AbstractProvider
         } elseif ($this->year >= 1948) {
             $date = new DateTime("$this->year-1-15", new DateTimeZone($this->timezone));
         }
+
         if (null !== $date) {
             $this->addHoliday(new Holiday(
                 'comingOfAgeDay',
@@ -266,6 +268,7 @@ class Japan extends AbstractProvider
      *
      * Greenery Day was established from 1989 on April 29th. After 2007 it was changed to be May 4th.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -277,6 +280,7 @@ class Japan extends AbstractProvider
         } elseif ($this->year >= 1989) {
             $date = new DateTime("$this->year-4-29", new DateTimeZone($this->timezone));
         }
+
         if (null !== $date) {
             $this->addHoliday(new Holiday(
                 'greeneryDay',
@@ -292,6 +296,7 @@ class Japan extends AbstractProvider
      *
      * Marine Day was established since 1996 on July 20th. After 2003 it was changed to be the third monday of July.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -303,6 +308,7 @@ class Japan extends AbstractProvider
         } elseif ($this->year >= 1996) {
             $date = new DateTime("$this->year-7-20", new DateTimeZone($this->timezone));
         }
+
         if (null !== $date) {
             $this->addHoliday(new Holiday(
                 'marineDay',
@@ -319,6 +325,7 @@ class Japan extends AbstractProvider
      * Respect for the Age Day was established since 1996 on September 15th. After 2003 it was changed to be the third
      * monday of September.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -330,6 +337,7 @@ class Japan extends AbstractProvider
         } elseif ($this->year >= 1996) {
             $date = new DateTime("$this->year-9-15", new DateTimeZone($this->timezone));
         }
+
         if (null !== $date) {
             $this->addHoliday(new Holiday(
                 'respectfortheAgedDay',
@@ -346,6 +354,7 @@ class Japan extends AbstractProvider
      * Health And Sports Day was established since 1966 on October 10th. After 2000 it was changed to be the second
      * monday of October.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -357,6 +366,7 @@ class Japan extends AbstractProvider
         } elseif ($this->year >= 1996) {
             $date = new DateTime("$this->year-10-10", new DateTimeZone($this->timezone));
         }
+
         if (null !== $date) {
             $this->addHoliday(new Holiday(
                 'healthandSportsDay',
@@ -376,22 +386,21 @@ class Japan extends AbstractProvider
      *
      * @link http://www.h3.dion.ne.jp/~sakatsu/holiday_topic.htm (in Japanese)
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
     private function calculateAutumnalEquinoxDay()
     {
         $day = null;
-        if ($this->year < 1948) {
+        if ($this->year < 1948 || $this->year > 2150) {
             $day = null;
         } elseif ($this->year >= 1948 && $this->year <= 1979) {
-            $day = floor(self::AUTUMNAL_EQUINOX_PARAM_1979 + self::EQUINOX_GRADIENT * ($this->year - 1980) - floor(($this->year - 1983) / 4));
+            $day = \floor(self::AUTUMNAL_EQUINOX_PARAM_1979 + self::EQUINOX_GRADIENT * ($this->year - 1980) - \floor(($this->year - 1983) / 4));
         } elseif ($this->year <= 2099) {
-            $day = floor(self::AUTUMNAL_EQUINOX_PARAM_2099 + self::EQUINOX_GRADIENT * ($this->year - 1980) - floor(($this->year - 1980) / 4));
+            $day = \floor(self::AUTUMNAL_EQUINOX_PARAM_2099 + self::EQUINOX_GRADIENT * ($this->year - 1980) - \floor(($this->year - 1980) / 4));
         } elseif ($this->year <= 2150) {
-            $day = floor(self::AUTUMNAL_EQUINOX_PARAM_2150 + self::EQUINOX_GRADIENT * ($this->year - 1980) - floor(($this->year - 1980) / 4));
-        } elseif ($this->year > 2150) {
-            $day = null;
+            $day = \floor(self::AUTUMNAL_EQUINOX_PARAM_2150 + self::EQUINOX_GRADIENT * ($this->year - 1980) - \floor(($this->year - 1980) / 4));
         }
 
         if (null !== $day) {
@@ -410,8 +419,10 @@ class Japan extends AbstractProvider
      * Generally if a national holiday falls on a Sunday, the holiday is observed the next working day (not being
      * another holiday).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     private function calculateSubstituteHolidays()
     {
@@ -426,13 +437,13 @@ class Japan extends AbstractProvider
             if (0 === (int)$date->format('w')) {
                 if ($this->year >= 2007) {
                     // Find next week day (not being another holiday)
-                    while (in_array($substituteDay, $dates)) {
+                    while (\in_array($substituteDay, $dates, false)) {
                         $substituteDay->add(new DateInterval('P1D'));
                         continue;
                     }
                 } elseif ($date >= '1973-04-12') {
                     $substituteDay->add(new DateInterval('P1D'));
-                    if (in_array($substituteDay, $dates)) {
+                    if (\in_array($substituteDay, $dates, false)) {
                         continue; // @codeCoverageIgnore
                     }
                 } else {
@@ -455,8 +466,10 @@ class Japan extends AbstractProvider
      *
      * Any day that falls between two other national holidays also becomes a holiday, known as a bridge holiday.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     private function calculateBridgeHolidays()
     {

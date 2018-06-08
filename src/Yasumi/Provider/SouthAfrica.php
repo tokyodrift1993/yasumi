@@ -38,8 +38,10 @@ class SouthAfrica extends AbstractProvider
     /**
      * Initialize holidays for South Africa.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -85,6 +87,7 @@ class SouthAfrica extends AbstractProvider
      *
      * @link http://www.gov.za/about-sa/public-holidays#21march
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -105,8 +108,10 @@ class SouthAfrica extends AbstractProvider
      *
      * @link http://www.gov.za/sites/www.gov.za/files/Act36of1994.pdf
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateFamilyDay()
     {
@@ -126,6 +131,7 @@ class SouthAfrica extends AbstractProvider
      * @link http://www.gov.za/sites/www.gov.za/files/Act36of1994.pdf
      * @link http://www.gov.za/freedom-day-2014
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -151,6 +157,7 @@ class SouthAfrica extends AbstractProvider
      * @link http://www.gov.za/sites/www.gov.za/files/Act36of1994.pdf
      * @link http://www.gov.za/youth-day-2014
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -172,6 +179,7 @@ class SouthAfrica extends AbstractProvider
      *
      * @link http://www.gov.za/speeches/president-jacob-zuma-declares-3-august-2016-public-holiday-24-jun-2016-0000
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -199,6 +207,7 @@ class SouthAfrica extends AbstractProvider
      * @link http://www.gov.za/about-sa/public-holidays#women
      * @link http://www.gov.za/womens-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -222,6 +231,7 @@ class SouthAfrica extends AbstractProvider
      * @link http://www.gov.za/sites/www.gov.za/files/Act36of1994.pdf
      * @link http://www.gov.za/heritage-day-2014
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -247,6 +257,7 @@ class SouthAfrica extends AbstractProvider
      * @link http://www.gov.za/sites/www.gov.za/files/Act36of1994.pdf
      * @link http://www.gov.za/day-reconciliation-2014
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -271,6 +282,7 @@ class SouthAfrica extends AbstractProvider
      *
      * @link http://www.gov.za/sites/www.gov.za/files/Act36of1994.pdf
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -294,8 +306,10 @@ class SouthAfrica extends AbstractProvider
      * The Public Holidays Act (Act No 36 of 1994) determines whenever any public holiday falls on a Sunday, the Monday
      * following on it shall be a public holiday.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     private function calculateSubstituteHolidays()
     {
@@ -305,7 +319,7 @@ class SouthAfrica extends AbstractProvider
         while ($datesIterator->valid()) {
 
             // Exclude Good Friday, Family Day, 2016 Municipal Elections Day as these don't fall in the weekend
-            if (in_array(
+            if (\in_array(
                 $datesIterator->current()->shortName,
                 ['goodFriday', 'familyDay', '2016MunicipalElectionsDay'],
                 true

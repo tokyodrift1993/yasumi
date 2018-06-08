@@ -36,8 +36,10 @@ class Glarus extends Switzerland
     /**
      * Initialize holidays for Glarus (Switzerland).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -65,6 +67,7 @@ class Glarus extends Switzerland
      *
      * @link https://en.wikipedia.org/wiki/Battle_of_N%C3%A4fels
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */

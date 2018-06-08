@@ -46,7 +46,7 @@ class NewYearsDayTest extends IrelandBaseTestCase implements YasumiTestCaseInter
         $date = new DateTime($expected, new DateTimeZone(self::TIMEZONE));
         $this->assertHoliday(self::REGION, self::HOLIDAY, $year, $date);
 
-        if (0 === (int) $date->format('w')) {
+        if (0 === (int)$date->format('w')) {
             $date->modify('next monday');
             $this->assertHoliday(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year, $date);
         }
@@ -57,7 +57,7 @@ class NewYearsDayTest extends IrelandBaseTestCase implements YasumiTestCaseInter
      *
      * @return array list of test dates for the holiday defined in this test
      */
-    public function HolidayDataProvider()
+    public function HolidayDataProvider(): array
     {
         $data = [];
 

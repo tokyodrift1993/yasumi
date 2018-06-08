@@ -51,7 +51,7 @@ class ChristmasDayTest extends SouthAfricaBaseTestCase implements YasumiTestCase
         $this->assertHoliday(self::REGION, self::HOLIDAY, $year, $date);
 
         // Whenever any public holiday falls on a Sunday, the Monday following on it shall be a public holiday.
-        if (0 === (int) $date->format('w')) {
+        if (0 === (int)$date->format('w')) {
             $date->add(new DateInterval('P1D'));
             $this->assertHoliday(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year, $date);
         }
@@ -62,7 +62,7 @@ class ChristmasDayTest extends SouthAfricaBaseTestCase implements YasumiTestCase
      *
      * @return array list of test dates for the holiday defined in this test
      */
-    public function HolidayDataProvider()
+    public function HolidayDataProvider(): array
     {
         $data = [];
 

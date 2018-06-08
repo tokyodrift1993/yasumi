@@ -34,8 +34,10 @@ class Hungary extends AbstractProvider
     /**
      * Initialize holidays for Hungary.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {

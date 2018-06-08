@@ -32,8 +32,10 @@ class Victoria extends Australia
     /**
      * Initialize holidays for Victoria (Australia).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -45,13 +47,16 @@ class Victoria extends Australia
         $this->calculateAFLGrandFinalDay();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function calculateChristmasDay()
     {
         $christmasDay = new DateTime("$this->year-12-25", new DateTimeZone($this->timezone));
         $boxingDay    = new DateTime("$this->year-12-26", new DateTimeZone($this->timezone));
 
         $this->calculateHoliday('christmasDay', [], $christmasDay);
-        $this->calculateHoliday('secondChristmasDay', [], $boxingDay, false, true);
+        $this->calculateHoliday('secondChristmasDay', [], $boxingDay, false);
     }
 
     public function calculateLabourDay()

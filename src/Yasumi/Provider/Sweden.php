@@ -33,8 +33,10 @@ class Sweden extends AbstractProvider
     /**
      * Initialize holidays for Sweden.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -75,8 +77,10 @@ class Sweden extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Midsummer#Sweden
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateStJohnsDay()
     {
@@ -109,8 +113,10 @@ class Sweden extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/All_Saints%27_Day
      * @link http://www.timeanddate.com/holidays/sweden/all-saints-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateAllSaintsDay()
     {
@@ -136,6 +142,7 @@ class Sweden extends AbstractProvider
      * Olympic Stadium, in honour of the election of King Gustav Vasa in 1523, as this was considered the foundation of
      * modern Sweden.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */

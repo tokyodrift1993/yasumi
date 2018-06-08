@@ -33,8 +33,10 @@ class Greece extends AbstractProvider
     /**
      * Initialize holidays for Greece.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -72,6 +74,7 @@ class Greece extends AbstractProvider
      *
      * @see https://en.wikipedia.org/wiki/Three_Holy_Hierarchs
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -95,8 +98,10 @@ class Greece extends AbstractProvider
      *
      * @see https://en.wikipedia.org/wiki/Clean_Monday
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateCleanMonday()
     {
@@ -115,8 +120,10 @@ class Greece extends AbstractProvider
      * @param string $timezone
      *
      * @return \DateTime
+     *
+     * @throws \Exception
      */
-    public function calculateEaster($year, $timezone)
+    public function calculateEaster($year, $timezone): DateTime
     {
         return $this->calculateOrthodoxEaster($year, $timezone);
     }
@@ -128,6 +135,7 @@ class Greece extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Greek_War_of_Independence
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -151,6 +159,7 @@ class Greece extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Ohi_Day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -173,6 +182,7 @@ class Greece extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Athens_Polytechnic_uprising
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */

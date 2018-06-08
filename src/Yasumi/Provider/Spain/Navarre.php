@@ -38,8 +38,10 @@ class Navarre extends Spain
     /**
      * Initialize holidays for Navarre (Spain).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {

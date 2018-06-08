@@ -46,7 +46,7 @@ class WorkersDayTest extends ThurgauBaseTestCase implements YasumiTestCaseInterf
      *
      * @return array list of test dates for the holiday defined in this test
      */
-    public function HolidayDataProvider()
+    public function HolidayDataProvider(): array
     {
         $data = [];
 
@@ -77,11 +77,6 @@ class WorkersDayTest extends ThurgauBaseTestCase implements YasumiTestCaseInterf
      */
     public function testHolidayType()
     {
-        $this->assertHolidayType(
-            self::REGION,
-            self::HOLIDAY,
-            $this->generateRandomYear(),
-            Holiday::TYPE_OTHER
-        );
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_OTHER);
     }
 }

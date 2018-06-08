@@ -35,8 +35,10 @@ class Ukraine extends AbstractProvider
     /**
      * Initialize holidays for Ukraine.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -63,6 +65,7 @@ class Ukraine extends AbstractProvider
     /**
      * Christmas Day.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -84,6 +87,7 @@ class Ukraine extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/International_Women%27s_Day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -102,6 +106,7 @@ class Ukraine extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/International_Workers%27_Day#Ukraine
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -124,6 +129,7 @@ class Ukraine extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Victory_Day_over_Nazism_in_World_War_II
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -144,6 +150,7 @@ class Ukraine extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Constitution_Day_(Ukraine)
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -170,6 +177,7 @@ class Ukraine extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Declaration_of_Independence_of_Ukraine
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -197,6 +205,7 @@ class Ukraine extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Defender_of_Ukraine_Day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -219,8 +228,9 @@ class Ukraine extends AbstractProvider
      * @param string $timezone
      *
      * @return \DateTime
+     * @throws \Exception
      */
-    public function calculateEaster($year, $timezone)
+    public function calculateEaster($year, $timezone): \DateTime
     {
         return $this->calculateOrthodoxEaster($year, $timezone);
     }

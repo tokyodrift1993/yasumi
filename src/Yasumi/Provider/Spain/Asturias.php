@@ -41,8 +41,10 @@ class Asturias extends Spain
     /**
      * Initialize holidays for Asturias (Spain).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -66,6 +68,7 @@ class Asturias extends Spain
      *
      * @link http://www.timeanddate.com/holidays/spain/asturias-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */

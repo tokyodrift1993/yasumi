@@ -34,8 +34,10 @@ class UnitedKingdom extends AbstractProvider
     /**
      * Initialize holidays for the United Kingdom.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -65,6 +67,7 @@ class UnitedKingdom extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_the_United_Kingdom
      * @link http://www.timeanddate.com/holidays/uk/new-year-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -83,7 +86,7 @@ class UnitedKingdom extends AbstractProvider
         $newYearsDay = new DateTime("$this->year-01-01", new DateTimeZone($this->timezone));
 
         // If New Years Day falls on a Saturday or Sunday, it is observed the next Monday (January 2nd or 3rd)
-        if (in_array((int)$newYearsDay->format('w'), [0, 6], true)) {
+        if (\in_array((int)$newYearsDay->format('w'), [0, 6], true)) {
             $newYearsDay->modify('next monday');
         }
 
@@ -102,6 +105,7 @@ class UnitedKingdom extends AbstractProvider
      *
      * @link http://www.timeanddate.com/holidays/uk/early-may-bank-holiday
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -132,6 +136,7 @@ class UnitedKingdom extends AbstractProvider
      * @link http://www.timeanddate.com/holidays/uk/spring-bank-holiday
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_the_United_Kingdom
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -146,6 +151,37 @@ class UnitedKingdom extends AbstractProvider
             'springBankHoliday',
             ['en_GB' => 'Spring Bank Holiday'],
             new DateTime("last monday of may $this->year", new DateTimeZone($this->timezone)),
+            $this->locale,
+            Holiday::TYPE_BANK
+        ));
+    }
+
+    /**
+     * The Summer Bank holiday, also known as the Late Summer bank holiday, is a time for people in the United Kingdom
+     * to have a day off work or school. It falls on the last Monday of August replacing the first Monday in August
+     * (formerly commonly known as "August Bank Holiday".
+     *
+     * Many organizations, businesses and schools are closed. Stores may be open or closed, according to local custom.
+     * Public transport systems often run to a holiday timetable.
+     *
+     * @link https://www.timeanddate.com/holidays/uk/summer-bank-holiday
+     * @link https://en.wikipedia.org/wiki/Public_holidays_in_the_United_Kingdom
+     *
+     * @throws \Yasumi\Exception\InvalidDateException
+     * @throws \InvalidArgumentException
+     * @throws \Yasumi\Exception\UnknownLocaleException
+     */
+    private function calculateSummerBankHoliday()
+    {
+        // Statutory bank holiday from 1971, following a trial period from 1965 to 1970.
+        if ($this->year < 1965) {
+            return;
+        }
+
+        $this->addHoliday(new Holiday(
+            'summerBankHoliday',
+            ['en_GB' => 'Summer Bank Holiday'],
+            new DateTime("last monday of august $this->year", new DateTimeZone($this->timezone)),
             $this->locale,
             Holiday::TYPE_BANK
         ));
@@ -168,8 +204,10 @@ class UnitedKingdom extends AbstractProvider
      * @link http://www.timeanddate.com/holidays/uk/christmas-day
      * @link http://www.timeanddate.com/holidays/uk/boxing-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateChristmasHolidays()
     {
@@ -182,7 +220,7 @@ class UnitedKingdom extends AbstractProvider
         $substituteChristmasDay = clone $christmasDay;
         $substituteBoxingDay    = clone $boxingDay;
 
-        if (in_array((int)$christmasDay->format('w'), [0, 6], true)) {
+        if (\in_array((int)$christmasDay->format('w'), [0, 6], true)) {
             $substituteChristmasDay->add(new DateInterval('P2D'));
             $this->addHoliday(new Holiday(
                 'substituteHoliday:christmasDay',
@@ -193,7 +231,7 @@ class UnitedKingdom extends AbstractProvider
             ));
         }
 
-        if (in_array((int)$boxingDay->format('w'), [0, 6], true)) {
+        if (\in_array((int)$boxingDay->format('w'), [0, 6], true)) {
             $substituteBoxingDay->add(new DateInterval('P2D'));
             $this->addHoliday(new Holiday(
                 'substituteHoliday:secondChristmasDay',
@@ -203,35 +241,5 @@ class UnitedKingdom extends AbstractProvider
                 Holiday::TYPE_BANK
             ));
         }
-    }
-
-    /**
-     * The Summer Bank holiday, also known as the Late Summer bank holiday, is a time for people in the United Kingdom
-     * to have a day off work or school. It falls on the last Monday of August replacing the first Monday in August
-     * (formerly commonly known as "August Bank Holiday".
-     *
-     * Many organizations, businesses and schools are closed. Stores may be open or closed, according to local custom.
-     * Public transport systems often run to a holiday timetable.
-     *
-     * @link https://www.timeanddate.com/holidays/uk/summer-bank-holiday
-     * @link https://en.wikipedia.org/wiki/Public_holidays_in_the_United_Kingdom
-     *
-     * @throws \InvalidArgumentException
-     * @throws \Yasumi\Exception\UnknownLocaleException
-     */
-    private function calculateSummerBankHoliday()
-    {
-        // Statutory bank holiday from 1971, following a trial period from 1965 to 1970.
-        if ($this->year < 1965) {
-            return;
-        }
-
-        $this->addHoliday(new Holiday(
-            'summerBankHoliday',
-            ['en_GB' => 'Summer Bank Holiday'],
-            new DateTime("last monday of august $this->year", new DateTimeZone($this->timezone)),
-            $this->locale,
-            Holiday::TYPE_BANK
-        ));
     }
 }

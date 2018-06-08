@@ -33,8 +33,10 @@ class USA extends AbstractProvider
     /**
      * Initialize holidays for the USA.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -131,8 +133,8 @@ class USA extends AbstractProvider
             $this->addHoliday(new Holiday(
                 'labourDay',
                 [
-                'en_US' => 'Labour Day',
-            ],
+                    'en_US' => 'Labour Day',
+                ],
                 new DateTime("first monday of september $this->year", new DateTimeZone($this->timezone)),
                 $this->locale
             ));
@@ -190,8 +192,8 @@ class USA extends AbstractProvider
             $this->addHoliday(new Holiday(
                 'thanksgivingDay',
                 [
-                'en_US' => 'Thanksgiving Day',
-            ],
+                    'en_US' => 'Thanksgiving Day',
+                ],
                 new DateTime("fourth thursday of november $this->year", new DateTimeZone($this->timezone)),
                 $this->locale
             ));
@@ -206,8 +208,10 @@ class USA extends AbstractProvider
      * When New Year's Day, Independence Day, or Christmas Day falls on a Saturday, the previous day is also a holiday.
      * When one of these holidays fall on a Sunday, the next day is also a holiday.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     private function calculateSubstituteHolidays()
     {
@@ -218,7 +222,7 @@ class USA extends AbstractProvider
         while ($datesIterator->valid()) {
 
             // Only process New Year's Day, Independence Day, or Christmas Day
-            if (in_array(
+            if (\in_array(
                 $datesIterator->current()->shortName,
                 ['newYearsDay', 'independenceDay', 'christmasDay'],
                 true

@@ -32,8 +32,10 @@ class Austria extends AbstractProvider
     /**
      * Initialize holidays for Austria.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -71,6 +73,7 @@ class Austria extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Declaration_of_Neutrality
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */

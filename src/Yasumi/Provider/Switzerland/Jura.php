@@ -36,8 +36,10 @@ class Jura extends Switzerland
     /**
      * Initialize holidays for Jura (Switzerland).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -50,7 +52,7 @@ class Jura extends Switzerland
             $this->locale,
             Holiday::TYPE_OTHER
         ));
-        $this->addHoliday($this->corpusChristi($this->year, $this->timezone, $this->locale, Holiday::TYPE_OTHER));
+        $this->addHoliday($this->corpusChristi($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->assumptionOfMary($this->year, $this->timezone, $this->locale, Holiday::TYPE_OTHER));
         $this->addHoliday($this->allSaintsDay($this->year, $this->timezone, $this->locale, Holiday::TYPE_OTHER));
         $this->addHoliday($this->newYearsDay($this->year, $this->timezone, $this->locale, Holiday::TYPE_OTHER));
@@ -68,6 +70,7 @@ class Jura extends Switzerland
      *
      * @link https://fr.wikipedia.org/wiki/Pl%C3%A9biscite_jurassien
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -77,9 +80,9 @@ class Jura extends Switzerland
             $this->addHoliday(new Holiday(
                 'plebisciteJurassien',
                 [
-                'fr_FR' => 'Commémoration du plébiscite jurassien',
-                'fr_CH' => 'Commémoration du plébiscite jurassien',
-            ],
+                    'fr_FR' => 'Commémoration du plébiscite jurassien',
+                    'fr_CH' => 'Commémoration du plébiscite jurassien',
+                ],
                 new DateTime($this->year . '-06-23', new DateTimeZone($this->timezone)),
                 $this->locale,
                 Holiday::TYPE_OTHER

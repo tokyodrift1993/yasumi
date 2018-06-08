@@ -42,8 +42,10 @@ class CommunityOfMadrid extends Spain
     /**
      * Initialize holidays for the Community Of Madrid (Spain).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -70,6 +72,7 @@ class CommunityOfMadrid extends Spain
      *
      * @link http://en.wikipedia.org/wiki/Dos_de_Mayo_Uprising
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */

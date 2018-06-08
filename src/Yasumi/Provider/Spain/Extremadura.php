@@ -41,8 +41,10 @@ class Extremadura extends Spain
     /**
      * Initialize holidays for Extremadura (Spain).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -66,6 +68,7 @@ class Extremadura extends Spain
      *
      * @link http://www.timeanddate.com/holidays/spain/extremadura-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */

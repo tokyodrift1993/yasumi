@@ -37,8 +37,10 @@ class Geneva extends Switzerland
     /**
      * Initialize holidays for Geneva (Switzerland).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -63,8 +65,10 @@ class Geneva extends Switzerland
      *
      * @link https://en.wikipedia.org/wiki/Je%C3%BBne_genevois
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateJeuneGenevois()
     {
@@ -96,6 +100,7 @@ class Geneva extends Switzerland
      *
      * @link https://fr.wikipedia.org/wiki/Restauration_genevoise
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -105,9 +110,9 @@ class Geneva extends Switzerland
             $this->addHoliday(new Holiday(
                 'restaurationGenevoise',
                 [
-                'fr_FR' => 'Restauration de la République',
-                'fr_CH' => 'Restauration de la République',
-            ],
+                    'fr_FR' => 'Restauration de la République',
+                    'fr_CH' => 'Restauration de la République',
+                ],
                 new DateTime($this->year . '-12-31', new DateTimeZone($this->timezone)),
                 $this->locale,
                 Holiday::TYPE_OTHER

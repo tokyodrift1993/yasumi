@@ -32,8 +32,10 @@ class Spain extends AbstractProvider
     /**
      * Initialize holidays for Spain.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -47,7 +49,7 @@ class Spain extends AbstractProvider
         // Add Christian holidays (common in Spain)
         $this->addHoliday($this->epiphany($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
-        $this->addHoliday($this->easter($this->year, $this->timezone, $this->locale));
+        $this->addHoliday($this->easter($this->year, $this->timezone, $this->locale, Holiday::TYPE_OBSERVANCE));
         $this->addHoliday($this->assumptionOfMary($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->allSaintsDay($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->immaculateConception($this->year, $this->timezone, $this->locale));
@@ -69,6 +71,7 @@ class Spain extends AbstractProvider
      *
      * @link http://en.wikipedia.org/wiki/Fiesta_Nacional_de_España
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -93,6 +96,7 @@ class Spain extends AbstractProvider
      *
      * @link http://www.timeanddate.com/holidays/spain/constitution-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */

@@ -36,8 +36,10 @@ class Neuchatel extends Switzerland
     /**
      * Initialize holidays for Neuchâtel (Switzerland).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -66,6 +68,7 @@ class Neuchatel extends Switzerland
      *
      * @link https://www.feiertagskalender.ch/feiertag.php?ft_id=11&geo=3056&hl=fr
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -75,9 +78,9 @@ class Neuchatel extends Switzerland
             $this->addHoliday(new Holiday(
                 'instaurationRepublique',
                 [
-                'fr_FR' => 'Instauration de la République',
-                'fr_CH' => 'Instauration de la République',
-            ],
+                    'fr_FR' => 'Instauration de la République',
+                    'fr_CH' => 'Instauration de la République',
+                ],
                 new DateTime($this->year . '-03-01', new DateTimeZone($this->timezone)),
                 $this->locale,
                 Holiday::TYPE_OTHER

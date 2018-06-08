@@ -37,8 +37,10 @@ class HautRhin extends France
     /**
      * Initialize holidays for Haut-Rhin (France).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {

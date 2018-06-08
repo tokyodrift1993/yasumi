@@ -80,47 +80,43 @@ class Holiday extends DateTime implements JsonSerializable
     /**
      * Creates a new Holiday.
      *
-     * If a holiday date needs to be defined for a specific timezone, make sure that the date instance (DateTime) has
-     * the correct timezone set. Otherwise the default system timezone is used.
+     * If a holiday date needs to be defined for a specific timezone, make sure that the date instance
+     * (DateTimeInterface) has the correct timezone set. Otherwise the default system timezone is used.
      *
-     * @param string   $shortName     The short name (internal name) of this holiday
-     * @param array    $names         An array containing the name/description of this holiday in various
-     *                                languages. Overrides global translations
-     * @param DateTime $date          A DateTime instance representing the date of the holiday
-     * @param string   $displayLocale Locale (i.e. language) in which the holiday information needs to be
-     *                                displayed in. (Default 'en_US')
-     * @param string   $type          The type of holiday. Use the following constants: TYPE_OFFICIAL,
-     *                                TYPE_OBSERVANCE, TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an
-     *                                official holiday is considered.
+     * @param string             $shortName     The short name (internal name) of this holiday
+     * @param array              $names         An array containing the name/description of this holiday in various
+     *                                          languages. Overrides global translations
+     * @param \DateTimeInterface $date          A DateTimeInterface instance representing the date of the holiday
+     * @param string             $displayLocale Locale (i.e. language) in which the holiday information needs to be
+     *                                          displayed in. (Default 'en_US')
+     * @param string             $type          The type of holiday. Use the following constants: TYPE_OFFICIAL,
+     *                                          TYPE_OBSERVANCE, TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an
+     *                                          official holiday is considered.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      */
     public function __construct(
-        $shortName,
+        string $shortName,
         array $names,
-        $date,
-        $displayLocale = self::DEFAULT_LOCALE,
-        $type = self::TYPE_OFFICIAL
+        \DateTimeInterface $date,
+        string $displayLocale = self::DEFAULT_LOCALE,
+        string $type = self::TYPE_OFFICIAL
     ) {
         // Validate if short name is not empty
         if (empty($shortName)) {
             throw new InvalidArgumentException('Holiday name can not be blank.');
         }
 
-        // Validate if date parameter is instance of DateTime
-        if (! ($date instanceof DateTime)) {
-            throw new InvalidArgumentException(sprintf('Date "%s" is not a valid DateTime instance.', $date));
-        }
-
         // Load internal locales variable
-        if (null === static::$locales) {
-            static::$locales = Yasumi::getAvailableLocales();
+        if (null === self::$locales) {
+            self::$locales = Yasumi::getAvailableLocales();
         }
 
         // Assert display locale input
-        if (! in_array($displayLocale, static::$locales, true)) {
-            throw new UnknownLocaleException(sprintf('Locale "%s" is not a valid locale.', $displayLocale));
+        if (! \in_array($displayLocale, self::$locales, true)) {
+            throw new UnknownLocaleException(\sprintf('Locale "%s" is not a valid locale.', $displayLocale));
         }
 
         // Set additional attributes
@@ -138,7 +134,7 @@ class Holiday extends DateTime implements JsonSerializable
      *
      * @return string the type of holiday (official, observance, season, bank or other).
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -160,7 +156,7 @@ class Holiday extends DateTime implements JsonSerializable
      * defined, the name in the default locale ('en_US') is returned. In case there is no translation at all, the short
      * internal name is returned.
      */
-    public function getName()
+    public function getName(): string
     {
         if (isset($this->translations[$this->displayLocale])) {
             return $this->translations[$this->displayLocale];
@@ -181,15 +177,15 @@ class Holiday extends DateTime implements JsonSerializable
     public function mergeGlobalTranslations(TranslationsInterface $globalTranslations)
     {
         $holidayGlobalTranslations = $globalTranslations->getTranslations($this->shortName);
-        $this->translations        = array_merge($holidayGlobalTranslations, $this->translations);
+        $this->translations        = \array_merge($holidayGlobalTranslations, $this->translations);
     }
 
     /**
      * Format the instance as a string using the set format.
      *
-     * @return string
+     * @return string this instance as a string using the set format.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string)$this->format('Y-m-d');
     }

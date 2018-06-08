@@ -35,8 +35,10 @@ class Australia extends AbstractProvider
     /**
      * Initialize holidays for Australia.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -44,8 +46,6 @@ class Australia extends AbstractProvider
         $this->calculateAustraliaDay();
         $this->calculateNewYearHolidays();
         $this->calculateAnzacDay();
-        //$this->calculateQueensBirthday();
-        //$this->calculateLabourDay();
 
         // Add Christian holidays
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
@@ -67,8 +67,10 @@ class Australia extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Waitangi_Day
      * @link https://www.timeanddate.com/holidays/australia/australia-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateAustraliaDay()
     {
@@ -80,32 +82,30 @@ class Australia extends AbstractProvider
     /**
      * Function to simplify moving holidays to mondays if required
      *
-     * @param string          $shortName
-     * @param array           $names
-     * @param string|DateTime $date
-     * @param bool            $moveFromSaturday
-     * @param bool            $moveFromSunday
+     * @param string    $shortName
+     * @param array     $names
+     * @param \DateTime $date
+     * @param bool      $moveFromSaturday
+     * @param bool      $moveFromSunday
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateHoliday(
-        $shortName,
+        string $shortName,
         array $names = [],
-        $date,
-        $moveFromSaturday = true,
-        $moveFromSunday = true
+        \DateTime $date,
+        bool $moveFromSaturday = true,
+        bool $moveFromSunday = true
     ) {
-        $holidayDate = $date instanceof DateTime ? $date : new DateTime($date, new DateTimeZone($this->timezone));
-
-        $day = (int)$holidayDate->format('w');
-        //echo ' - '.$shortName.' - Day: '.$day."\n";
+        $day = (int)$date->format('w');
         if (($day === 0 && $moveFromSunday) || ($day === 6 && $moveFromSaturday)) {
-            //echo ' - '.$shortName.' - Need to move: '.($day == 0 ? '1 day' : '2days')."\n";
-            $holidayDate->add($day === 0 ? new DateInterval('P1D') : new DateInterval('P2D'));
+            $date = $date->add($day === 0 ? new DateInterval('P1D') : new DateInterval('P2D'));
         }
 
-        $this->addHoliday(new Holiday($shortName, $names, $holidayDate, $this->locale));
+        $this->addHoliday(new Holiday($shortName, $names, $date, $this->locale));
     }
 
     /**
@@ -118,8 +118,10 @@ class Australia extends AbstractProvider
      *
      * @link https://www.timeanddate.com/holidays/australia/new-year-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateNewYearHolidays()
     {
@@ -140,8 +142,10 @@ class Australia extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Anzac_Day
      * @link https://www.timeanddate.com/holidays/australia/anzac-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateAnzacDay()
     {
@@ -151,7 +155,7 @@ class Australia extends AbstractProvider
 
         $date = new DateTime("$this->year-04-25", new DateTimeZone($this->timezone));
 
-        $this->calculateHoliday('anzacDay', [], $date, true, true);
+        $this->calculateHoliday('anzacDay', [], $date);
     }
 
     /**
@@ -162,8 +166,10 @@ class Australia extends AbstractProvider
      *
      * @link https://www.timeanddate.com/holidays/australia/christmas-day-holiday
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function calculateChristmasDay()
     {
@@ -199,13 +205,14 @@ class Australia extends AbstractProvider
      * @link https://www.timeanddate.com/holidays/australia/queens-birthday
      *
      * @throws \InvalidArgumentException
+     * @throws \Exception
      */
     public function calculateQueensBirthday()
     {
         $this->calculateHoliday(
             'queensBirthday',
             ['en_AU' => 'Queens Birthday'],
-            'second monday of june ' . $this->year,
+            new DateTime('second monday of june ' . $this->year, new DateTimeZone($this->timezone)),
             false,
             false
         );
@@ -214,6 +221,7 @@ class Australia extends AbstractProvider
     /**
      * @link https://www.timeanddate.com/holidays/australia/labour-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */

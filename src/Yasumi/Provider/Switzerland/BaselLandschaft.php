@@ -34,8 +34,10 @@ class BaselLandschaft extends Switzerland
     /**
      * Initialize holidays for Basel-Landschaft (Switzerland).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {

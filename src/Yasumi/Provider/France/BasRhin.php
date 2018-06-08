@@ -37,8 +37,10 @@ class BasRhin extends France
     /**
      * Initialize holidays for Bas-Rhin (France).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {

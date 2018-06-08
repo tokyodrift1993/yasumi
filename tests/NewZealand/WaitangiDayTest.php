@@ -89,20 +89,13 @@ class WaitangiDayTest extends NewZealandBaseTestCase implements YasumiTestCaseIn
      *
      * @return array list of test dates for the holiday defined in this test
      */
-    public function HolidayDataProvider()
+    public function HolidayDataProvider(): array
     {
-        return $this->generateRandomDatesWithModifier(
-            2,
-            06,
-            function ($year, \DateTime $date) {
-                // in 2015 some policy was introduced to make sure this holiday was celebrated during the working week.
-                if ($year >= 2015 && $this->isWeekend($date)) {
-                    $date->modify('next monday');
-                }
-            },
-            self::TIMEZONE,
-            100,
-            self::ESTABLISHMENT_YEAR
-        );
+        return $this->generateRandomDatesWithModifier(2, 06, function ($year, \DateTime $date) {
+            // in 2015 some policy was introduced to make sure this holiday was celebrated during the working week.
+            if ($year >= 2015 && $this->isWeekend($date)) {
+                $date->modify('next monday');
+            }
+        }, self::TIMEZONE, 100, self::ESTABLISHMENT_YEAR);
     }
 }

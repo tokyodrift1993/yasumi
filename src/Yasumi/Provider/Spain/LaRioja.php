@@ -40,8 +40,10 @@ class LaRioja extends Spain
     /**
      * Initialize holidays for La Rioja (Spain).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -63,6 +65,7 @@ class LaRioja extends Spain
      *
      * @link http://www.timeanddate.com/holidays/spain/rioja-day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */

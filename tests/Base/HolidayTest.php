@@ -35,17 +35,7 @@ class HolidayTest extends PHPUnit_Framework_TestCase
      */
     public function testHolidayBlankNameInvalidArgumentException()
     {
-        new Holiday('', [], '2015-01-01');
-    }
-
-    /**
-     * Tests that an InvalidArgumentException is thrown in case an invalid type for date is given.
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function testHolidayInvalidDateTypeInvalidArgumentException()
-    {
-        new Holiday('testHoliday', [], '2015-01-01');
+        new Holiday('', [], new \DateTime());
     }
 
     /**
@@ -64,12 +54,29 @@ class HolidayTest extends PHPUnit_Framework_TestCase
     public function testHolidayIsJsonSerializable()
     {
         $holiday  = new Holiday('testHoliday', [], new DateTime(), 'en_US');
-        $json     = json_encode($holiday);
-        $instance = json_decode($json, true);
+        $json     = \json_encode($holiday);
+        $instance = \json_decode($json, true);
 
         $this->assertInternalType('array', $instance);
         $this->assertNotNull($instance);
         $this->assertArrayHasKey('shortName', $instance);
+    }
+
+    /**
+     * Tests that a Yasumi holiday instance can be created using an object that implements the DateTimeInterface (e.g.
+     * DateTime or DateTimeImmutable)
+     */
+    public function testHolidayWithDateTimeInterface()
+    {
+        // Assert with DateTime instance
+        $holiday = new Holiday('testHoliday', [], new \DateTime(), 'en_US');
+        $this->assertNotNull($holiday);
+        $this->assertInstanceOf(Holiday::class, $holiday);
+
+        // Assert with DateTimeImmutable instance
+        $holiday = new Holiday('testHoliday', [], new \DateTimeImmutable(), 'en_US');
+        $this->assertNotNull($holiday);
+        $this->assertInstanceOf(Holiday::class, $holiday);
     }
 
     /**

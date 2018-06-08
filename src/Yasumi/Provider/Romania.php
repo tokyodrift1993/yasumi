@@ -37,8 +37,10 @@ class Romania extends AbstractProvider
     /**
      * Initialize holidays for Romania.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -77,6 +79,7 @@ class Romania extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Romania
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -98,6 +101,7 @@ class Romania extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/United_Principalities
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -119,6 +123,7 @@ class Romania extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/St._Andrew%27s_Day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -143,6 +148,7 @@ class Romania extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Great_Union_Day
      * @link https://ro.wikipedia.org/wiki/Ziua_na%C8%9Bional%C4%83_a_Rom%C3%A2niei
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -177,6 +183,7 @@ class Romania extends AbstractProvider
      * Constantin Brâncuși (February 19, 1876 – March 16, 1957) was a Romanian sculptor, painter and photographer.
      *
      * @link https://en.wikipedia.org/wiki/Constantin_Br%C3%A2ncu%C8%99i
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -186,9 +193,9 @@ class Romania extends AbstractProvider
             $this->addHoliday(new Holiday(
                 'constantinBrancusiDay',
                 [
-                'en_US' => 'Constantin Brâncuși day',
-                'ro_RO' => 'Ziua Constantin Brâncuși'
-            ],
+                    'en_US' => 'Constantin Brâncuși day',
+                    'ro_RO' => 'Ziua Constantin Brâncuși'
+                ],
                 new DateTime("$this->year-02-19", new DateTimeZone($this->timezone)),
                 $this->locale,
                 Holiday::TYPE_OBSERVANCE
@@ -203,6 +210,7 @@ class Romania extends AbstractProvider
      * according to the Law 220/2016 (18.11.2016)
      *
      * @link https://en.wikipedia.org/wiki/Children%27s_Day
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -212,9 +220,9 @@ class Romania extends AbstractProvider
             $this->addHoliday(new Holiday(
                 'childrensDay',
                 [
-                'en_US' => 'International Children\'s Day',
-                'ro_RO' => 'Ziua Copilului'
-            ],
+                    'en_US' => 'International Children\'s Day',
+                    'ro_RO' => 'Ziua Copilului'
+                ],
                 new DateTime("$this->year-06-01", new DateTimeZone($this->timezone)),
                 $this->locale,
                 Holiday::TYPE_OBSERVANCE
@@ -234,8 +242,10 @@ class Romania extends AbstractProvider
      * @param string $timezone
      *
      * @return \DateTime
+     *
+     * @throws \Exception
      */
-    public function calculateEaster($year, $timezone)
+    public function calculateEaster($year, $timezone): DateTime
     {
         return $this->calculateOrthodoxEaster($year, $timezone);
     }

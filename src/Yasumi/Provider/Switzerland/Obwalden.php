@@ -36,15 +36,17 @@ class Obwalden extends Switzerland
     /**
      * Initialize holidays for Obwalden (Switzerland).
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
     public function initialize()
     {
         parent::initialize();
 
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale, Holiday::TYPE_OTHER));
-        $this->addHoliday($this->corpusChristi($this->year, $this->timezone, $this->locale, Holiday::TYPE_OTHER));
+        $this->addHoliday($this->corpusChristi($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->assumptionOfMary($this->year, $this->timezone, $this->locale, Holiday::TYPE_OTHER));
         $this->addHoliday($this->allSaintsDay($this->year, $this->timezone, $this->locale, Holiday::TYPE_OTHER));
         $this->addHoliday($this->immaculateConception(
@@ -69,6 +71,7 @@ class Obwalden extends Switzerland
      *
      * @link http://www.lebendigetraditionen.ch/traditionen/00210/index.html?lang=en
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
      */
@@ -78,9 +81,9 @@ class Obwalden extends Switzerland
             $this->addHoliday(new Holiday(
                 'bruderKlausenFest',
                 [
-                'de_DE' => 'Bruder-Klausen-Fest',
-                'de_CH' => 'Bruder-Klausen-Fest',
-            ],
+                    'de_DE' => 'Bruder-Klausen-Fest',
+                    'de_CH' => 'Bruder-Klausen-Fest',
+                ],
                 new DateTime($this->year . '-09-25', new DateTimeZone($this->timezone)),
                 $this->locale,
                 Holiday::TYPE_OTHER
@@ -89,9 +92,9 @@ class Obwalden extends Switzerland
             $this->addHoliday(new Holiday(
                 'bruderKlausenFest',
                 [
-                'de_DE' => 'Bruder-Klausen-Fest',
-                'de_CH' => 'Bruder-Klausen-Fest',
-            ],
+                    'de_DE' => 'Bruder-Klausen-Fest',
+                    'de_CH' => 'Bruder-Klausen-Fest',
+                ],
                 new DateTime($this->year . '-09-21', new DateTimeZone($this->timezone)),
                 $this->locale,
                 Holiday::TYPE_OTHER
