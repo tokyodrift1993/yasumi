@@ -61,7 +61,7 @@ class GoodFridayTest extends ChileBaseTestCase implements YasumiTestCaseInterfac
             $year = $this->generateRandomYear();
 
             $easter = new DateTime("$year-3-21", new DateTimeZone(self::TIMEZONE));
-            $easter->add(new DateInterval('P' . easter_days($year) . 'D'));
+            $easter->add(new DateInterval('P' . \easter_days($year) . 'D'));
 
             $data[] = [$year, $easter->sub(new DateInterval('P2D'))->format('Y-m-d')];
 

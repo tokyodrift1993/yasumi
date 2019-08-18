@@ -48,7 +48,7 @@ class StPeterPaulDayTest extends ChileBaseTestCase implements YasumiTestCaseInte
         // Law 19,668 declares certain holidays that fall on Tuesday, Wednesday or Thursday are observed the
         // preceding Monday. If the holiday falls on a Friday, the following Monday is the day of observance.
         if ($year >= 2000) {
-            if (in_array((int)$date->format('w'), [2, 3, 4], true)) {
+            if (\in_array((int)$date->format('w'), [2, 3, 4], true)) {
                 $date->modify('previous monday');
             } elseif (5 === (int)$date->format('w')) {
                 $date->modify('next monday');
