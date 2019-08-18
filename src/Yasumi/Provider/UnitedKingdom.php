@@ -118,6 +118,19 @@ class UnitedKingdom extends AbstractProvider
             return;
         }
 
+        // Moved to 8 May to commemorate the 50th (1995) and 75th (2020) anniversary of VE Day.
+        if ($this->year == 1995 || $this->year == 2020) {
+            $this->addHoliday(new Holiday(
+                'mayDayBankHoliday',
+                ['en_GB' => 'May Day Bank Holiday'],
+                new DateTime("$this->year-5-8", new DateTimeZone($this->timezone)),
+                $this->locale,
+                Holiday::TYPE_BANK
+            ));
+
+            return;
+        }
+
         $this->addHoliday(new Holiday(
             'mayDayBankHoliday',
             ['en_GB' => 'May Day Bank Holiday'],
@@ -150,6 +163,20 @@ class UnitedKingdom extends AbstractProvider
             return;
         }
 
+        // Moved to 4 June for the celebration of the Golden (2002) and Diamond (2012) Jubilee
+        // of Elizabeth II.
+        if ($this->year == 2002 || $this->year == 2012) {
+            $this->addHoliday(new Holiday(
+                'springBankHoliday',
+                ['en_GB' => 'Spring Bank Holiday'],
+                new DateTime("$this->year-6-4", new DateTimeZone($this->timezone)),
+                $this->locale,
+                Holiday::TYPE_BANK
+            ));
+
+            return;
+        }
+
         $this->addHoliday(new Holiday(
             'springBankHoliday',
             ['en_GB' => 'Spring Bank Holiday'],
@@ -162,7 +189,7 @@ class UnitedKingdom extends AbstractProvider
     /**
      * The Summer Bank holiday, also known as the Late Summer bank holiday, is a time for people in the United Kingdom
      * to have a day off work or school. It falls on the last Monday of August replacing the first Monday in August
-     * (formerly commonly known as "August Bank Holiday".
+     * (formerly commonly known as "August Bank Holiday").
      *
      * Many organizations, businesses and schools are closed. Stores may be open or closed, according to local custom.
      * Public transport systems often run to a holiday timetable.
@@ -177,8 +204,34 @@ class UnitedKingdom extends AbstractProvider
      */
     private function calculateSummerBankHoliday(): void
     {
-        // Statutory bank holiday from 1971, following a trial period from 1965 to 1970.
+        if ($this->year < 1871) {
+            return;
+        }
+
         if ($this->year < 1965) {
+            $this->addHoliday(new Holiday(
+                'summerBankHoliday',
+                ['en_GB' => 'August Bank Holiday'],
+                new DateTime("first monday of august $this->year", new DateTimeZone($this->timezone)),
+                $this->locale,
+                Holiday::TYPE_BANK
+            ));
+
+            return;
+        }
+
+        // Statutory bank holiday from 1971, following a trial period from 1965 to 1970.
+        // During the trial period, the definition was different than today, causing exceptions
+        // in 1968 and 1969.
+        if ($this->year == 1968 || $this->year == 1969) {
+            $this->addHoliday(new Holiday(
+                'summerBankHoliday',
+                ['en_GB' => 'Summer Bank Holiday'],
+                new DateTime("first monday of september $this->year", new DateTimeZone($this->timezone)),
+                $this->locale,
+                Holiday::TYPE_BANK
+            ));
+
             return;
         }
 
