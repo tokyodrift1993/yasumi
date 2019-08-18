@@ -25,20 +25,20 @@ abstract class ChileBaseTestCase extends TestCase
     /**
      * Name of the region (e.g. country / state) to be tested
      */
-    const REGION = 'Chile';
+    public const REGION = 'Chile';
 
     /**
      * Timezone in which this provider has holidays defined
      */
-    const TIMEZONE = 'America/Santiago';
+    public const TIMEZONE = 'America/Santiago';
 
     /**
      * Locale that is considered common for this provider
      */
-    const LOCALE = 'es_CL';
+    public const LOCALE = 'es_CL';
 
     /**
      * Number of iterations to be used for the various unit test of this provider
      */
-    const TEST_ITERATIONS = 50;
+    public const TEST_ITERATIONS = 50;
 }

@@ -14,6 +14,8 @@ namespace Yasumi\tests\Chile;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
+use ReflectionException;
 use Yasumi\Holiday;
 use Yasumi\tests\YasumiTestCaseInterface;
 
@@ -25,20 +27,22 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
     /**
      * The name of the holiday
      */
-    public const HOLIDAY = 'internationalWorkersDay';
+    private const HOLIDAY = 'internationalWorkersDay';
 
     /**
      * The year in which the holiday was first established
      */
-    const ESTABLISHMENT_YEAR = 1932;
+    private const ESTABLISHMENT_YEAR = 1932;
 
     /**
      * Tests the holiday defined in this test.
      *
      * @dataProvider HolidayDataProvider
      *
-     * @param int      $year     the year for which the holiday defined in this test needs to be tested
+     * @param int $year the year for which the holiday defined in this test needs to be tested
      * @param DateTime $expected the expected date
+     *
+     * @throws ReflectionException
      */
     public function testHoliday($year, $expected)
     {
@@ -49,8 +53,10 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
      * Returns a list of random test dates used for assertion of the holiday defined in this test
      *
      * @return array list of test dates for the holiday defined in this test
+     *
+     * @throws Exception
      */
-    public function HolidayDataProvider()
+    public function HolidayDataProvider(): array
     {
         $data = [];
 
@@ -65,6 +71,8 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
 
     /**
      * Tests the holiday defined in this test before establishment.
+     *
+     * @throws ReflectionException
      */
     public function testHolidayBeforeEstablishment()
     {
@@ -77,8 +85,10 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
 
     /**
      * Tests translated name of the holiday defined in this test.
+     *
+     * @throws ReflectionException
      */
-    public function testTranslation()
+    public function testTranslation():void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -90,8 +100,10 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
 
     /**
      * Tests type of the holiday defined in this test.
+     *
+     * @throws ReflectionException
      */
-    public function testHolidayType()
+    public function testHolidayType():void
     {
         $this->assertHolidayType(
             self::REGION,
