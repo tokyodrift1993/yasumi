@@ -25,10 +25,10 @@ abstract class AricaAndParinacotaBaseTestCase extends ChileBaseTestCase
     /**
      * Name of the region (e.g. country / state) to be tested
      */
-    const REGION = 'Chile/AricaAndParinacota';
+    public const REGION = 'Chile/AricaAndParinacota';
 
     /**
      * Timezone in which this provider has holidays defined
      */
-    const TIMEZONE = 'America/Santiago';
+    public const TIMEZONE = 'America/Santiago';
 }

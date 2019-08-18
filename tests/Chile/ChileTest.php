@@ -13,6 +13,7 @@
 namespace Yasumi\tests\Chile;
 
 use DateTime;
+use ReflectionException;
 use Yasumi\Holiday;
 
 /**
@@ -27,6 +28,8 @@ class ChileTest extends ChileBaseTestCase
 
     /**
      * Tests if all national holidays in Chile are defined by the provider class
+     *
+     * @throws ReflectionException
      */
     public function testNationalHolidays(): void
     {
@@ -61,6 +64,8 @@ class ChileTest extends ChileBaseTestCase
 
     /**
      * Tests if all observed holidays in Chile are defined by the provider class
+     *
+     * @throws ReflectionException
      */
     public function testObservedHolidays(): void
     {
@@ -79,6 +84,8 @@ class ChileTest extends ChileBaseTestCase
 
     /**
      * Tests if all seasonal holidays in Chile are defined by the provider class
+     *
+     * @throws ReflectionException
      */
     public function testSeasonalHolidays(): void
     {
@@ -87,6 +94,8 @@ class ChileTest extends ChileBaseTestCase
 
     /**
      * Tests if all bank holidays in Chile are defined by the provider class
+     *
+     * @throws ReflectionException
      */
     public function testBankHolidays(): void
     {
@@ -95,6 +104,8 @@ class ChileTest extends ChileBaseTestCase
 
     /**
      * Tests if all other holidays in Chile are defined by the provider class
+     *
+     * @throws ReflectionException
      */
     public function testOtherHolidays(): void
     {
@@ -106,6 +117,6 @@ class ChileTest extends ChileBaseTestCase
      */
     protected function setUp(): void
     {
-        $this->year = $this->generateRandomYear(1000);
+        $this->year = $this->generateRandomYear();
     }
 }

@@ -15,6 +15,8 @@ namespace Yasumi\tests\Chile;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use Exception;
+use ReflectionException;
 use Yasumi\Holiday;
 use Yasumi\tests\YasumiTestCaseInterface;
 
@@ -27,15 +29,17 @@ class GoodFridayTest extends ChileBaseTestCase implements YasumiTestCaseInterfac
     /**
      * The name of the holiday to be tested
      */
-    const HOLIDAY = 'goodFriday';
+    private const HOLIDAY = 'goodFriday';
 
     /**
      * Tests the holiday defined in this test.
      *
      * @dataProvider HolidayDataProvider
      *
-     * @param int      $year     the year for which the holiday defined in this test needs to be tested
+     * @param int $year the year for which the holiday defined in this test needs to be tested
      * @param DateTime $expected the expected date
+     *
+     * @throws ReflectionException
      */
     public function testHoliday($year, $expected)
     {
@@ -46,8 +50,10 @@ class GoodFridayTest extends ChileBaseTestCase implements YasumiTestCaseInterfac
      * Returns a list of random test dates used for assertion of the holiday defined in this test
      *
      * @return array list of test dates for the holiday defined in this test
+     *
+     * @throws Exception
      */
-    public function HolidayDataProvider()
+    public function HolidayDataProvider(): array
     {
         $data = [];
 
@@ -67,8 +73,9 @@ class GoodFridayTest extends ChileBaseTestCase implements YasumiTestCaseInterfac
 
     /**
      * Tests translated name of the holiday defined in this test.
+     * @throws ReflectionException
      */
-    public function testTranslation()
+    public function testTranslation():void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -80,8 +87,10 @@ class GoodFridayTest extends ChileBaseTestCase implements YasumiTestCaseInterfac
 
     /**
      * Tests type of the holiday defined in this test.
+     *
+     * @throws ReflectionException
      */
-    public function testHolidayType()
+    public function testHolidayType():void
     {
         $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_OFFICIAL);
     }

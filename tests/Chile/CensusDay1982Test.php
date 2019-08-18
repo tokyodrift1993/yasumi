@@ -28,12 +28,12 @@ class CensusDay1982Test extends ChileBaseTestCase implements YasumiTestCaseInter
     /**
      * The name of the holiday to be tested
      */
-    public const HOLIDAY = '1982CensusDay';
+    private const HOLIDAY = '1982CensusDay';
 
     /**
      * The year in which the holiday was established
      */
-    public const ESTABLISHMENT_YEAR = 1982;
+    private const ESTABLISHMENT_YEAR = 1982;
 
     /**
      * Tests the holiday defined in this test on establishment.

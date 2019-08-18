@@ -14,6 +14,8 @@ namespace Yasumi\tests\Chile\AricaAndParinacota;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
+use ReflectionException;
 use Yasumi\Holiday;
 use Yasumi\tests\YasumiTestCaseInterface;
 
@@ -25,15 +27,18 @@ class BattleOfAricaTest extends AricaAndParinacotaBaseTestCase implements Yasumi
     /**
      * The name of the holiday to be tested
      */
-    const HOLIDAY = 'battleOfArica';
+    private const HOLIDAY = 'battleOfArica';
 
     /**
      * The year in which the holiday was first established
      */
-    const ESTABLISHMENT_YEAR = 2013;
+    private const ESTABLISHMENT_YEAR = 2013;
 
     /**
      * Tests the holiday defined in this test on or after establishment.
+     *
+     * @throws ReflectionException
+     * @throws Exception
      */
     public function testHolidayOnAfterEstablishment()
     {
@@ -48,6 +53,8 @@ class BattleOfAricaTest extends AricaAndParinacotaBaseTestCase implements Yasumi
 
     /**
      * Tests the holiday defined in this test before establishment.
+     *
+     * @throws ReflectionException
      */
     public function testHolidayBeforeEstablishment()
     {
@@ -60,8 +67,10 @@ class BattleOfAricaTest extends AricaAndParinacotaBaseTestCase implements Yasumi
 
     /**
      * Tests the translated name of the holiday defined in this test.
+     *
+     * @throws ReflectionException
      */
-    public function testTranslation()
+    public function testTranslation():void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -73,8 +82,10 @@ class BattleOfAricaTest extends AricaAndParinacotaBaseTestCase implements Yasumi
 
     /**
      * Tests type of the holiday defined in this test.
+     *
+     * @throws ReflectionException
      */
-    public function testHolidayType()
+    public function testHolidayType():void
     {
         $this->assertHolidayType(
             self::REGION,

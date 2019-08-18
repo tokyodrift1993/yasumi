@@ -27,7 +27,7 @@ class StPeterPaulDayTest extends ChileBaseTestCase implements YasumiTestCaseInte
     /**
      * The name of the holiday
      */
-    public const HOLIDAY = 'stPeterPaulsDay';
+    private const HOLIDAY = 'stPeterPaulsDay';
 
     /**
      * Tests the holiday defined in this test.
