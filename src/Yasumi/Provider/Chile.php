@@ -14,6 +14,8 @@ namespace Yasumi\Provider;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
+use InvalidArgumentException;
 use Yasumi\Holiday;
 
 /**
@@ -33,11 +35,11 @@ class Chile extends AbstractProvider
     /**
      * Initialize holidays for Chile.
      *
-     * @throws \InvalidArgumentException
-     * @throws \Exception
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws Exception
+     * @throws Exception
      */
-    public function initialize()
+    public function initialize():void
     {
         $this->timezone = 'America/Santiago';
 
@@ -66,9 +68,9 @@ class Chile extends AbstractProvider
      * @link https://www.timeanddate.com/holidays/chile/new-year-day
      * @link https://www.leychile.cl/Navegar?idNorma=1098384&idParte=&idVersion=2016-12-30
      *
-     * @throws \InvalidArgumentException
-     * @throws \Exception
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws Exception
+     * @throws Exception
      */
     private function calculateNewYearsDay(): void
     {
@@ -98,9 +100,9 @@ class Chile extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/index.html#singular.21.04.1982
      *
-     * @throws \InvalidArgumentException
-     * @throws \Exception
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws Exception
+     * @throws Exception
      */
     private function calculateCensusDay1982(): void
     {
@@ -127,9 +129,9 @@ class Chile extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/index.html#singular.22.04.1992
      *
-     * @throws \InvalidArgumentException
-     * @throws \Exception
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws Exception
+     * @throws Exception
      */
     private function calculateCensusDay1992(): void
     {
@@ -156,9 +158,9 @@ class Chile extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/index.html#singular.24.04.2002
      *
-     * @throws \InvalidArgumentException
-     * @throws \Exception
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws Exception
+     * @throws Exception
      */
     private function calculateCensusDay2002(): void
     {
@@ -188,9 +190,9 @@ class Chile extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile#cite_note-30
      * @link http://www.feriadoschilenos.cl/#singular.19.04.2017
      *
-     * @throws \InvalidArgumentException
-     * @throws \Exception
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws Exception
+     * @throws Exception
      */
     private function calculateCensusDay2017(): void
     {
@@ -214,8 +216,8 @@ class Chile extends AbstractProvider
      *
      * @link http://www.feriadoschilenos.cl/index.html#DiaNacionalDelTrabajo
      *
-     * @throws \InvalidArgumentException
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws Exception
      */
     private function calculateInternationalWorkersDay(): void
     {
@@ -236,9 +238,9 @@ class Chile extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Navy_Day_(Chile)
      * @link http://www.feriadoschilenos.cl/index.html#DiaDeLasGloriasNavales
-     * @throws \InvalidArgumentException
-     * @throws \Exception
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws Exception
+     * @throws Exception
      */
     private function calculateNavyDay(): void
     {
@@ -264,8 +266,8 @@ class Chile extends AbstractProvider
      * @link https://www.timeanddate.com/holidays/chile/saint-peter-and-saint-paul
      * @link https://www.leychile.cl/Navegar?idNorma=160270
      *
-     * @throws \InvalidArgumentException
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws Exception
      */
     private function calculatestPeterPaulsDay(): void
     {

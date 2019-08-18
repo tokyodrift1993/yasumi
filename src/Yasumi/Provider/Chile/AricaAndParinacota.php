@@ -15,6 +15,9 @@ namespace Yasumi\Provider\Chile;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
+use InvalidArgumentException;
+use Yasumi\Exception\UnknownLocaleException;
 use Yasumi\Holiday;
 use Yasumi\Provider\Chile;
 use Yasumi\Provider\ChristianHolidays;
@@ -42,10 +45,11 @@ class AricaAndParinacota extends Chile
     /**
      * Initialize holidays for Arica and Parinacota (Chile).
      *
-     * @throws \InvalidArgumentException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidArgumentException
+     * @throws UnknownLocaleException
+     * @throws Exception
      */
-    public function initialize()
+    public function initialize():void
     {
         parent::initialize();
 
@@ -62,10 +66,10 @@ class AricaAndParinacota extends Chile
      *
      * @link https://en.wikipedia.org/wiki/Battle_of_Arica
      *
-     * @throws \InvalidArgumentException
-     * @throws \Yasumi\Exception\UnknownLocaleException
-     * @throws \Exception
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws UnknownLocaleException
+     * @throws Exception
+     * @throws Exception
      */
     public function calculateBattleOfArica(): void
     {
