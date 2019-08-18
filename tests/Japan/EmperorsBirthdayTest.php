@@ -2,12 +2,12 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 namespace Yasumi\tests\Japan;
@@ -25,21 +25,41 @@ class EmperorsBirthdayTest extends JapanBaseTestCase implements YasumiTestCaseIn
     /**
      * The name of the holiday
      */
-    const HOLIDAY = 'emperorsBirthday';
+    public const HOLIDAY = 'emperorsBirthday';
 
     /**
      * The year in which the holiday was first established
      */
-    const ESTABLISHMENT_YEAR = 1989;
+    public const ESTABLISHMENT_YEAR = 1949;
+    // public const ESTABLISHMENT_YEAR = 1989;
 
     /**
-     * Tests the Emperors Birthday after 1989. The Emperors Birthday is on December 23rd and celebrated as such since
+     * Tests the Emperors Birthday after 1949 to 1988. The Emperors Birthday is on April 28rd and celebrated as such since
+     * 1949.
+     * @throws \Exception
+     * @throws \ReflectionException
+     */
+    public function testEmperorsBirthdayOnAfter1949()
+    {
+        $year = $this->generateRandomYear(self::ESTABLISHMENT_YEAR, 1987);
+        $this->assertHoliday(
+            self::REGION,
+            self::HOLIDAY,
+            $year,
+            new DateTime("$year-4-29", new DateTimeZone(self::TIMEZONE))
+        );
+    }
+
+    /**
+     * Tests the Emperors Birthday after 1989 to 2018. The Emperors Birthday is on December 23rd and celebrated as such since
      * 1989. Prior to the death of Emperor Hirohito in 1989, this holiday was celebrated on April 29. See also "Shōwa
      * Day".
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testEmperorsBirthdayOnAfter1989()
     {
-        $year = 3012;
+        $year = $this->generateRandomYear(1989, 2018);
         $this->assertHoliday(
             self::REGION,
             self::HOLIDAY,
@@ -49,8 +69,27 @@ class EmperorsBirthdayTest extends JapanBaseTestCase implements YasumiTestCaseIn
     }
 
     /**
+     * Tests the Emperors Birthday after 2020. The Emperors Birthday is on February 23rd and celebrated as such since
+     * 2020.
+     * @throws \Exception
+     * @throws \ReflectionException
+     */
+    public function testEmperorsBirthdayOnAfter2020()
+    {
+        $year = $this->generateRandomYear(2020);
+        $this->assertHoliday(
+            self::REGION,
+            self::HOLIDAY,
+            $year,
+            new DateTime("$year-2-23", new DateTimeZone(self::TIMEZONE))
+        );
+    }
+
+    /**
      * Tests the Emperors Birthday after 1989 substituted next working day (when the Emperors Birthday falls on a
      * Sunday)
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testEmperorsBirthdayOnAfter1989SubstitutedNextWorkingDay()
     {
@@ -67,6 +106,7 @@ class EmperorsBirthdayTest extends JapanBaseTestCase implements YasumiTestCaseIn
      * Tests the Emperors Birthday before 1989. The Emperors Birthday is on December 23rd and celebrated as such since
      * 1989. Prior to the death of Emperor Hirohito in 1989, this holiday was celebrated on April 29. See also "Shōwa
      * Day"/"Greenery Day"
+     * @throws \ReflectionException
      */
     public function testEmperorsBirthdayBefore1989()
     {
@@ -78,9 +118,24 @@ class EmperorsBirthdayTest extends JapanBaseTestCase implements YasumiTestCaseIn
     }
 
     /**
-     * Tests the translated name of the holiday defined in this test.
+     * Tests the Emperors Birthday at 2019.
+     *
+     * @throws \ReflectionException
      */
-    public function testTranslation()
+    public function testEmperorsBirthdayAt2019()
+    {
+        $this->assertNotHoliday(
+            self::REGION,
+            self::HOLIDAY,
+            2019
+        );
+    }
+
+    /**
+     * Tests the translated name of the holiday defined in this test.
+     * @throws \ReflectionException
+     */
+    public function testTranslation(): void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -92,8 +147,9 @@ class EmperorsBirthdayTest extends JapanBaseTestCase implements YasumiTestCaseIn
 
     /**
      * Tests type of the holiday defined in this test.
+     * @throws \ReflectionException
      */
-    public function testHolidayType()
+    public function testHolidayType(): void
     {
         $this->assertHolidayType(
             self::REGION,

@@ -2,12 +2,12 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 namespace Yasumi\Provider;
@@ -28,15 +28,17 @@ class Brazil extends AbstractProvider
      * Code to identify this Holiday Provider. Typically this is the ISO3166 code corresponding to the respective
      * country or sub-region.
      */
-    const ID = 'BR';
+    public const ID = 'BR';
 
     /**
      * Initialize holidays for Brazil.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->timezone = 'America/Fortaleza';
 
@@ -49,6 +51,7 @@ class Brazil extends AbstractProvider
         $this->addHoliday($this->easter($this->year, $this->timezone, $this->locale, Holiday::TYPE_OBSERVANCE));
         $this->addHoliday($this->corpusChristi($this->year, $this->timezone, $this->locale, Holiday::TYPE_OBSERVANCE));
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
+        $this->addHoliday($this->ashWednesday($this->year, $this->timezone, $this->locale, Holiday::TYPE_OBSERVANCE));
 
         /**
          * Carnaval
@@ -59,13 +62,25 @@ class Brazil extends AbstractProvider
          * @link https://en.wikipedia.org/wiki/Brazilian_Carnival
          */
         if ($this->year >= 1700) {
+            $easter = $this->calculateEaster($this->year, $this->timezone);
+
+            $carnavalMonday = clone $easter;
             $this->addHoliday(new Holiday(
-                'carnavalDay',
-                ['pt_BR' => 'Carnaval'],
-                $this->calculateEaster($this->year, $this->timezone)->sub(new DateInterval('P51D')),
+                'carnavalMonday',
+                ['pt_BR' => 'Segunda-feira de Carnaval'],
+                $carnavalMonday->sub(new DateInterval('P48D')),
                 $this->locale,
                 Holiday::TYPE_OBSERVANCE
-            ));
+             ));
+
+            $carnavalTuesday = clone $easter;
+            $this->addHoliday(new Holiday(
+                'carnavalTuesday',
+                ['pt_BR' => 'Terça-feira de Carnaval'],
+                $carnavalTuesday->sub(new DateInterval('P47D')),
+                $this->locale,
+                Holiday::TYPE_OBSERVANCE
+             ));
         }
 
         /**

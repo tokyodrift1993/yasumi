@@ -2,12 +2,12 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 namespace Yasumi\Provider;
@@ -30,21 +30,24 @@ class Ukraine extends AbstractProvider
      * Code to identify this Holiday Provider.
      * Typically this is the ISO3166 code corresponding to the respective country or sub-region.
      */
-    const ID = 'UA';
+    public const ID = 'UA';
 
     /**
      * Initialize holidays for Ukraine.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->timezone = 'Europe/Kiev';
 
         // Add common holidays
         $this->addHoliday($this->newYearsDay($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->internationalWorkersDay($this->year, $this->timezone, $this->locale));
+        $this->addHoliday($this->internationalWomensDay($this->year, $this->timezone, $this->locale));
 
         // Add Christian holidays
         $this->addHoliday($this->easter($this->year, $this->timezone, $this->locale));
@@ -52,7 +55,6 @@ class Ukraine extends AbstractProvider
 
         // Add other holidays
         $this->calculateChristmasDay();
-        $this->calculateInternationalWomensDay();
         $this->calculateSecondInternationalWorkersDay();
         $this->calculateVictoryDay();
         $this->calculateConstitutionDay();
@@ -63,10 +65,12 @@ class Ukraine extends AbstractProvider
     /**
      * Christmas Day.
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
-    public function calculateChristmasDay()
+    private function calculateChristmasDay(): void
     {
         $this->addHoliday(new Holiday(
             'christmasDay',
@@ -77,35 +81,16 @@ class Ukraine extends AbstractProvider
     }
 
     /**
-     * International Women's Day.
-     *
-     * International Women's Day (IWD), originally called International Working Women's Day, is celebrated on March 8
-     * every year.
-     *
-     * @link https://en.wikipedia.org/wiki/International_Women%27s_Day
-     *
-     * @throws \InvalidArgumentException
-     * @throws \Yasumi\Exception\UnknownLocaleException
-     */
-    public function calculateInternationalWomensDay()
-    {
-        $this->addHoliday(new Holiday(
-            'internationalWomensDay',
-            ['uk_UA' => 'Міжнародний жіночий день', 'ru_UA' => 'Международный женский день'],
-            new \DateTime("$this->year-03-08", new \DateTimeZone($this->timezone)),
-            $this->locale
-        ));
-    }
-
-    /**
      * International Workers' Day.
      *
      * @link https://en.wikipedia.org/wiki/International_Workers%27_Day#Ukraine
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
-    public function calculateSecondInternationalWorkersDay()
+    private function calculateSecondInternationalWorkersDay(): void
     {
         $this->addHoliday(new Holiday('secondInternationalWorkersDay', [
             'uk_UA' => 'День міжнародної солідарності трудящих',
@@ -124,10 +109,12 @@ class Ukraine extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Victory_Day_over_Nazism_in_World_War_II
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
-    public function calculateVictoryDay()
+    private function calculateVictoryDay(): void
     {
         $this->addHoliday(new Holiday(
             'victoryDay',
@@ -144,10 +131,12 @@ class Ukraine extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Constitution_Day_(Ukraine)
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
-    public function calculateConstitutionDay()
+    private function calculateConstitutionDay(): void
     {
         if ($this->year < 1996) {
             return;
@@ -170,10 +159,12 @@ class Ukraine extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Declaration_of_Independence_of_Ukraine
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
-    public function calculateIndependenceDay()
+    private function calculateIndependenceDay(): void
     {
         if ($this->year < 1991) {
             return;
@@ -197,10 +188,12 @@ class Ukraine extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Defender_of_Ukraine_Day
      *
+     * @throws \Yasumi\Exception\InvalidDateException
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
      */
-    public function calculateDefenderOfUkraineDay()
+    private function calculateDefenderOfUkraineDay(): void
     {
         if ($this->year < 2015) {
             return;
@@ -219,8 +212,9 @@ class Ukraine extends AbstractProvider
      * @param string $timezone
      *
      * @return \DateTime
+     * @throws \Exception
      */
-    public function calculateEaster($year, $timezone)
+    public function calculateEaster($year, $timezone): \DateTime
     {
         return $this->calculateOrthodoxEaster($year, $timezone);
     }

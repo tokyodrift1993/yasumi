@@ -2,12 +2,12 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 // Translations for Second Christmas Day
@@ -25,11 +25,12 @@ return [
     'et_EE' => 'Teine Jõulupüha',
     'fi_FI' => '2. joulupäivä',
     'hu_HU' => 'Karácsony másnapja',
+    'ko_KR' => '성탄절 연휴',
     'lt_LT' => 'Kalėdos (antra diena)',
     'lv_LV' => 'Otrie Ziemassvētki',
     'nb_NO' => 'Andre juledag',
-    'nl_BE' => 'Tweede Kerstdag',
-    'nl_NL' => 'Tweede Kerstdag',
+    'nl_BE' => 'Tweede kerstdag',
+    'nl_NL' => 'Tweede kerstdag',
     'pl_PL' => 'drugi dzień Bożego Narodzenia',
     'ro_RO' => 'A doua zi de Crăciun',
     'sk_SK' => 'Druhý sviatok vianočný',

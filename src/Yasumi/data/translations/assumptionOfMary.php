@@ -2,12 +2,12 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 // Translations for Assumption of Mary
@@ -21,7 +21,7 @@ return [
     'es_ES' => 'Asunción de la Virgen María',
     'fr_BE' => 'Assomption',
     'fr_CH' => 'Assomption',
-    'fr_FR' => 'L\'Assomption de Marie',
+    'fr_FR' => 'Assomption',
     'hr_HR' => 'Velika Gospa',
     'it_CH' => 'Assunzione',
     'it_IT' => 'Assunzione di Maria Vergine',

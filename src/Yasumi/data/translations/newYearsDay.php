@@ -2,16 +2,17 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 // Translations for New Year's Day
 return [
+    'bs_Latn_BA' => 'Nova godina',
     'cs_CZ' => 'Den obnovy samostatného českého státu a Nový rok',
     'cy_GB' => 'Dydd Calan',
     'da_DK' => 'Nytårsdag',
@@ -38,6 +39,7 @@ return [
     'it_CH' => 'Capodanno',
     'it_IT' => 'Capodanno',
     'ja_JP' => '元日',
+    'ko_KR' => '새해',
     'lt_LT' => 'Naujųjų metų diena',
     'lv_LV' => 'Jaunais Gads',
     'nb_NO' => 'Første nyttårsdag',

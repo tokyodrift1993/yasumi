@@ -2,19 +2,20 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 // Translations for Christmas
 return [
+    'bs_Latn_BA' => 'Božić',
     'cs_CZ' => '1. svátek vánoční',
     'cy_GB' => 'Nadolig',
-    'da_DK' => '1. Juledag',
+    'da_DK' => 'Juledag',
     'de_AT' => 'Christtag',
     'de_CH' => 'Weihnachtstag',
     'de_DE' => '1. Weihnachtsfeiertag',
@@ -34,6 +35,7 @@ return [
     'hu_HU' => 'Karácsony',
     'it_CH' => 'Natale',
     'it_IT' => 'Natale',
+    'ko_KR' => '기독탄신일',
     'lt_LT' => 'Šv. Kalėdos',
     'lv_LV' => 'Ziemassvētki',
     'nb_NO' => 'Første juledag',

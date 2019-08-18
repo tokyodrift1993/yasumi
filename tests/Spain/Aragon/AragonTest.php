@@ -2,12 +2,12 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 namespace Yasumi\tests\Spain\Aragon;
@@ -26,14 +26,14 @@ class AragonTest extends AragonBaseTestCase
 
     /**
      * Tests if all official holidays in Aragon (Spain) are defined by the provider class
+     * @throws \ReflectionException
      */
-    public function testOfficialHolidays()
+    public function testOfficialHolidays(): void
     {
         $this->assertDefinedHolidays([
             'newYearsDay',
             'epiphany',
             'goodFriday',
-            'easter',
             'internationalWorkersDay',
             'assumptionOfMary',
             'nationalDay',
@@ -46,37 +46,40 @@ class AragonTest extends AragonBaseTestCase
 
     /**
      * Tests if all observed holidays in Aragon are defined by the provider class
+     * @throws \ReflectionException
      */
-    public function testObservedHolidays()
+    public function testObservedHolidays(): void
     {
-        $this->assertDefinedHolidays(
-            ['maundyThursday', 'stGeorgesDay'],
-            self::REGION,
-            $this->year,
-            Holiday::TYPE_OBSERVANCE
-        );
+        $this->assertDefinedHolidays([
+            'maundyThursday',
+            'easter',
+            'stGeorgesDay',
+        ], self::REGION, $this->year, Holiday::TYPE_OBSERVANCE);
     }
 
     /**
      * Tests if all seasonal holidays in Aragon are defined by the provider class
+     * @throws \ReflectionException
      */
-    public function testSeasonalHolidays()
+    public function testSeasonalHolidays(): void
     {
         $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_SEASON);
     }
 
     /**
      * Tests if all bank holidays in Aragon are defined by the provider class
+     * @throws \ReflectionException
      */
-    public function testBankHolidays()
+    public function testBankHolidays(): void
     {
         $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_BANK);
     }
 
     /**
      * Tests if all other holidays in Aragon are defined by the provider class
+     * @throws \ReflectionException
      */
-    public function testOtherHolidays()
+    public function testOtherHolidays(): void
     {
         $this->assertDefinedHolidays(['valentinesDay'], self::REGION, $this->year, Holiday::TYPE_OTHER);
     }

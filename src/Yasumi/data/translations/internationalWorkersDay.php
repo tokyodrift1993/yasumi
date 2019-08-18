@@ -2,17 +2,19 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 // Translations for International Workers' Day
 return [
+    'bs_Latn_BA' => 'Praznik rada',
     'cs_CZ' => 'Svátek práce',
+    'da_DK' => 'Første maj',
     'de_AT' => 'Staatsfeiertag',
     'de_CH' => 'Tag der Arbeit',
     'de_DE' => 'Tag der Arbeit',
@@ -31,6 +33,7 @@ return [
     'it_CH' => 'Festa dei lavoratori',
     'it_IT' => 'Festa del Lavoro',
     'ja_JP' => '労働の日',
+    'ko_KR' => '노동절',
     'lt_LT' => 'Tarptautinė darbo diena',
     'lv_LV' => 'Darba svētki',
     'nb_NO' => 'Arbeidernes dag',

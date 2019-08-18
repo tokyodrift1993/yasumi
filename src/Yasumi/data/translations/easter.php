@@ -2,16 +2,17 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 // Translations for Easter Sunday
 return [
+    'bs_Latn_BA' => 'Uskrs',
     'cy_GB' => 'Sul y Pasg',
     'da_DK' => 'Påskedag',
     'de_AT' => 'Ostersonntag',
@@ -24,6 +25,7 @@ return [
     'fi_FI' => 'Pääsiäispäivä',
     'fr_BE' => 'Pâques',
     'fr_CH' => 'Pâques',
+    'fr_FR' => 'Pâques',
     'ga_IE' => 'Domhnach Cásca',
     'hr_HR' => 'Uskrs',
     'hu_HU' => 'Húsvét',
@@ -32,8 +34,8 @@ return [
     'lt_LT' => 'Velykos',
     'lv_LV' => 'Lieldienas',
     'nb_NO' => 'Første påskedag',
-    'nl_BE' => 'Eerste Paasdag',
-    'nl_NL' => 'Eerste Paasdag',
+    'nl_BE' => 'Eerste paasdag',
+    'nl_NL' => 'Eerste paasdag',
     'pl_PL' => 'Wielkanoc',
     'pt_BR' => 'Páscoa',
     'pt_PT' => 'Páscoa',

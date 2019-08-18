@@ -2,12 +2,12 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 // List of possible locales. This list is used in case the 'intl' extension is not loaded/available.
@@ -72,6 +72,8 @@ return [
     'ca_ES_VALENCIA',
     'ca_FR',
     'ca_IT',
+    'ccp_BD',
+    'ccp_IN',
     'ce_RU',
     'cgg_UG',
     'chr_US',
@@ -236,6 +238,19 @@ return [
     'fa_IR',
     'ff_CM',
     'ff_GN',
+    'ff_Latn',
+    'ff_Latn_BF',
+    'ff_Latn_CM',
+    'ff_Latn_GH',
+    'ff_Latn_GM',
+    'ff_Latn_GN',
+    'ff_Latn_GW',
+    'ff_Latn_LR',
+    'ff_Latn_MR',
+    'ff_Latn_NE',
+    'ff_Latn_NG',
+    'ff_Latn_SL',
+    'ff_Latn_SN',
     'ff_MR',
     'ff_SN',
     'fi_FI',
@@ -310,6 +325,7 @@ return [
     'hsb_DE',
     'hu_HU',
     'hy_AM',
+    'ia_001',
     'id_ID',
     'ig_NG',
     'ii_CN',
@@ -321,6 +337,7 @@ return [
     'ja_JP',
     'jgo_CM',
     'jmc_TZ',
+    'jv_ID',
     'ka_GE',
     'kab_DZ',
     'kam_KE',
@@ -341,6 +358,7 @@ return [
     'ksb_TZ',
     'ksf_CM',
     'ksh_DE',
+    'ku_TR',
     'kw_GB',
     'ky_KG',
     'lag_TZ',
@@ -366,6 +384,7 @@ return [
     'mg_MG',
     'mgh_MZ',
     'mgo_CM',
+    'mi_NZ',
     'mk_MK',
     'ml_IN',
     'mn_MN',
@@ -439,6 +458,7 @@ return [
     'sah_RU',
     'saq_KE',
     'sbp_TZ',
+    'sd_PK',
     'se_FI',
     'se_NO',
     'se_SE',
@@ -485,6 +505,7 @@ return [
     'te_IN',
     'teo_KE',
     'teo_UG',
+    'tg_TJ',
     'th_TH',
     'ti_ER',
     'ti_ET',
@@ -492,6 +513,7 @@ return [
     'to_TO',
     'tr_CY',
     'tr_TR',
+    'tt_RU',
     'twq_NE',
     'tzm_MA',
     'ug_CN',
@@ -511,11 +533,17 @@ return [
     'vi_VN',
     'vun_TZ',
     'wae_CH',
+    'wo_SN',
+    'xh_ZA',
     'xog_UG',
     'yav_CM',
     'yo_BJ',
     'yo_NG',
     'yue_HK',
+    'yue_Hans',
+    'yue_Hans_CN',
+    'yue_Hant',
+    'yue_Hant_HK',
     'zgh_MA',
     'zh_Hans',
     'zh_Hans_CN',

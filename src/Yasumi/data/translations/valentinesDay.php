@@ -2,12 +2,12 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 // Translations for Valentine's Day
@@ -20,6 +20,7 @@ return [
     'fr_CH' => 'Saint-Valentin',
     'it_CH' => 'San Valentino',
     'ja_JP' => 'バレンタイン·デー',
+    'ko_KR' => '발렌타인 데이',
     'nl_BE' => 'Valentijnsdag',
     'nl_NL' => 'Valentijnsdag',
     'pl_PL' => 'Walentynki',

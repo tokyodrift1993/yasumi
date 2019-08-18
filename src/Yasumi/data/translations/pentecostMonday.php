@@ -2,17 +2,17 @@
 /**
  * This file is part of the Yasumi package.
  *
- * Copyright (c) 2015 - 2018 AzuyaLabs
+ * Copyright (c) 2015 - 2019 AzuyaLabs
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <me@sachatelgenhof.com>
  */
 
 // Translations for Whitmonday
 return [
-    'da_DK' => '2. Pinsedag',
+    'da_DK' => '2. pinsedag',
     'de_AT' => 'Pfingstmontag',
     'de_CH' => 'Pfingstmontag',
     'de_DE' => 'Pfingstmontag',
@@ -27,6 +27,6 @@ return [
     'it_CH' => 'Lunedi di Pentecoste',
     'nb_NO' => 'Andre pinsedag',
     'nl_BE' => 'Pinkstermaandag',
-    'nl_NL' => 'Tweede Pinksterdag',
+    'nl_NL' => 'Tweede pinksterdag',
     'ro_RO' => 'A doua zi de Rusalii',
 ];
