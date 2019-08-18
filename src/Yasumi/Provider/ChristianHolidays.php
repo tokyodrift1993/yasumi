@@ -886,7 +886,7 @@ trait ChristianHolidays
      * @throws \Yasumi\Exception\UnknownLocaleException
      * @throws \InvalidArgumentException
      */
-    public function stPeterPaulsDay($year, $timezone, $locale, $type = Holiday::TYPE_NATIONAL)
+    public function stPeterPaulsDay($year, $timezone, $locale, $type = Holiday::TYPE_OFFICIAL)
     {
         return new Holiday(
             'stPeterPaulsDay',

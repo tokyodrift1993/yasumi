@@ -28,7 +28,7 @@ class ChileTest extends ChileBaseTestCase
     /**
      * Tests if all national holidays in Chile are defined by the provider class
      */
-    public function testNationalHolidays()
+    public function testNationalHolidays(): void
     {
         $nationalHolidays = ['newYearsDay', 'goodFriday', 'stPeterPaulsDay', 'assumptionOfMary'];
 
@@ -56,13 +56,13 @@ class ChileTest extends ChileBaseTestCase
             $nationalHolidays[] = 'navyDay';
         }
 
-        $this->assertDefinedHolidays($nationalHolidays, self::REGION, $this->year, Holiday::TYPE_NATIONAL);
+        $this->assertDefinedHolidays($nationalHolidays, self::REGION, $this->year, Holiday::TYPE_OFFICIAL);
     }
 
     /**
      * Tests if all observed holidays in Chile are defined by the provider class
      */
-    public function testObservedHolidays()
+    public function testObservedHolidays(): void
     {
         $observedHolidays = ['holySaturday'];
 
@@ -80,7 +80,7 @@ class ChileTest extends ChileBaseTestCase
     /**
      * Tests if all seasonal holidays in Chile are defined by the provider class
      */
-    public function testSeasonalHolidays()
+    public function testSeasonalHolidays(): void
     {
         $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_SEASON);
     }
@@ -88,7 +88,7 @@ class ChileTest extends ChileBaseTestCase
     /**
      * Tests if all bank holidays in Chile are defined by the provider class
      */
-    public function testBankHolidays()
+    public function testBankHolidays(): void
     {
         $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_BANK);
     }
@@ -96,7 +96,7 @@ class ChileTest extends ChileBaseTestCase
     /**
      * Tests if all other holidays in Chile are defined by the provider class
      */
-    public function testOtherHolidays()
+    public function testOtherHolidays(): void
     {
         $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_OTHER);
     }
@@ -104,7 +104,7 @@ class ChileTest extends ChileBaseTestCase
     /**
      * Initial setup of this Test Case
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->year = $this->generateRandomYear(1000);
     }

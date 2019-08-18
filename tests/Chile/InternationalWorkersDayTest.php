@@ -25,7 +25,7 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
     /**
      * The name of the holiday
      */
-    const HOLIDAY = 'internationalWorkersDay';
+    public const HOLIDAY = 'internationalWorkersDay';
 
     /**
      * The year in which the holiday was first established
@@ -97,7 +97,7 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
             self::REGION,
             self::HOLIDAY,
             $this->generateRandomYear(self::ESTABLISHMENT_YEAR),
-            Holiday::TYPE_NATIONAL
+            Holiday::TYPE_OFFICIAL
         );
     }
 }

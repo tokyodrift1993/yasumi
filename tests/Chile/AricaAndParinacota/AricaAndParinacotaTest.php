@@ -12,9 +12,10 @@
 
 namespace Yasumi\tests\Chile\AricaAndParinacota;
 
+use ReflectionException;
 use Yasumi\Holiday;
 
-/**
+/**Class
  * Class for testing holidays in Arica and Parinacota (Chile).
  */
 class AricaAndParinacotaTest extends AricaAndParinacotaBaseTestCase
@@ -26,8 +27,10 @@ class AricaAndParinacotaTest extends AricaAndParinacotaBaseTestCase
 
     /**
      * Tests if all national holidays in Arica and Parinacota are defined by the provider class
+     *
+     * @throws ReflectionException
      */
-    public function testNationalHolidays()
+    public function testNationalHolidays(): void
     {
         $nationalHolidays = ['newYearsDay', 'goodFriday', 'stPeterPaulsDay', 'assumptionOfMary'];
 
@@ -57,37 +60,45 @@ class AricaAndParinacotaTest extends AricaAndParinacotaBaseTestCase
 
         $nationalHolidays[] = 'battleOfArica';
 
-        $this->assertDefinedHolidays($nationalHolidays, self::REGION, $this->year, Holiday::TYPE_NATIONAL);
+        $this->assertDefinedHolidays($nationalHolidays, self::REGION, $this->year, Holiday::TYPE_OFFICIAL);
     }
 
     /**
      * Tests if all observed holidays in Arica and Parinacota are defined by the provider class
+     *
+     * @throws ReflectionException
      */
-    public function testObservedHolidays()
+    public function testObservedHolidays(): void
     {
         $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_OBSERVANCE);
     }
 
     /**
      * Tests if all seasonal holidays in Arica and Parinacota are defined by the provider class
+     *
+     * @throws ReflectionException
      */
-    public function testSeasonalHolidays()
+    public function testSeasonalHolidays(): void
     {
         $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_SEASON);
     }
 
     /**
      * Tests if all bank holidays in Arica and Parinacota are defined by the provider class
+     *
+     * @throws ReflectionException
      */
-    public function testBankHolidays()
+    public function testBankHolidays(): void
     {
         $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_BANK);
     }
 
     /**
      * Tests if all other holidays in Arica and Parinacota are defined by the provider class
+     *
+     * @throws ReflectionException
      */
-    public function testOtherHolidays()
+    public function testOtherHolidays(): void
     {
         $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_OTHER);
     }

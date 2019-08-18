@@ -37,7 +37,7 @@ class AricaAndParinacota extends Chile
      * Code to identify this Holiday Provider. Typically this is the ISO3166 code corresponding to the respective
      * country or sub-region.
      */
-    const ID = 'CL-AP';
+    public const ID = 'CL-AP';
 
     /**
      * Initialize holidays for Arica and Parinacota (Chile).
@@ -64,8 +64,10 @@ class AricaAndParinacota extends Chile
      *
      * @throws \InvalidArgumentException
      * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws \Exception
+     * @throws \Exception
      */
-    public function calculateBattleOfArica()
+    public function calculateBattleOfArica(): void
     {
         if ($this->year >= 2013) {
             $this->addHoliday(new Holiday(

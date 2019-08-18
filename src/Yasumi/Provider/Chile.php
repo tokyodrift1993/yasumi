@@ -28,12 +28,14 @@ class Chile extends AbstractProvider
      * Code to identify this Holiday Provider. Typically this is the ISO3166 code corresponding to the respective
      * country or sub-region.
      */
-    const ID = 'CL';
+    public const ID = 'CL';
 
     /**
      * Initialize holidays for Chile.
      *
      * @throws \InvalidArgumentException
+     * @throws \Exception
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -65,8 +67,10 @@ class Chile extends AbstractProvider
      * @link https://www.leychile.cl/Navegar?idNorma=1098384&idParte=&idVersion=2016-12-30
      *
      * @throws \InvalidArgumentException
+     * @throws \Exception
+     * @throws \Exception
      */
-    private function calculateNewYearsDay()
+    private function calculateNewYearsDay(): void
     {
         // Add regular New Years Day Holiday
         $holiday = $this->newYearsDay($this->year, $this->timezone, $this->locale);
@@ -95,8 +99,10 @@ class Chile extends AbstractProvider
      * @link http://www.feriadoschilenos.cl/index.html#singular.21.04.1982
      *
      * @throws \InvalidArgumentException
+     * @throws \Exception
+     * @throws \Exception
      */
-    private function calculateCensusDay1982()
+    private function calculateCensusDay1982(): void
     {
         if ($this->year !== 1982) {
             return;
@@ -122,8 +128,10 @@ class Chile extends AbstractProvider
      * @link http://www.feriadoschilenos.cl/index.html#singular.22.04.1992
      *
      * @throws \InvalidArgumentException
+     * @throws \Exception
+     * @throws \Exception
      */
-    private function calculateCensusDay1992()
+    private function calculateCensusDay1992(): void
     {
         if ($this->year !== 1992) {
             return;
@@ -149,8 +157,10 @@ class Chile extends AbstractProvider
      * @link http://www.feriadoschilenos.cl/index.html#singular.24.04.2002
      *
      * @throws \InvalidArgumentException
+     * @throws \Exception
+     * @throws \Exception
      */
-    private function calculateCensusDay2002()
+    private function calculateCensusDay2002(): void
     {
         if ($this->year !== 2002) {
             return;
@@ -179,8 +189,10 @@ class Chile extends AbstractProvider
      * @link http://www.feriadoschilenos.cl/#singular.19.04.2017
      *
      * @throws \InvalidArgumentException
+     * @throws \Exception
+     * @throws \Exception
      */
-    private function calculateCensusDay2017()
+    private function calculateCensusDay2017(): void
     {
         if ($this->year !== 2017) {
             return;
@@ -203,8 +215,9 @@ class Chile extends AbstractProvider
      * @link http://www.feriadoschilenos.cl/index.html#DiaNacionalDelTrabajo
      *
      * @throws \InvalidArgumentException
+     * @throws \Exception
      */
-    private function calculateInternationalWorkersDay()
+    private function calculateInternationalWorkersDay(): void
     {
         if ($this->year < 1932) {
             return;
@@ -224,8 +237,10 @@ class Chile extends AbstractProvider
      * @link https://en.wikipedia.org/wiki/Navy_Day_(Chile)
      * @link http://www.feriadoschilenos.cl/index.html#DiaDeLasGloriasNavales
      * @throws \InvalidArgumentException
+     * @throws \Exception
+     * @throws \Exception
      */
-    private function calculateNavyDay()
+    private function calculateNavyDay(): void
     {
         if ($this->year < 1915) {
             return;
@@ -250,8 +265,9 @@ class Chile extends AbstractProvider
      * @link https://www.leychile.cl/Navegar?idNorma=160270
      *
      * @throws \InvalidArgumentException
+     * @throws \Exception
      */
-    private function calculatestPeterPaulsDay()
+    private function calculatestPeterPaulsDay(): void
     {
         // Add regular New Years Day Holiday
         $holiday = $this->stPeterPaulsDay($this->year, $this->timezone, $this->locale);
@@ -260,7 +276,7 @@ class Chile extends AbstractProvider
         if ($this->year >= 2000) {
             $substituteHoliday = clone $holiday;
 
-            if (in_array((int)$holiday->format('w'), [2, 3, 4], true)) {
+            if (\in_array((int)$holiday->format('w'), [2, 3, 4], true)) {
                 $substituteHoliday->modify('previous monday');
             } elseif (5 === (int)$holiday->format('w')) {
                 $substituteHoliday->modify('next monday');

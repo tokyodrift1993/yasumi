@@ -14,6 +14,8 @@ namespace Yasumi\tests\Chile;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
+use ReflectionException;
 use Yasumi\Holiday;
 use Yasumi\tests\YasumiTestCaseInterface;
 
@@ -25,15 +27,18 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
     /**
      * The name of the holiday to be tested
      */
-    const HOLIDAY = 'newYearsDay';
+    public const HOLIDAY = 'newYearsDay';
 
     /**
      * Tests the holiday defined in this test.
      *
      * @dataProvider HolidayDataProvider
      *
-     * @param int      $year     the year for which the holiday defined in this test needs to be tested
+     * @param int $year the year for which the holiday defined in this test needs to be tested
      * @param DateTime $expected the expected date
+     *
+     * @throws ReflectionException
+     * @throws Exception
      */
     public function testHoliday($year, $expected)
     {
@@ -57,8 +62,10 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
      * Returns a list of random test dates used for assertion of the holiday defined in this test
      *
      * @return array list of test dates for the holiday defined in this test
+     *
+     * @throws Exception
      */
-    public function HolidayDataProvider()
+    public function HolidayDataProvider(): array
     {
         $data = [];
 
@@ -73,8 +80,10 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
 
     /**
      * Tests the translated name of the holiday defined in this test.
+     *
+     * @throws ReflectionException
      */
-    public function testTranslation()
+    public function testTranslation():void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -86,9 +95,11 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
 
     /**
      * Tests type of the holiday defined in this test.
+     *
+     * @throws ReflectionException
      */
-    public function testHolidayType()
+    public function testHolidayType():void
     {
-        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_OFFICIAL);
     }
 }
