@@ -108,6 +108,8 @@ class AricaAndParinacotaTest extends AricaAndParinacotaBaseTestCase
      */
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->year = $this->generateRandomYear(1981);
     }
 }

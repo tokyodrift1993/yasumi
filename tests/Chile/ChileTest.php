@@ -117,6 +117,8 @@ class ChileTest extends ChileBaseTestCase
      */
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->year = $this->generateRandomYear();
     }
 }
