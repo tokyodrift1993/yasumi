@@ -39,19 +39,19 @@ class ChileTest extends ChileBaseTestCase
             $nationalHolidays[] = 'internationalWorkersDay';
         }
 
-        if ($this->year === 1982) {
+        if (1982 === $this->year) {
             $nationalHolidays[] = '1982CensusDay';
         }
 
-        if ($this->year === 1992) {
+        if (1992 === $this->year) {
             $nationalHolidays[] = '1992CensusDay';
         }
 
-        if ($this->year === 2002) {
+        if (2002 === $this->year) {
             $nationalHolidays[] = '2002CensusDay';
         }
 
-        if ($this->year === 2017) {
+        if (2017 === $this->year) {
             $nationalHolidays[] = '2017CensusDay';
         }
 
@@ -74,7 +74,7 @@ class ChileTest extends ChileBaseTestCase
         // Law 20,983 declares a holiday on days that are Monday January 2 (2017 going forward)
         if ($this->year >= 2017) {
             $new_years_day = new DateTime("$this->year-1-1");
-            if ($new_years_day->format('w') === 0) {
+            if (0 === $new_years_day->format('w')) {
                 $observedHolidays[] = 'substituteHoliday:newYearsDay';
             }
         }

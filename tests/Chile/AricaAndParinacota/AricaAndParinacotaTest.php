@@ -38,11 +38,11 @@ class AricaAndParinacotaTest extends AricaAndParinacotaBaseTestCase
             $nationalHolidays[] = 'internationalWorkersDay';
         }
 
-        if ($this->year === 1982) {
+        if (1982 === $this->year) {
             $nationalHolidays[] = '1982CensusDay';
         }
 
-        if ($this->year === 1992) {
+        if (1992 === $this->year) {
             $nationalHolidays[] = '1992CensusDay';
         }
 
@@ -106,7 +106,7 @@ class AricaAndParinacotaTest extends AricaAndParinacotaBaseTestCase
     /**
      * Initial setup of this Test Case
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->year = $this->generateRandomYear(1981);
     }
