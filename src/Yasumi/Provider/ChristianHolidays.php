@@ -546,7 +546,7 @@ trait ChristianHolidays
      * @throws \Exception
      * @throws \Exception
      */
-    public function holySaturday($year, $timezone, $locale, $type = null)
+    public function holySaturday($year, $timezone, $locale, $type = null): Holiday
     {
         return new Holiday(
             'holySaturday',
@@ -970,7 +970,7 @@ trait ChristianHolidays
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
-    public function stPeterPaulsDay(int $year, string $timezone, string $locale, string $type = null)
+    public function stPeterPaulsDay(int $year, string $timezone, string $locale, string $type = null): Holiday
     {
         return new Holiday(
             'stPeterPaulsDay',
