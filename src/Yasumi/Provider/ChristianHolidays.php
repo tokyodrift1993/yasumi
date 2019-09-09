@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of the Yasumi package.
  *
@@ -15,6 +15,8 @@ namespace Yasumi\Provider;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use Yasumi\Exception\InvalidDateException;
+use Yasumi\Exception\UnknownLocaleException;
 use Yasumi\Holiday;
 
 /**
@@ -34,22 +36,101 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/Easter
      *
-     * @param int    $year     the year for which Easter need to be created
+     * @param int $year the year for which Easter need to be created
      * @param string $timezone the timezone in which Easter is celebrated
-     * @param string $locale   the locale for which Easter need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Easter need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
     public function easter(int $year, string $timezone, string $locale, string $type = Holiday::TYPE_OFFICIAL): Holiday
     {
-        return new Holiday('easter', [], $easter = $this->calculateEaster($year, $timezone), $locale, $type);
+        return new Holiday('easter', [], $this->calculateEaster($year, $timezone), $locale, $type);
+    }
+
+    /**
+     * Calculates the date for Easter.
+     *
+     * Easter is a festival and holiday celebrating the resurrection of Jesus Christ from the dead. Easter is celebrated
+     * on a date based on a certain number of days after March 21st.
+     *
+     * This function uses the standard PHP 'easter_days' function if the calendar extension is enabled. In case the
+     * calendar function is not enabled, a fallback calculation has been implemented that is based on the same
+     * 'easter_days' c function.
+     *
+     * Note: In calendrical calculations, frequently operations called integer division are used.
+     *
+     * @param int $year the year for which Easter needs to be calculated
+     * @param string $timezone the timezone in which Easter is celebrated
+     *
+     * @return DateTime date of Easter
+     * @throws \Exception
+     * @see  easter_days
+     *
+     * @link https://github.com/php/php-src/blob/c8aa6f3a9a3d2c114d0c5e0c9fdd0a465dbb54a5/ext/calendar/easter.c
+     * @link http://www.gmarts.org/index.php?go=415#EasterMallen
+     * @link http://www.tondering.dk/claus/cal/easter.php
+     *
+     */
+    protected function calculateEaster(int $year, string $timezone): DateTime
+    {
+        if (\extension_loaded('calendar')) {
+            $easter_days = \easter_days($year);
+        } else {
+            $golden = ($year % 19) + 1; // The Golden Number
+
+            // The Julian calendar applies to the original method from 326AD. The Gregorian calendar was first
+            // introduced in October 1582 in Italy. Easter algorithms using the Gregorian calendar apply to years
+            // 1583 AD to 4099 (A day adjustment is required in or shortly after 4100 AD).
+            // After 1752, most western churches have adopted the current algorithm.
+            if ($year <= 1752) {
+                $dom = ($year + (int)($year / 4) + 5) % 7; // The 'Dominical number' - finding a Sunday
+                if ($dom < 0) {
+                    $dom += 7;
+                }
+
+                $pfm = (3 - (11 * $golden) - 7) % 30; // Uncorrected date of the Paschal full moon
+                if ($pfm < 0) {
+                    $pfm += 30;
+                }
+            } else {
+                $dom = ($year + (int)($year / 4) - (int)($year / 100) + (int)($year / 400)) % 7; // The 'Dominical number' - finding a Sunday
+                if ($dom < 0) {
+                    $dom += 7;
+                }
+
+                $solar = (int)(($year - 1600) / 100) - (int)(($year - 1600) / 400); // The solar correction
+                $lunar = (int)(((int)(($year - 1400) / 100) * 8) / 25); // The lunar correction
+
+                $pfm = (3 - (11 * $golden) + $solar - $lunar) % 30; // Uncorrected date of the Paschal full moon
+                if ($pfm < 0) {
+                    $pfm += 30;
+                }
+            }
+
+            // Corrected date of the Paschal full moon, - days after 21st March
+            if ((29 === $pfm) || (28 === $pfm && $golden > 11)) {
+                --$pfm;
+            }
+
+            $tmp = (4 - $pfm - $dom) % 7;
+            if ($tmp < 0) {
+                $tmp += 7;
+            }
+
+            $easter_days = $pfm + $tmp + 1; // Easter as the number of days after 21st March
+        }
+
+        $easter = new DateTime("$year-3-21", new DateTimeZone($timezone));
+        $easter->add(new DateInterval('P' . $easter_days . 'D'));
+
+        return $easter;
     }
 
     /**
@@ -61,16 +142,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/Easter
      *
-     * @param int    $year     the year for which Easter Monday need to be created
+     * @param int $year the year for which Easter Monday need to be created
      * @param string $timezone the timezone in which Easter Monday is celebrated
-     * @param string $locale   the locale for which Easter Monday need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Easter Monday need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -98,16 +179,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/Feast_of_the_Ascension
      *
-     * @param int    $year     the year for which Ascension need to be created
+     * @param int $year the year for which Ascension need to be created
      * @param string $timezone the timezone in which Ascension is celebrated
-     * @param string $locale   the locale for which Ascension need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Ascension need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -132,16 +213,16 @@ trait ChristianHolidays
      * Pentecost a feast commemorating the descent of the Holy Spirit upon the Apostles and other followers of Jesus
      * Christ. It is celebrated 49 days after Easter and always takes place on Sunday.
      *
-     * @param int    $year     the year for which Pentecost need to be created
+     * @param int $year the year for which Pentecost need to be created
      * @param string $timezone the timezone in which Pentecost is celebrated
-     * @param string $locale   the locale for which Pentecost need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Pentecost need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -166,16 +247,16 @@ trait ChristianHolidays
      * Pentecost a feast commemorating the descent of the Holy Spirit upon the Apostles and other followers of Jesus
      * Christ. It is celebrated 49 days after Easter and always takes place on Sunday.
      *
-     * @param int    $year     the year for which Pentecost (Whitmonday) need to be created
+     * @param int $year the year for which Pentecost (Whitmonday) need to be created
      * @param string $timezone the timezone in which Pentecost (Whitmonday) is celebrated
-     * @param string $locale   the locale for which Pentecost (Whitmonday) need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Pentecost (Whitmonday) need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -203,16 +284,16 @@ trait ChristianHolidays
      * The Most Holy Body and Blood of Christ is not a holy day of obligation, it is assigned to the Sunday after the
      * Most Holy Trinity as its proper day". This is 60 days after Easter.
      *
-     * @param int    $year     the year for which Corpus Christi need to be created
+     * @param int $year the year for which Corpus Christi need to be created
      * @param string $timezone the timezone in which Corpus Christi is celebrated
-     * @param string $locale   the locale for which Corpus Christi need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Corpus Christi need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default a type of 'other' is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -241,16 +322,16 @@ trait ChristianHolidays
      *
      * @link https://en.wikipedia.org/wiki/Christmas_Eve
      *
-     * @param int    $year     the year for which Christmas Eve needs to be created
+     * @param int $year the year for which Christmas Eve needs to be created
      * @param string $timezone the timezone in which Christmas Eve is celebrated
-     * @param string $locale   the locale for which Christmas Eve need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Christmas Eve need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default observance is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -276,16 +357,16 @@ trait ChristianHolidays
      * commemorating the birth of Jesus Christ, observed most commonly on December 25 as a religious and cultural
      * celebration among billions of people around the world.
      *
-     * @param int    $year     the year for which Christmas Day need to be created
+     * @param int $year the year for which Christmas Day need to be created
      * @param string $timezone the timezone in which Christmas Day is celebrated
-     * @param string $locale   the locale for which Christmas Day need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Christmas Day need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -311,16 +392,16 @@ trait ChristianHolidays
      * commemorating the birth of Jesus Christ, observed most commonly on December 25 as a religious and cultural
      * celebration among billions of people around the world.
      *
-     * @param int    $year     the year for which the Second Christmas Day / Boxing Day need to be created
+     * @param int $year the year for which the Second Christmas Day / Boxing Day need to be created
      * @param string $timezone the timezone in which the Second Christmas Day / Boxing Day is celebrated
-     * @param string $locale   the locale for which the Second Christmas Day / Boxing Day need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which the Second Christmas Day / Boxing Day need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -349,16 +430,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/All_Saints%27_Day
      *
-     * @param int    $year     the year for which All Saints' Day need to be created
+     * @param int $year the year for which All Saints' Day need to be created
      * @param string $timezone the timezone in which All Saints' Day is celebrated
-     * @param string $locale   the locale for which All Saints' Day need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which All Saints' Day need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -380,16 +461,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/Assumption_of_Mary
      *
-     * @param int    $year     the year for which the day of the Assumption of Mary need to be created
+     * @param int $year the year for which the day of the Assumption of Mary need to be created
      * @param string $timezone the timezone in which the day of the Assumption of Mary is celebrated
-     * @param string $locale   the locale for which the day of the Assumption of Mary need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which the day of the Assumption of Mary need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -415,16 +496,16 @@ trait ChristianHolidays
      * Calvary. The holiday is observed during Holy Week as part of the Paschal Triduum on the Friday preceding Easter
      * Sunday, and may coincide with the Jewish observance of Passover.
      *
-     * @param int    $year     the year for which Good Friday need to be created
+     * @param int $year the year for which Good Friday need to be created
      * @param string $timezone the timezone in which Good Friday is celebrated
-     * @param string $locale   the locale for which Good Friday need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Good Friday need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -485,16 +566,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/Epiphany_(holiday)
      *
-     * @param int    $year     the year for which Epiphany need to be created
+     * @param int $year the year for which Epiphany need to be created
      * @param string $timezone the timezone in which Epiphany is celebrated
-     * @param string $locale   the locale for which Epiphany need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Epiphany need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -516,16 +597,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/Ash_Wednesday
      *
-     * @param int    $year     the year for which Ash Wednesday need to be created
+     * @param int $year the year for which Ash Wednesday need to be created
      * @param string $timezone the timezone in which Ash Wednesday is celebrated
-     * @param string $locale   the locale for which Ash Wednesday need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Ash Wednesday need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -554,16 +635,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/Feast_of_the_Immaculate_Conception
      *
-     * @param int    $year     the year for which Immaculate Conception need to be created
+     * @param int $year the year for which Immaculate Conception need to be created
      * @param string $timezone the timezone in which Immaculate Conception is celebrated
-     * @param string $locale   the locale for which Immaculate Conception need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Immaculate Conception need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -593,16 +674,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/St._Stephen%27s_Day
      *
-     * @param int    $year     the year for which St. Stephen's Day need to be created
+     * @param int $year the year for which St. Stephen's Day need to be created
      * @param string $timezone the timezone in which St. Stephen's Day is celebrated
-     * @param string $locale   the locale for which St. Stephen's Day need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which St. Stephen's Day need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -632,16 +713,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/St_Joseph's_Day
      *
-     * @param int    $year     the year for which St. Joseph's Day need to be created
+     * @param int $year the year for which St. Joseph's Day need to be created
      * @param string $timezone the timezone in which St. Joseph's Day is celebrated
-     * @param string $locale   the locale for which St. Joseph's Day need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which St. Joseph's Day need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -664,16 +745,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/Maundy_Thursday
      *
-     * @param int    $year     the year for which Maundy Thursday need to be created
+     * @param int $year the year for which Maundy Thursday need to be created
      * @param string $timezone the timezone in which Maundy Thursday is celebrated
-     * @param string $locale   the locale for which Maundy Thursday need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Maundy Thursday need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -702,16 +783,16 @@ trait ChristianHolidays
      *
      * @link http://en.wikipedia.org/wiki/St_George%27s_Day
      *
-     * @param int    $year     the year for which St. George's Day need to be created
+     * @param int $year the year for which St. George's Day need to be created
      * @param string $timezone the timezone in which St. George's Day is celebrated
-     * @param string $locale   the locale for which St. George's Day need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which St. George's Day need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -735,16 +816,16 @@ trait ChristianHolidays
      *
      * @link https://en.wikipedia.org/wiki/Nativity_of_St_John_the_Baptist
      *
-     * @param int    $year     the year for which St. John's Day need to be created
+     * @param int $year the year for which St. John's Day need to be created
      * @param string $timezone the timezone in which St. John's Day is celebrated
-     * @param string $locale   the locale for which St. John's Day need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which St. John's Day need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -768,16 +849,16 @@ trait ChristianHolidays
      *
      * @link https://en.wikipedia.org/wiki/Annunciation
      *
-     * @param int    $year     the year for which the Annunciation needs to be created
+     * @param int $year the year for which the Annunciation needs to be created
      * @param string $timezone the timezone in which the Annunciation is celebrated
-     * @param string $locale   the locale for which the Annunciation need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which the Annunciation need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
@@ -799,24 +880,24 @@ trait ChristianHolidays
     /**
      * Calculate the Easter date for Orthodox churches.
      *
-     * @param int    $year     the year for which Easter needs to be calculated
+     * @param int $year the year for which Easter needs to be calculated
      * @param string $timezone the timezone in which Easter is celebrated
      *
-     * @return \DateTime date of Orthodox Easter
+     * @return DateTime date of Orthodox Easter
      *
-     * @link http://php.net/manual/en/function.easter-date.php#83794
-     * @link https://en.wikipedia.org/wiki/Computus#Adaptation_for_Western_Easter_of_Meeus.27_Julian_algorithm
      * @throws \Exception
+     * @link https://en.wikipedia.org/wiki/Computus#Adaptation_for_Western_Easter_of_Meeus.27_Julian_algorithm
+     * @link http://php.net/manual/en/function.easter-date.php#83794
      */
-    public function calculateOrthodoxEaster(int $year, string $timezone): \DateTime
+    public function calculateOrthodoxEaster(int $year, string $timezone): DateTime
     {
-        $a     = $year % 4;
-        $b     = $year % 7;
-        $c     = $year % 19;
-        $d     = (19 * $c + 15) % 30;
-        $e     = (2 * $a + 4 * $b - $d + 34) % 7;
+        $a = $year % 4;
+        $b = $year % 7;
+        $c = $year % 19;
+        $d = (19 * $c + 15) % 30;
+        $e = (2 * $a + 4 * $b - $d + 34) % 7;
         $month = \floor(($d + $e + 114) / 31);
-        $day   = (($d + $e + 114) % 31) + 1;
+        $day = (($d + $e + 114) % 31) + 1;
 
         return (new DateTime("$year-$month-$day", new DateTimeZone($timezone)))->add(new DateInterval('P13D'));
     }
@@ -836,16 +917,16 @@ trait ChristianHolidays
      * @link https://en.wikipedia.org/wiki/Reformation_Day
      * @link https://de.wikipedia.org/wiki/Reformationstag#Ursprung_und_Geschichte
      *
-     * @param int    $year     the year for which St. John's Day need to be created
+     * @param int $year the year for which St. John's Day need to be created
      * @param string $timezone the timezone in which St. John's Day is celebrated
-     * @param string $locale   the locale for which St. John's Day need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which St. John's Day need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_OFFICIAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default an official holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\InvalidDateException
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws InvalidDateException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      * @throws \Exception
      */
