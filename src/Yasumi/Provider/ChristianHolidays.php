@@ -159,14 +159,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'easterMonday',
             [],
             $this->calculateEaster($year, $timezone)->add(new DateInterval('P1D')),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -196,14 +196,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'ascensionDay',
             [],
             $this->calculateEaster($year, $timezone)->add(new DateInterval('P39D')),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -230,14 +230,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'pentecost',
             [],
             $this->calculateEaster($year, $timezone)->add(new DateInterval('P49D')),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -264,14 +264,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'pentecostMonday',
             [],
             $this->calculateEaster($year, $timezone)->add(new DateInterval('P50D')),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -301,14 +301,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OTHER
+        string $type = null
     ): Holiday {
         return new Holiday(
             'corpusChristi',
             [],
             $this->calculateEaster($year, $timezone)->add(new DateInterval('P60D')),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OTHER
         );
     }
 
@@ -339,14 +339,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OBSERVANCE
+        string $type = null
     ): Holiday {
         return new Holiday(
             'christmasEve',
             [],
             new DateTime("$year-12-24", new DateTimeZone($timezone)),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OBSERVANCE
         );
     }
 
@@ -374,14 +374,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'christmasDay',
             [],
             new DateTime("$year-12-25", new DateTimeZone($timezone)),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -409,14 +409,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'secondChristmasDay',
             [],
             new DateTime("$year-12-26", new DateTimeZone($timezone)),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -447,9 +447,9 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
-        return new Holiday('allSaintsDay', [], new DateTime("$year-11-1", new DateTimeZone($timezone)), $locale, $type);
+        return new Holiday('allSaintsDay', [], new DateTime("$year-11-1", new DateTimeZone($timezone)), $locale, $type ?? Holiday::TYPE_OFFICIAL);
     }
 
     /**
@@ -478,14 +478,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'assumptionOfMary',
             [],
             new DateTime("$year-8-15", new DateTimeZone($timezone)),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -513,14 +513,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'goodFriday',
             [],
             $this->calculateEaster($year, $timezone)->sub(new DateInterval('P2D')),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -534,24 +534,26 @@ trait ChristianHolidays
      *
      * @link https://en.wikipedia.org/wiki/Holy_Saturday
      *
-     * @param int    $year     the year for which Holy Saturday need to be created
+     * @param int $year the year for which Holy Saturday need to be created
      * @param string $timezone the timezone in which Holy Saturday is celebrated
-     * @param string $locale   the locale for which Holy Saturday need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_NATIONAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which Holy Saturday need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_NATIONAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default this is considered to be observed.
      *
      * @return Holiday
      *
      * @throws \InvalidArgumentException
+     * @throws \Exception
+     * @throws \Exception
      */
-    public function holySaturday($year, $timezone, $locale, $type = Holiday::TYPE_OBSERVANCE)
+    public function holySaturday($year, $timezone, $locale, $type = null)
     {
         return new Holiday(
             'holySaturday',
             [],
             $this->calculateEaster($year, $timezone)->sub(new DateInterval('P1D')),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OBSERVANCE
         );
     }
 
@@ -583,9 +585,9 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
-        return new Holiday('epiphany', [], new DateTime("$year-1-6", new DateTimeZone($timezone)), $locale, $type);
+        return new Holiday('epiphany', [], new DateTime("$year-1-6", new DateTimeZone($timezone)), $locale, $type ?? Holiday::TYPE_OFFICIAL);
     }
 
     /**
@@ -614,14 +616,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'ashWednesday',
             [],
             $this->calculateEaster($year, $timezone)->sub(new DateInterval('P46D')),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -652,14 +654,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'immaculateConception',
             [],
             new DateTime("$year-12-8", new DateTimeZone($timezone)),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -691,14 +693,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'stStephensDay',
             [],
             new DateTime("$year-12-26", new DateTimeZone($timezone)),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -730,9 +732,9 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
-        return new Holiday('stJosephsDay', [], new DateTime("$year-3-19", new DateTimeZone($timezone)), $locale, $type);
+        return new Holiday('stJosephsDay', [], new DateTime("$year-3-19", new DateTimeZone($timezone)), $locale, $type ?? Holiday::TYPE_OFFICIAL);
     }
 
     /**
@@ -762,14 +764,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'maundyThursday',
             [],
             $this->calculateEaster($year, $timezone)->sub(new DateInterval('P3D')),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -800,9 +802,9 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
-        return new Holiday('stGeorgesDay', [], new DateTime("$year-4-23", new DateTimeZone($timezone)), $locale, $type);
+        return new Holiday('stGeorgesDay', [], new DateTime("$year-4-23", new DateTimeZone($timezone)), $locale, $type ?? Holiday::TYPE_OFFICIAL);
     }
 
     /**
@@ -833,9 +835,9 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
-        return new Holiday('stJohnsDay', [], new DateTime("$year-06-24", new DateTimeZone($timezone)), $locale, $type);
+        return new Holiday('stJohnsDay', [], new DateTime("$year-06-24", new DateTimeZone($timezone)), $locale, $type ?? Holiday::TYPE_OFFICIAL);
     }
 
     /**
@@ -866,14 +868,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'annunciation',
             [],
             new DateTime("$year-03-25", new DateTimeZone($timezone)),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -934,14 +936,14 @@ trait ChristianHolidays
         int $year,
         string $timezone,
         string $locale,
-        string $type = Holiday::TYPE_OFFICIAL
+        string $type = null
     ): Holiday {
         return new Holiday(
             'reformationDay',
             [],
             new DateTime("$year-10-31", new DateTimeZone($timezone)),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 
@@ -956,25 +958,26 @@ trait ChristianHolidays
      *
      * @link https://en.wikipedia.org/wiki/Feast_of_Saints_Peter_and_Paul
      *
-     * @param int    $year     the year for which the Feast of Saints Peter and Paul need to be created
+     * @param int $year the year for which the Feast of Saints Peter and Paul need to be created
      * @param string $timezone the timezone in which the Feast of Saints Peter and Paul is celebrated
-     * @param string $locale   the locale for which the Feast of Saints Peter and Paul need to be displayed in.
-     * @param string $type     The type of holiday. Use the following constants: TYPE_NATIONAL, TYPE_OBSERVANCE,
+     * @param string $locale the locale for which the Feast of Saints Peter and Paul need to be displayed in.
+     * @param string $type The type of holiday. Use the following constants: TYPE_NATIONAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default a national holiday is considered.
      *
      * @return Holiday
      *
      * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
+     * @throws \Exception
      */
-    public function stPeterPaulsDay($year, $timezone, $locale, $type = Holiday::TYPE_OFFICIAL)
+    public function stPeterPaulsDay(int $year, string $timezone, string $locale, string $type = null)
     {
         return new Holiday(
             'stPeterPaulsDay',
             [],
             new DateTime($year . '-06-29', new DateTimeZone($timezone)),
             $locale,
-            $type
+            $type ?? Holiday::TYPE_OFFICIAL
         );
     }
 }
