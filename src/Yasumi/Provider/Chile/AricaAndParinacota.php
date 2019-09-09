@@ -48,7 +48,7 @@ class AricaAndParinacota extends Chile
      * @throws UnknownLocaleException
      * @throws Exception
      */
-    public function initialize():void
+    public function initialize(): void
     {
         parent::initialize();
 

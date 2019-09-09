@@ -39,7 +39,7 @@ class Chile extends AbstractProvider
      * @throws Exception
      * @throws Exception
      */
-    public function initialize():void
+    public function initialize(): void
     {
         $this->timezone = 'America/Santiago';
 
@@ -50,7 +50,7 @@ class Chile extends AbstractProvider
         // Add common Christian holidays (common in Chile)
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->holySaturday($this->year, $this->timezone, $this->locale));
-        $this->calculatestPeterPaulsDay();
+        $this->calculateStPeterPaulsDay();
         $this->addHoliday($this->assumptionOfMary($this->year, $this->timezone, $this->locale));
 
         // Calculate other holidays
