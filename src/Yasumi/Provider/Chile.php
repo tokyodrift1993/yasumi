@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of the Yasumi package.
  *
@@ -269,7 +269,7 @@ class Chile extends AbstractProvider
      * @throws InvalidArgumentException
      * @throws Exception
      */
-    private function calculatestPeterPaulsDay(): void
+    private function calculateStPeterPaulsDay(): void
     {
         // Add regular New Years Day Holiday
         $holiday = $this->stPeterPaulsDay($this->year, $this->timezone, $this->locale);
