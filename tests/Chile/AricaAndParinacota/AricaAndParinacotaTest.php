@@ -46,11 +46,11 @@ class AricaAndParinacotaTest extends AricaAndParinacotaBaseTestCase
             $nationalHolidays[] = '1992CensusDay';
         }
 
-        if ($this->year === 2002) {
+        if (2002 === $this->year) {
             $nationalHolidays[] = '2002CensusDay';
         }
 
-        if ($this->year === 2017) {
+        if (2017 === $this->year) {
             $nationalHolidays[] = '2017CensusDay';
         }
 

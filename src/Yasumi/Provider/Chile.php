@@ -106,7 +106,7 @@ class Chile extends AbstractProvider
      */
     private function calculateCensusDay1982(): void
     {
-        if ($this->year !== 1982) {
+        if (1982 !== $this->year) {
             return;
         }
 
@@ -135,7 +135,7 @@ class Chile extends AbstractProvider
      */
     private function calculateCensusDay1992(): void
     {
-        if ($this->year !== 1992) {
+        if (1992 !== $this->year) {
             return;
         }
 
@@ -164,7 +164,7 @@ class Chile extends AbstractProvider
      */
     private function calculateCensusDay2002(): void
     {
-        if ($this->year !== 2002) {
+        if (2002 !== $this->year) {
             return;
         }
 
@@ -196,7 +196,7 @@ class Chile extends AbstractProvider
      */
     private function calculateCensusDay2017(): void
     {
-        if ($this->year !== 2017) {
+        if (2017 !== $this->year) {
             return;
         }
 
