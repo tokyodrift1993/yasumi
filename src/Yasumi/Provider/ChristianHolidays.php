@@ -540,7 +540,7 @@ trait ChristianHolidays
      * @param string $type     The type of holiday. Use the following constants: TYPE_NATIONAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default this is considered to be observed.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
      * @throws \InvalidArgumentException
      */
@@ -962,9 +962,9 @@ trait ChristianHolidays
      * @param string $type     The type of holiday. Use the following constants: TYPE_NATIONAL, TYPE_OBSERVANCE,
      *                         TYPE_SEASON, TYPE_BANK or TYPE_OTHER. By default a national holiday is considered.
      *
-     * @return \Yasumi\Holiday
+     * @return Holiday
      *
-     * @throws \Yasumi\Exception\UnknownLocaleException
+     * @throws UnknownLocaleException
      * @throws \InvalidArgumentException
      */
     public function stPeterPaulsDay($year, $timezone, $locale, $type = Holiday::TYPE_OFFICIAL)
