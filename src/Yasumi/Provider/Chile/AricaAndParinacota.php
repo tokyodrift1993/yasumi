@@ -68,7 +68,6 @@ class AricaAndParinacota extends Chile
      * @throws InvalidArgumentException
      * @throws UnknownLocaleException
      * @throws Exception
-     * @throws Exception
      */
     public function calculateBattleOfArica(): void
     {

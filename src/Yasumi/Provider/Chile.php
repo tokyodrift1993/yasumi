@@ -37,7 +37,6 @@ class Chile extends AbstractProvider
      *
      * @throws InvalidArgumentException
      * @throws Exception
-     * @throws Exception
      */
     public function initialize(): void
     {
@@ -70,7 +69,6 @@ class Chile extends AbstractProvider
      *
      * @throws InvalidArgumentException
      * @throws Exception
-     * @throws Exception
      */
     private function calculateNewYearsDay(): void
     {
@@ -102,7 +100,6 @@ class Chile extends AbstractProvider
      *
      * @throws InvalidArgumentException
      * @throws Exception
-     * @throws Exception
      */
     private function calculateCensusDay1982(): void
     {
@@ -131,7 +128,6 @@ class Chile extends AbstractProvider
      *
      * @throws InvalidArgumentException
      * @throws Exception
-     * @throws Exception
      */
     private function calculateCensusDay1992(): void
     {
@@ -159,7 +155,6 @@ class Chile extends AbstractProvider
      * @link http://www.feriadoschilenos.cl/index.html#singular.24.04.2002
      *
      * @throws InvalidArgumentException
-     * @throws Exception
      * @throws Exception
      */
     private function calculateCensusDay2002(): void
@@ -191,7 +186,6 @@ class Chile extends AbstractProvider
      * @link http://www.feriadoschilenos.cl/#singular.19.04.2017
      *
      * @throws InvalidArgumentException
-     * @throws Exception
      * @throws Exception
      */
     private function calculateCensusDay2017(): void
@@ -238,8 +232,8 @@ class Chile extends AbstractProvider
      *
      * @link https://en.wikipedia.org/wiki/Navy_Day_(Chile)
      * @link http://www.feriadoschilenos.cl/index.html#DiaDeLasGloriasNavales
+     *
      * @throws InvalidArgumentException
-     * @throws Exception
      * @throws Exception
      */
     private function calculateNavyDay(): void
