@@ -35,6 +35,11 @@ class SummerBankHolidayTest extends UnitedKingdomBaseTestCase implements YasumiT
     public const ESTABLISHMENT_YEAR = 1871;
 
     /**
+     * The year in which the holiday was renamed from August Bank Holiday to Summer Bank Holiday.
+     */
+    public const RENAME_YEAR = 1965;
+
+    /**
      * Tests the holiday defined in this test.
      * @throws Exception
      * @throws ReflectionException
@@ -57,7 +62,7 @@ class SummerBankHolidayTest extends UnitedKingdomBaseTestCase implements YasumiT
      */
     public function testHolidayBefore1965()
     {
-        $year = $this->generateRandomYear(self::ESTABLISHMENT_YEAR, 1967);
+        $year = $this->generateRandomYear(self::ESTABLISHMENT_YEAR, 1964);
         $this->assertHoliday(
             self::REGION,
             self::HOLIDAY,
@@ -138,7 +143,7 @@ class SummerBankHolidayTest extends UnitedKingdomBaseTestCase implements YasumiT
         $this->assertTranslatedHolidayName(
             self::REGION,
             self::HOLIDAY,
-            $this->generateRandomYear(self::ESTABLISHMENT_YEAR),
+            $this->generateRandomYear(self::RENAME_YEAR),
             [self::LOCALE => 'Summer Bank Holiday']
         );
     }

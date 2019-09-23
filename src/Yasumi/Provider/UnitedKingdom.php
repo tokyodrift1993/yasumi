@@ -18,6 +18,7 @@ use DateTimeZone;
 use Yasumi\Exception\InvalidDateException;
 use Yasumi\Exception\UnknownLocaleException;
 use Yasumi\Holiday;
+use Yasumi\SubstituteHoliday;
 
 /**
  * Provider for all holidays in the United Kingdom. Local holidays/observances (e.g. Wales, England, Guernsey, etc.)
@@ -33,6 +34,8 @@ class UnitedKingdom extends AbstractProvider
      */
     public const ID = 'GB';
 
+    public $timezone = 'Europe/London';
+
     /**
      * Initialize holidays for the United Kingdom.
      *
@@ -43,8 +46,6 @@ class UnitedKingdom extends AbstractProvider
      */
     public function initialize(): void
     {
-        $this->timezone = 'Europe/London';
-
         // Add common holidays
         $this->calculateNewYearsDay();
         $this->calculateMayDayBankHoliday();
@@ -74,7 +75,7 @@ class UnitedKingdom extends AbstractProvider
      * @throws UnknownLocaleException
      * @throws \Exception
      */
-    private function calculateNewYearsDay(): void
+    protected function calculateNewYearsDay(): void
     {
         // Before 1871 it was not an observed or statutory holiday
         if ($this->year < 1871) {
@@ -113,7 +114,7 @@ class UnitedKingdom extends AbstractProvider
      * @throws UnknownLocaleException
      * @throws \Exception
      */
-    private function calculateMayDayBankHoliday(): void
+    protected function calculateMayDayBankHoliday(): void
     {
         // From 1978, by Royal Proclamation annually
         if ($this->year < 1978) {
@@ -158,7 +159,7 @@ class UnitedKingdom extends AbstractProvider
      * @throws UnknownLocaleException
      * @throws \Exception
      */
-    private function calculateSpringBankHoliday(): void
+    protected function calculateSpringBankHoliday(): void
     {
         // Statutory bank holiday from 1971, following a trial period from 1965 to 1970.
         if ($this->year < 1965) {
@@ -204,7 +205,7 @@ class UnitedKingdom extends AbstractProvider
      * @throws UnknownLocaleException
      * @throws \Exception
      */
-    private function calculateSummerBankHoliday(): void
+    protected function calculateSummerBankHoliday(): void
     {
         if ($this->year < 1871) {
             return;
@@ -268,34 +269,36 @@ class UnitedKingdom extends AbstractProvider
      * @throws UnknownLocaleException
      * @throws \Exception
      */
-    private function calculateChristmasHolidays(): void
+    protected function calculateChristmasHolidays($type = Holiday::TYPE_OFFICIAL): void
     {
-        $christmasDay = new DateTime("$this->year-12-25", new DateTimeZone($this->timezone));
-        $boxingDay = new DateTime("$this->year-12-26", new DateTimeZone($this->timezone));
+        $christmasDay = $this->christmasDay($this->year, $this->timezone, $this->locale, $type);
+        $secondChristmasDay = $this->secondChristmasDay($this->year, $this->timezone, $this->locale, Holiday::TYPE_BANK);
 
-        $this->addHoliday(new Holiday('christmasDay', [], $christmasDay, $this->locale));
-        $this->addHoliday(new Holiday('secondChristmasDay', [], $boxingDay, $this->locale, Holiday::TYPE_BANK));
+        $this->addHoliday($christmasDay);
+        $this->addHoliday($secondChristmasDay);
 
         $substituteChristmasDay = clone $christmasDay;
-        $substituteBoxingDay = clone $boxingDay;
+        $substituteSecondChristmasDay = clone $secondChristmasDay;
 
         if (\in_array((int)$christmasDay->format('w'), [0, 6], true)) {
-            $substituteChristmasDay->add(new DateInterval('P2D'));
-            $this->addHoliday(new Holiday(
-                'substituteHoliday:christmasDay',
+            $date = clone $christmasDay;
+            $date->add(new DateInterval('P2D'));
+            $this->addHoliday(new SubstituteHoliday(
+                $christmasDay,
                 [],
-                $substituteChristmasDay,
+                $date,
                 $this->locale,
                 Holiday::TYPE_BANK
             ));
         }
 
-        if (\in_array((int)$boxingDay->format('w'), [0, 6], true)) {
-            $substituteBoxingDay->add(new DateInterval('P2D'));
-            $this->addHoliday(new Holiday(
-                'substituteHoliday:secondChristmasDay',
+        if (\in_array((int)$secondChristmasDay->format('w'), [0, 6], true)) {
+            $date = clone $secondChristmasDay;
+            $date->add(new DateInterval('P2D'));
+            $this->addHoliday(new SubstituteHoliday(
+                $secondChristmasDay,
                 [],
-                $substituteBoxingDay,
+                $date,
                 $this->locale,
                 Holiday::TYPE_BANK
             ));
