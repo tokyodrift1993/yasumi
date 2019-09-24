@@ -60,6 +60,7 @@ class Chile extends AbstractProvider
         $this->calculateCensusDay2002();
         $this->calculateCensusDay2017();
         $this->calculateNavyDay();
+        $this->calculateMunicipalElections2020();
     }
 
     /**
@@ -310,6 +311,29 @@ class Chile extends AbstractProvider
             'ourLadyOfMountCarmel',
             ['es_CL' => 'Virgen del Carmen'],
             new DateTime("$this->year-7-16", new DateTimeZone($this->timezone)),
+            $this->locale
+        ));
+    }
+
+    /**
+     * 2020 Municipal Elections.
+     *
+     * @link https://en.wikipedia.org/wiki/Public_holidays_in_Chile
+     * @link http://www.feriadoschilenos.cl/index.html#singular.25.10.2020
+     *
+     * @throws InvalidArgumentException
+     * @throws Exception
+     */
+    private function calculateMunicipalElections2020(): void
+    {
+        if (2020 !== $this->year) {
+            return;
+        }
+
+        $this->addHoliday(new Holiday(
+            '2020MunicipalElections',
+            ['es_CL' => 'Elecciones municipales 2020'],
+            new DateTime('2020-10-25', new DateTimeZone($this->timezone)),
             $this->locale
         ));
     }
