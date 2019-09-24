@@ -51,6 +51,7 @@ class Chile extends AbstractProvider
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->holySaturday($this->year, $this->timezone, $this->locale));
         $this->calculateStPeterPaulsDay();
+        $this->calculateOurLadyOfMountCarmelDay();
         $this->addHoliday($this->assumptionOfMary($this->year, $this->timezone, $this->locale));
 
         // Calculate other holidays
@@ -281,5 +282,35 @@ class Chile extends AbstractProvider
                 $this->addHoliday(new SubstituteHoliday($holiday, [], $date, $this->locale));
             }
         }
+    }
+
+    /**
+     * Our Lady of Mount Carmel Day (Virgen del Carmen)
+     *
+     * Our Lady of Mount Carmel is the title given to the Blessed Virgin Mary in her role as patroness of the Carmelite
+     * Order. Our Lady of Mount Carmel was adopted in the 19th century as the patron saint of Chile, in South America.
+     * The liturgical feast of Our Lady of Mount Carmel is celebrated on 16 July.
+     *
+     * Note: The Catholic Church's official name for this day is 'Solemnidad de la Virgen del Carmen, Reina y Patrona
+     * de Chile', but the law that created this holiday (20,148) does not use this name.
+     *
+     * @link https://en.wikipedia.org/wiki/Our_Lady_of_Mount_Carmel
+     * @link http://www.feriadoschilenos.cl/index.html#VirgenDelCarmen
+     *
+     * @throws InvalidArgumentException
+     * @throws Exception
+     */
+    private function calculateOurLadyOfMountCarmelDay(): void
+    {
+        if ($this->year < 2007) {
+            return;
+        }
+
+        $this->addHoliday(new Holiday(
+            'ourLadyOfMountCarmel',
+            ['es_CL' => 'Virgen del Carmen'],
+            new DateTime("$this->year-7-16", new DateTimeZone($this->timezone)),
+            $this->locale
+        ));
     }
 }
