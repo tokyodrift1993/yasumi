@@ -70,8 +70,8 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
         $data = [];
 
         for ($y = 0; $y < self::TEST_ITERATIONS; $y++) {
-            $year   = $this->generateRandomYear();
-            $date   = new DateTime("$year-1-1", new DateTimeZone(self::TIMEZONE));
+            $year = $this->generateRandomYear();
+            $date = new DateTime("$year-1-1", new DateTimeZone(self::TIMEZONE));
             $data[] = [$year, $date->format('Y-m-d')];
         }
 
@@ -83,7 +83,7 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
      *
      * @throws ReflectionException
      */
-    public function testTranslation():void
+    public function testTranslation(): void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -98,7 +98,7 @@ class NewYearsDayTest extends ChileBaseTestCase implements YasumiTestCaseInterfa
      *
      * @throws ReflectionException
      */
-    public function testHolidayType():void
+    public function testHolidayType(): void
     {
         $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_OFFICIAL);
     }

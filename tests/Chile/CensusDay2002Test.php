@@ -81,7 +81,7 @@ class CensusDay2002Test extends ChileBaseTestCase implements YasumiTestCaseInter
      *
      * @throws ReflectionException
      */
-    public function testTranslation():void
+    public function testTranslation(): void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -96,7 +96,7 @@ class CensusDay2002Test extends ChileBaseTestCase implements YasumiTestCaseInter
      *
      * @throws ReflectionException
      */
-    public function testHolidayType():void
+    public function testHolidayType(): void
     {
         $this->assertHolidayType(
             self::REGION,

@@ -62,8 +62,8 @@ class NavyDayTest extends ChileBaseTestCase implements YasumiTestCaseInterface
         $data = [];
 
         for ($y = 0; $y < self::TEST_ITERATIONS; $y++) {
-            $year   = $this->generateRandomYear(self::ESTABLISHMENT_YEAR);
-            $date   = new DateTime("$year-5-21", new DateTimeZone(self::TIMEZONE));
+            $year = $this->generateRandomYear(self::ESTABLISHMENT_YEAR);
+            $date = new DateTime("$year-5-21", new DateTimeZone(self::TIMEZONE));
             $data[] = [$year, $date->format('Y-m-d')];
         }
 
@@ -89,7 +89,7 @@ class NavyDayTest extends ChileBaseTestCase implements YasumiTestCaseInterface
      *
      * @throws ReflectionException
      */
-    public function testTranslation():void
+    public function testTranslation(): void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -104,7 +104,7 @@ class NavyDayTest extends ChileBaseTestCase implements YasumiTestCaseInterface
      *
      * @throws ReflectionException
      */
-    public function testHolidayType():void
+    public function testHolidayType(): void
     {
         $this->assertHolidayType(
             self::REGION,

@@ -75,7 +75,7 @@ class GoodFridayTest extends ChileBaseTestCase implements YasumiTestCaseInterfac
      * Tests translated name of the holiday defined in this test.
      * @throws ReflectionException
      */
-    public function testTranslation():void
+    public function testTranslation(): void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -90,7 +90,7 @@ class GoodFridayTest extends ChileBaseTestCase implements YasumiTestCaseInterfac
      *
      * @throws ReflectionException
      */
-    public function testHolidayType():void
+    public function testHolidayType(): void
     {
         $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_OFFICIAL);
     }

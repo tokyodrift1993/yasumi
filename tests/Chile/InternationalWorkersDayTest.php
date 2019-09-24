@@ -61,8 +61,8 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
         $data = [];
 
         for ($y = 0; $y < self::TEST_ITERATIONS; $y++) {
-            $year   = $this->generateRandomYear(self::ESTABLISHMENT_YEAR);
-            $date   = new DateTime("$year-5-1", new DateTimeZone(self::TIMEZONE));
+            $year = $this->generateRandomYear(self::ESTABLISHMENT_YEAR);
+            $date = new DateTime("$year-5-1", new DateTimeZone(self::TIMEZONE));
             $data[] = [$year, $date->format('Y-m-d')];
         }
 
@@ -88,7 +88,7 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
      *
      * @throws ReflectionException
      */
-    public function testTranslation():void
+    public function testTranslation(): void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -103,7 +103,7 @@ class InternationalWorkersDayTest extends ChileBaseTestCase implements YasumiTes
      *
      * @throws ReflectionException
      */
-    public function testHolidayType():void
+    public function testHolidayType(): void
     {
         $this->assertHolidayType(
             self::REGION,
