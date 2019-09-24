@@ -33,33 +33,35 @@ class ChileTest extends ChileBaseTestCase
      */
     public function testNationalHolidays(): void
     {
-        $nationalHolidays = ['newYearsDay', 'goodFriday', 'stPeterPaulsDay', 'assumptionOfMary'];
-
         if ($this->year >= 1932) {
-            $nationalHolidays[] = 'internationalWorkersDay';
+            $this->nationalHolidays[] = 'internationalWorkersDay';
         }
 
         if (1982 === $this->year) {
-            $nationalHolidays[] = '1982CensusDay';
+            $this->nationalHolidays[] = '1982CensusDay';
         }
 
         if (1992 === $this->year) {
-            $nationalHolidays[] = '1992CensusDay';
+            $this->nationalHolidays[] = '1992CensusDay';
         }
 
         if (2002 === $this->year) {
-            $nationalHolidays[] = '2002CensusDay';
+            $this->nationalHolidays[] = '2002CensusDay';
         }
 
         if (2017 === $this->year) {
-            $nationalHolidays[] = '2017CensusDay';
+            $this->nationalHolidays[] = '2017CensusDay';
         }
 
         if ($this->year >= 1915) {
-            $nationalHolidays[] = 'navyDay';
+            $this->nationalHolidays[] = 'navyDay';
         }
 
-        $this->assertDefinedHolidays($nationalHolidays, self::REGION, $this->year, Holiday::TYPE_OFFICIAL);
+        if ($this->year > 2007) {
+            $this->nationalHolidays[] = 'ourLadyOfMountCarmel';
+        }
+
+        $this->assertDefinedHolidays($this->nationalHolidays, self::REGION, $this->year, Holiday::TYPE_OFFICIAL);
     }
 
     /**

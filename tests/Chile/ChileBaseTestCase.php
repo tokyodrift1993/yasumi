@@ -41,4 +41,14 @@ abstract class ChileBaseTestCase extends TestCase
      * Number of iterations to be used for the various unit test of this provider
      */
     public const TEST_ITERATIONS = 50;
+
+    /**
+     * @var array List of all national holidays in Chile that are defined by the provider class
+     */
+    protected $nationalHolidays = [
+        'newYearsDay',
+        'goodFriday',
+        'stPeterPaulsDay',
+        'assumptionOfMary'
+    ];
 }
