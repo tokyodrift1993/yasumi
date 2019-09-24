@@ -17,6 +17,7 @@ use DateTimeZone;
 use Exception;
 use InvalidArgumentException;
 use Yasumi\Holiday;
+use Yasumi\SubstituteHoliday;
 
 /**
  * Provider for all holidays in Chile.
@@ -78,12 +79,12 @@ class Chile extends AbstractProvider
 
         // Law 20,983 declares a holiday on days that are Monday January 2 (2017 going forward)
         if ($this->year >= 2017 && (0 === (int)$holiday->format('w'))) {
-            $substituteHoliday = clone $holiday;
-            $substituteHoliday->modify('next monday');
+            $date = clone $holiday;
+            $date->modify('next monday');
 
-            $this->addHoliday(new Holiday('substituteHoliday:' . $substituteHoliday->shortName, [
+            $this->addHoliday(new SubstituteHoliday($holiday, [
                 'es_CL' => 'San Lunes',
-            ], $substituteHoliday, $this->locale));
+            ], $date, $this->locale));
         }
     }
 
@@ -270,17 +271,15 @@ class Chile extends AbstractProvider
         $this->addHoliday($holiday);
 
         if ($this->year >= 2000) {
-            $substituteHoliday = clone $holiday;
+            $date = clone $holiday;
 
             if (\in_array((int)$holiday->format('w'), [2, 3, 4], true)) {
-                $substituteHoliday->modify('previous monday');
+                $date->modify('previous monday');
+                $this->addHoliday(new SubstituteHoliday($holiday, [], $date, $this->locale));
             } elseif (5 === (int)$holiday->format('w')) {
-                $substituteHoliday->modify('next monday');
+                $date->modify('next monday');
+                $this->addHoliday(new SubstituteHoliday($holiday, [], $date, $this->locale));
             }
-
-            $this->addHoliday(new Holiday('substituteHoliday:' . $substituteHoliday->shortName, [
-                'es_CL' => 'San Pedro y San Pablo',
-            ], $substituteHoliday, $this->locale));
         }
     }
 }

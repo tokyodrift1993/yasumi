@@ -50,17 +50,11 @@ class StPeterPaulDayTest extends ChileBaseTestCase implements YasumiTestCaseInte
         if ($year >= 2000) {
             if (\in_array((int)$date->format('w'), [2, 3, 4], true)) {
                 $date->modify('previous monday');
+                $this->assertHoliday(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year, $date);
             } elseif (5 === (int)$date->format('w')) {
                 $date->modify('next monday');
+                $this->assertHoliday(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year, $date);
             }
-
-            $this->assertHoliday(self::REGION, 'substituteHoliday:' . self::HOLIDAY, $year, $date);
-            $this->assertTranslatedHolidayName(
-                self::REGION,
-                'substituteHoliday:' . self::HOLIDAY,
-                $year,
-                ['es_CL' => 'San Pedro y San Pablo']
-            );
         }
     }
 
@@ -76,8 +70,8 @@ class StPeterPaulDayTest extends ChileBaseTestCase implements YasumiTestCaseInte
         $data = [];
 
         for ($y = 0; $y < self::TEST_ITERATIONS; $y++) {
-            $year   = $this->generateRandomYear();
-            $date   = new DateTime("$year-6-29", new DateTimeZone(self::TIMEZONE));
+            $year = $this->generateRandomYear();
+            $date = new DateTime("$year-6-29", new DateTimeZone(self::TIMEZONE));
             $data[] = [$year, $date->format('Y-m-d')];
         }
 
@@ -89,7 +83,7 @@ class StPeterPaulDayTest extends ChileBaseTestCase implements YasumiTestCaseInte
      *
      * @throws ReflectionException
      */
-    public function testTranslation():void
+    public function testTranslation(): void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -104,7 +98,7 @@ class StPeterPaulDayTest extends ChileBaseTestCase implements YasumiTestCaseInte
      *
      * @throws ReflectionException
      */
-    public function testHolidayType():void
+    public function testHolidayType(): void
     {
         $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_OFFICIAL);
     }
