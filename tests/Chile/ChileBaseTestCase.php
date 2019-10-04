@@ -49,6 +49,6 @@ abstract class ChileBaseTestCase extends TestCase
         'newYearsDay',
         'goodFriday',
         'stPeterPaulsDay',
-        'assumptionOfMary'
+        'assumptionOfMary',
     ];
 }
