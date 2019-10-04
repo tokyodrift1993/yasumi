@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of the Yasumi package.
  *
@@ -12,6 +12,6 @@
 
 // Translations for New Year's Day
 return [
-    'da_DK' => '2. nytårsdag',
-    'en_GB' => '2nd January',
+    'da' => '2. nytårsdag',
+    'en' => '2nd January',
 ];

@@ -28,7 +28,7 @@ use Yasumi\Provider\Spain;
  * (provinces of León, Palencia and Burgos), on the west by the Principality of Asturias, and on the north by the
  * Cantabrian Sea (Bay of Biscay).
  *
- * @link http://en.wikipedia.org/wiki/Cantabria
+ * @link https://en.wikipedia.org/wiki/Cantabria
  */
 class Cantabria extends Spain
 {
@@ -71,7 +71,7 @@ class Cantabria extends Spain
      * "Special Regional Interest" in 1983. Following the establishment of the autonomous community of Cantabria in
      * 1982, the event became known as the Day of Cantabria.
      *
-     * @link http://www.timeanddate.com/holidays/spain/cantabria-day
+     * @link https://www.timeanddate.com/holidays/spain/cantabria-day
      *
      * @throws InvalidDateException
      * @throws \InvalidArgumentException
@@ -83,7 +83,7 @@ class Cantabria extends Spain
         if ($this->year >= 1967) {
             $this->addHoliday(new Holiday(
                 'cantabriaDay',
-                ['es_ES' => 'Día de Cantabria'],
+                ['es' => 'Día de Cantabria'],
                 new DateTime("second sunday of august $this->year", new DateTimeZone($this->timezone)),
                 $this->locale
             ));

@@ -30,7 +30,7 @@ use Yasumi\Provider\Spain;
  * Catalonia is bordered by France and Andorra to the north, the Mediterranean Sea to the east, and the Spanish regions
  * of Aragon and the Valencian Community to west and south respectively.
  *
- * @link http://en.wikipedia.org/wiki/Catalonia
+ * @link https://en.wikipedia.org/wiki/Catalonia
  */
 class Catalonia extends Spain
 {
@@ -83,7 +83,7 @@ class Catalonia extends Spain
         if ($this->year >= 1886) {
             $this->addHoliday(new Holiday(
                 'nationalCataloniaDay',
-                ['es_ES' => 'Diada Nacional de Catalunya'],
+                ['es' => 'Diada Nacional de Catalunya'],
                 new DateTime("$this->year-9-11", new DateTimeZone($this->timezone)),
                 $this->locale
             ));

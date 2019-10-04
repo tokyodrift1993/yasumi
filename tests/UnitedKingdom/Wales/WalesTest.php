@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of the Yasumi package.
  *
@@ -65,7 +65,7 @@ class WalesTest extends WalesBaseTestCase
             'easterMonday',
             'mayDayBankHoliday',
             'springBankHoliday',
-            'secondChristmasDay'
+            'secondChristmasDay',
         ], self::REGION, $this->year, Holiday::TYPE_BANK);
     }
 

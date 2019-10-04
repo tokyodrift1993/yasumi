@@ -57,7 +57,7 @@ class NT extends Australia
      * on a date based on a certain number of days after March 21st. The date of Easter Day was defined by the Council
      * of Nicaea in AD325 as the Sunday after the first full moon which falls on or after the Spring Equinox.
      *
-     * @link http://en.wikipedia.org/wiki/Easter
+     * @link https://en.wikipedia.org/wiki/Easter
      *
      * @param int $year the year for which Easter Saturday need to be created
      * @param string $timezone the timezone in which Easter Saturday is celebrated
@@ -75,7 +75,7 @@ class NT extends Australia
     {
         return new Holiday(
             'easterSaturday',
-            ['en_AU' => 'Easter Saturday'],
+            ['en' => 'Easter Saturday'],
             $this->calculateEaster($year, $timezone)->sub(new DateInterval('P1D')),
             $locale,
             $type ?? Holiday::TYPE_OFFICIAL
@@ -101,7 +101,7 @@ class NT extends Australia
     {
         $this->calculateHoliday(
             'queensBirthday',
-            ['en_AU' => "Queen's Birthday"],
+            ['en' => "Queen's Birthday"],
             new DateTime('second monday of june ' . $this->year, new DateTimeZone($this->timezone)),
             false,
             false
@@ -117,7 +117,7 @@ class NT extends Australia
     {
         $date = new DateTime("first monday of may $this->year", new DateTimeZone($this->timezone));
 
-        $this->addHoliday(new Holiday('mayDay', ['en_AU' => 'May Day'], $date, $this->locale));
+        $this->addHoliday(new Holiday('mayDay', ['en' => 'May Day'], $date, $this->locale));
     }
 
     /**
@@ -132,7 +132,7 @@ class NT extends Australia
     {
         $this->calculateHoliday(
             'picnicDay',
-            ['en_AU' => 'Picnic Day'],
+            ['en' => 'Picnic Day'],
             new DateTime('first monday of august ' . $this->year, new DateTimeZone($this->timezone)),
             false,
             false

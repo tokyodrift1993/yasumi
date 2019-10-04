@@ -50,7 +50,7 @@ class NewYearsDayTest extends AustraliaBaseTestCase implements YasumiTestCaseInt
             $year,
             new DateTime($expected, new DateTimeZone($this->timezone))
         );
-        if ($expectedExtra === null) {
+        if (null === $expectedExtra) {
             $this->assertNotHoliday(
                 $this->region,
                 self::HOLIDAY2,
@@ -84,7 +84,7 @@ class NewYearsDayTest extends AustraliaBaseTestCase implements YasumiTestCaseInt
             [2017, '2017-01-01', '2017-01-02'],
             [2018, '2018-01-01', null],
             [2019, '2019-01-01', null],
-            [2020, '2020-01-01', null]
+            [2020, '2020-01-01', null],
         ];
 
         return $data;

@@ -50,7 +50,7 @@ class BoxingDayTest extends AustraliaBaseTestCase implements YasumiTestCaseInter
             $year,
             new DateTime($expected, new DateTimeZone($this->timezone))
         );
-        if ($expectedExtra === null) {
+        if (null === $expectedExtra) {
             $this->assertNotHoliday(
                 $this->region,
                 self::HOLIDAY2,
@@ -84,7 +84,7 @@ class BoxingDayTest extends AustraliaBaseTestCase implements YasumiTestCaseInter
             [2017, '2017-12-26', null],
             [2018, '2018-12-26', null],
             [2019, '2019-12-26', null],
-            [2020, '2020-12-26', '2020-12-28']
+            [2020, '2020-12-26', '2020-12-28'],
         ];
 
         return $data;

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of the Yasumi package.
  *
@@ -66,7 +66,7 @@ class NorthernIrelandTest extends NorthernIrelandBaseTestCase
             'mayDayBankHoliday',
             'springBankHoliday',
             'battleOfTheBoyne',
-            'secondChristmasDay'
+            'secondChristmasDay',
         ], self::REGION, $this->year, Holiday::TYPE_BANK);
     }
 

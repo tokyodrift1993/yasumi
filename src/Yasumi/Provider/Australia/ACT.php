@@ -59,7 +59,7 @@ class ACT extends Australia
      * on a date based on a certain number of days after March 21st. The date of Easter Day was defined by the Council
      * of Nicaea in AD325 as the Sunday after the first full moon which falls on or after the Spring Equinox.
      *
-     * @link http://en.wikipedia.org/wiki/Easter
+     * @link https://en.wikipedia.org/wiki/Easter
      *
      * @param int $year the year for which Easter Saturday need to be created
      * @param string $timezone the timezone in which Easter Saturday is celebrated
@@ -77,7 +77,7 @@ class ACT extends Australia
     {
         return new Holiday(
             'easter',
-            ['en_AU' => 'Easter Sunday'],
+            ['en' => 'Easter Sunday'],
             $this->calculateEaster($year, $timezone),
             $locale,
             $type ?? Holiday::TYPE_OFFICIAL
@@ -91,7 +91,7 @@ class ACT extends Australia
      * on a date based on a certain number of days after March 21st. The date of Easter Day was defined by the Council
      * of Nicaea in AD325 as the Sunday after the first full moon which falls on or after the Spring Equinox.
      *
-     * @link http://en.wikipedia.org/wiki/Easter
+     * @link https://en.wikipedia.org/wiki/Easter
      *
      * @param int $year the year for which Easter Saturday need to be created
      * @param string $timezone the timezone in which Easter Saturday is celebrated
@@ -109,7 +109,7 @@ class ACT extends Australia
     {
         return new Holiday(
             'easterSaturday',
-            ['en_AU' => 'Easter Saturday'],
+            ['en' => 'Easter Saturday'],
             $this->calculateEaster($year, $timezone)->sub(new DateInterval('P1D')),
             $locale,
             $type ?? Holiday::TYPE_OFFICIAL
@@ -135,7 +135,7 @@ class ACT extends Australia
     {
         $this->calculateHoliday(
             'queensBirthday',
-            ['en_AU' => "Queen's Birthday"],
+            ['en' => "Queen's Birthday"],
             new DateTime('second monday of june ' . $this->year, new DateTimeZone($this->timezone)),
             false,
             false
@@ -151,7 +151,7 @@ class ACT extends Australia
     {
         $date = new DateTime("first monday of october $this->year", new DateTimeZone($this->timezone));
 
-        $this->addHoliday(new Holiday('labourDay', ['en_AU' => 'Labour Day'], $date, $this->locale));
+        $this->addHoliday(new Holiday('labourDay', [], $date, $this->locale));
     }
 
     /**
@@ -166,7 +166,7 @@ class ACT extends Australia
         } else {
             $date = new DateTime("second monday of march $this->year", new DateTimeZone($this->timezone));
         }
-        $this->addHoliday(new Holiday('canberraDay', ['en_AU' => 'Canberra Day'], $date, $this->locale));
+        $this->addHoliday(new Holiday('canberraDay', ['en' => 'Canberra Day'], $date, $this->locale));
     }
 
     /**
@@ -185,6 +185,6 @@ class ACT extends Australia
         if (1 !== $day) {
             $date = $date->add(0 === $day ? new DateInterval('P1D') : new DateInterval('P' . (8 - $day) . 'D'));
         }
-        $this->addHoliday(new Holiday('reconciliationDay', ['en_AU' => 'Reconciliation Day'], $date, $this->locale));
+        $this->addHoliday(new Holiday('reconciliationDay', ['en' => 'Reconciliation Day'], $date, $this->locale));
     }
 }

@@ -213,7 +213,6 @@
                 <directory suffix="Test.php">./tests/UnitedKingdom</directory>
             </testsuite>
 
-
         </testsuites>
         <filter>
             <whitelist processUncoveredFilesFromWhitelist="true">

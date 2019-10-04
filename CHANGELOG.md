@@ -1,20 +1,20 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org).
+The format is based on [Keep a Changelog](https://keepachangelog.com/) and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
 ### Added
+- Holiday providers for England, Wales, Scotland and Northern Ireland [\#166](https://github.com/azuyalabs/yasumi/pull/166) ([c960657](https://github.com/c960657))
 - Holiday Provider for South Korea. [\#156](https://github.com/azuyalabs/yasumi/pull/156) ([blood72](https://github.com/blood72))
 - Translation for the Easter holiday for the 'fr_FR' locale [\#146](https://github.com/azuyalabs/yasumi/pull/146) ([pioc92](https://github.com/pioc92))
 - Translation for the Pentecost holiday for the 'fr_FR' locale [\#145](https://github.com/azuyalabs/yasumi/pull/145) ([pioc92](https://github.com/pioc92))
 - Late Summer Bank Holiday in United Kingdom prior to 1965 [\#161](https://github.com/azuyalabs/yasumi/pull/161) ([c960657](https://github.com/c960657))
 - Observance holidays for Sweden [\#172](https://github.com/azuyalabs/yasumi/pull/172) ([c960657](https://github.com/c960657))
+- Special subclass of Holiday for substitute holidays [\#162](https://github.com/azuyalabs/yasumi/pull/162) ([c960657](https://github.com/c960657))
 - Added additional code style fixers and aligning StyleCI settings with PHP-CS.
 - Included extra requirement for some PHP Extensions in the composer file.
-- Special subclass of Holiday for substitute holidays [\#162](https://github.com/azuyalabs/yasumi/pull/162) ([c960657](https://github.com/c960657))
-- Holiday providers for England, Wales, Scotland and Northern Ireland [\#166](https://github.com/azuyalabs/yasumi/pull/166) ([c960657](https://github.com/c960657))
 
 ### Changed
 - Updated the translation for the All Saints holiday for the 'fr_FR' locale [\#152](https://github.com/azuyalabs/yasumi/pull/152) ([pioc92](https://github.com/pioc92))
@@ -26,17 +26,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Replaced null checks by appropriate instance / type checks.
 - Moved default method values to method body as parameters should be nullable. 
 - Applying the use of strict types. Strict typing allows for improved readability, maintainability, and less prone to bugs and security vulnerabilities.
-- PHP 7.1 is allowed to fail for Travis-CI due to the fact PHPUnit 8 requires PHP >= 7.2. Likely 7.1 support will be dropped in Yasumi once 7.1 has reached its end of life (December 2019).
+- PHP 7.1 is allowed to fail for Travis-CI due to the fact PHPUnit 8 requires PHP >= 7.2. PHP 7.1 support will be dropped in Yasumi once 7.1 has reached its end of life (December 2019).
 - Code using class imports rather than Fully Qualified Class names.
 - Upgraded to PHPUnit 8.
 - Replaced the standard 'InvalidArgumentException' when an invalid year or holiday provider are given by a new exception for each of these two situations separately ('InvalidYearException' and 'ProviderNotFoundException'). This allows you to better distinguish which exception may occur when instantiating the Yasumi class. [\#95](https://github.com/azuyalabs/yasumi/pull/95) ([qneyrat](https://github.com/qneyrat))
 - Refactored the AbstractProvider::count method to use the newly added SubstituteHoliday class.
+- Fallback support added to getName() to allow e.g. fallback from 'de_AT' to 'de'. [\#176](https://github.com/azuyalabs/yasumi/pull/176) ([c960657](https://github.com/c960657))
 
 ### Fixed
 - Late Summer Bank Holiday in 1968 and 1969 in United Kingdom [\#161](https://github.com/azuyalabs/yasumi/pull/161) ([c960657](https://github.com/c960657))
 - Fixed one-off exceptions for May Day Bank Holiday in 1995 and 2020 and Spring Bank Holiday in 2002 and 2012 (United Kingdom) [\#160](https://github.com/azuyalabs/yasumi/pull/160) ([c960657](https://github.com/c960657))
 - Fixed revoked holidays in Portugal in 2013-2015 [\#163](https://github.com/azuyalabs/yasumi/pull/163) ([c960657](https://github.com/c960657))
-- Fixed spelling issues in the Danish translation for Second Christmas Day. [\#167](https://github.com/azuyalabs/yasumi/pull/167)
+- Fixed spelling issues in the Danish translation for Second Christmas Day. [\#167](https://github.com/azuyalabs/yasumi/pull/167) ([c960657](https://github.com/c960657))
 - Corpus Christi is official in Poland [\#168](https://github.com/azuyalabs/yasumi/pull/168) ([c960657](https://github.com/c960657))
 - Liberation Day is official in the Netherlands [\#169](https://github.com/azuyalabs/yasumi/pull/169) ([c960657](https://github.com/c960657))
 - Typos in Easter Monday and Republic Day for the 'it_IT' locale [\#171](https://github.com/azuyalabs/yasumi/pull/171) ([c960657](https://github.com/c960657))
@@ -142,7 +143,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [1.7.0] - 2017-12-11
 ### Added
-- All filters implement the [Countable](http://php.net/manual/en/class.countable.php) interface allowing you to use the ->count() method. [\#77](https://github.com/azuyalabs/yasumi/issues/77)
+- All filters implement the [Countable](https://php.net/manual/en/class.countable.php) interface allowing you to use the ->count() method. [\#77](https://github.com/azuyalabs/yasumi/issues/77)
 - Holiday Provider for Latvia. [\#70](https://github.com/azuyalabs/yasumi/pull/70) ([lukosius](https://github.com/lukosius))
 - Holiday Provider for Lithuania. [\#67](https://github.com/azuyalabs/yasumi/pull/67) ([lukosius](https://github.com/lukosius))
 - Sometimes it is more convenient to be able to create a Yasumi instance by ISO3166 code rather than Yasumi's Holiday Provider name. A new function `createByISO3166_2` has been added to allow for that. [\#62](https://github.com/azuyalabs/yasumi/pull/62) ([huehnerhose](https://github.com/huehnerhose))

@@ -164,10 +164,22 @@ trait YasumiBase
 
         if (\is_array($translations) && !empty($translations)) {
             foreach ($translations as $locale => $name) {
-                $translationExists = isset($holiday->translations[$locale]) ? true : false;
+                $locales = [$locale];
+                $parts = \explode('_', $locale);
+                while (\array_pop($parts) && $parts) {
+                    $locales[] = \implode('_', $parts);
+                }
 
-                $this->assertTrue($translationExists);
-                $this->assertEquals($name, $holiday->translations[$locale]);
+                $translation = null;
+                foreach ($locales as $l) {
+                    if (isset($holiday->translations[$l])) {
+                        $translation = $holiday->translations[$l];
+                        break;
+                    }
+                }
+
+                $this->assertTrue(isset($translation));
+                $this->assertEquals($name, $translation);
             }
         }
 
@@ -340,7 +352,7 @@ trait YasumiBase
             }
 
             // Corrected date of the Paschal full moon, - days after 21st March
-            if (($pfm === 29) || ($pfm === 28 && $golden > 11)) {
+            if ((29 === $pfm) || (28 === $pfm && $golden > 11)) {
                 --$pfm;
             }
 
