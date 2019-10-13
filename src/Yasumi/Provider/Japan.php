@@ -468,15 +468,15 @@ class Japan extends AbstractProvider
             $date = new DateTime("$this->year-10-10", new DateTimeZone($this->timezone));
         }
 
-        $holiday_name = ['en' => 'Health And Sports Day', 'ja' => '体育の日'];
+        $holidayName = ['en' => 'Health And Sports Day', 'ja' => '体育の日'];
         if ($this->year >= 2020) {
-            $holiday_name = ['en' => 'Sports Day', 'ja' => 'スポーツの日'];
+            $holidayName = ['en' => 'Sports Day', 'ja' => 'スポーツの日'];
         }
 
         if ($date instanceof DateTimeInterface) {
             $this->addHoliday(new Holiday(
                 'sportsDay',
-                $holiday_name,
+                $holidayName,
                 $date,
                 $this->locale
             ));
@@ -537,7 +537,7 @@ class Japan extends AbstractProvider
         $dates = $this->getHolidayDates();
 
         // Loop through all holidays
-        foreach ($this->getHolidays() as $shortName => $holiday) {
+        foreach ($this->getHolidays() as $holiday) {
             $date = clone $holiday;
 
             // If holidays falls on a Sunday

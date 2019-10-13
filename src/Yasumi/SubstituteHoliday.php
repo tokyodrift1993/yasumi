@@ -87,11 +87,12 @@ class SubstituteHoliday extends Holiday
         $name = parent::getName();
 
         if ($name === $this->shortName) {
-            $pattern = $this->substituteHolidayTranslations[$this->displayLocale]
-                ?? $this->substituteHolidayTranslations[self::DEFAULT_LOCALE]
-                ?? $this->shortName;
-
-            $name = \str_replace('{0}', $this->substitutedHoliday->getName(), $pattern);
+            foreach ($this->getLocales() as $locale) {
+                $pattern = $this->substituteHolidayTranslations[$locale] ?? null;
+                if ($pattern) {
+                    return \str_replace('{0}', $this->substitutedHoliday->getName(), $pattern);
+                }
+            }
         }
 
         return $name;
@@ -102,7 +103,7 @@ class SubstituteHoliday extends Holiday
      *
      * @param TranslationsInterface $globalTranslations global translations
      */
-    public function mergeGlobalTranslations(TranslationsInterface $globalTranslations)
+    public function mergeGlobalTranslations(TranslationsInterface $globalTranslations): void
     {
         $this->substituteHolidayTranslations = $globalTranslations->getTranslations('substituteHoliday');
 
