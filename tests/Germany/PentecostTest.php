@@ -19,12 +19,12 @@ use DateTimeZone;
 use Exception;
 use ReflectionException;
 use Yasumi\Holiday;
-use Yasumi\tests\YasumiTestCaseInterface;
+use Yasumi\tests\HolidayTestCase;
 
 /**
  * Class for testing Pentecost in Germany.
  */
-class PentecostTest extends GermanyBaseTestCase implements YasumiTestCaseInterface
+class PentecostTest extends GermanyBaseTestCase implements HolidayTestCase
 {
     /**
      * The name of the holiday.
@@ -40,10 +40,10 @@ class PentecostTest extends GermanyBaseTestCase implements YasumiTestCaseInterfa
     public function testHoliday(): void
     {
         $year = $this->generateRandomYear();
-        $time_stamp = \strtotime(
-            $year.'-03-21'.\easter_days($year).' day + 49 day'
+        $time_stamp = strtotime(
+            $year.'-03-21'.easter_days($year).' day + 49 day'
         );
-        $date = \date('Y-m-d', $time_stamp);
+        $date = date('Y-m-d', $time_stamp);
 
         $this->assertHoliday(
             self::REGION,

@@ -8,9 +8,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 
 ### Added
 
-- Georgia Provider [\#245](https://github.com/azuyalabs/yasumi/pull/245) ([Zurab Sardarov](https://github.com/zsardarov))
-- Pentecost (Sunday) to Germany [\#225](https://github.com/azuyalabs/yasumi/pull/225)
+- All providers now include a method that returns a list of external sources (i.e. references to websites, books, scientific papers, etc.) that are used for determining the calculation logic of the providers' holidays.
 
+### Changed
+
+- Provider tests must implement the `ProviderTestCase` interface to ensure all required test methods are defined.
+- `YasumiTestCaseInterface` was renamed to `HolidayTestCase` to better match the newly added `ProviderTestCase` interface.
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
+
+## [2.4.0] - 2021-05-09
+
+### Added
+
+- Georgia Provider [\#245](https://github.com/azuyalabs/yasumi/pull/245) ([Zurab Sardarov](https://github.com/zsardarov))
+- Pentecost (Sunday) to Germany [\#225](https://github.com/azuyalabs/yasumi/pull/225) ([Patrick-Root](https://github.com/Patrick-Root))
+
+- PHP8 Support [\#238](https://github.com/azuyalabs/yasumi/pull/238) ([Stéphane](https://github.com/fezfez))
+- Infection PHP to perform mutation testing.
 - PHPStan to the dependencies allowing for local analysis.
 - `.gitattributes` file to reduce the size of a release package [\#237](https://github.com/azuyalabs/yasumi/pull/237) ([Stéphane](https://github.com/fezfez))
 
@@ -20,32 +40,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 - Some improvements/refactoring of the Swiss holiday providers (including links to sources) [\#233](https://github.com/azuyalabs/yasumi/pull/233) ([Quentin Ligier](https://github.com/qligier))
 
 - Allow the `WEEKEND_DATA` constant in provider classes to be overridden. [\#235](https://github.com/azuyalabs/yasumi/pull/235) ([Mahmood Dhia](https://github.com/mdhia))
+- Upgraded PHPUnit's XML configuration.
 - Refactored removing the magic numbers for the lower and upper limits of the calendar year.
 - Reformatted code using new/updated Code Styling rules.
-- Use Github Actions for CI replacing Travis/StyleCI/Scrutinizer
 - Hardened error handling of json functions.
-- Updated Copyright year
+- Updated Copyright year.
 
 ### Fixed
 
+- The test for North West Territories (Canada) in that the National Indigenous Peoples Day was considered for all years: it is only celebrated since 1996.
 - The test for NovaScotia (Canada) in that novaScotiaHeritageDay was considered for all years: it is only celebrated since 2015.
 - The test for Ontario (Canada) in that IslanderDay was considered for all years: it is only celebrated since 2009.
+- The test for Marine Day (Japan) as the rescheduled day was moved to 2021 (due to the COVID-19 pandemic).
 - Typo for Estonian Day of Restoration of Independence [\#228](https://github.com/azuyalabs/yasumi/pull/228) ([Reijo Vosu](https://github.com/reijovosu))
 
 - The substitute holiday unit test as the use of the `at()` method will be deprecated in PHPUnit 10.
 - Incorrect invocation of `Fribourg::calculateBerchtoldsTag()` and `Fribourg::calculateDecember26th` (Switzerland)
-- Use parameter and return type hinting
+- Use proper parameter and return type hinting
 - Replaced the `mt_rand` function with the `random_int` function as it is cryptographically insecure.
 - Some static functions were used as if they are object functions.
 
-### Deprecated
-
 ### Removed
 
-- Use Github Actions for CI replacing Travis/StyleCI/Scrutinizer
+- Travis/StyleCI/Scrutinizer services replaced by GitHub Actions.
 - PHP 7.2 Support (PHP 7.2 is EOL)
 - Faker library as it has been sunset [\#238](https://github.com/azuyalabs/yasumi/pull/238) ([Stéphane](https://github.com/fezfez))
+- Native function invocations.
 - Various undefined class references, unused imports, etc.
+- Unnecessary curly braces in strings, `continue` keyword in while loops, typecasting.
 
 ## [2.3.0] - 2020-06-22
 
@@ -74,7 +96,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 - Independence Day is no longer an official holiday since 2020 in Croatia. [\#203](https://github.com/azuyalabs/yasumi/pull/203) ([krukru](https://github.com/krukru))
 - Homeland Thanksgiving Day has been renamed to "Victory and Homeland Thanksgiving Day and the Day of Croatian Defenders" since 2020 in Croatia. [\#203](https://github.com/azuyalabs/yasumi/pull/203) ([krukru](https://github.com/krukru))
 - Remembrance Day for Homeland War Victims and Remembrance Day for the Victims of Vukovar and Skabrnja is a new official holiday since 2020 in Croatia. [\#203](https://github.com/azuyalabs/yasumi/pull/203) ([krukru](https://github.com/krukru))
-- Second International Workers Day in Ukraine was an official holiday only until 2018. [\#202](https://github.com/azuyalabs/yasumi/pull/202)
+- Second International Workers' Day in Ukraine was an official holiday only until 2018. [\#202](https://github.com/azuyalabs/yasumi/pull/202)
 - Holiday names in Danish, Dutch, and Norwegian are no longer capitalized. [\#185](https://github.com/azuyalabs/yasumi/pull/185) ([c960657](https://github.com/c960657))
 
 - Changed the fallback from DEFAULT_LANGUAGE to 'en'. [\#183](https://github.com/azuyalabs/yasumi/pull/183) ([c960657](https://github.com/c960657))
@@ -112,7 +134,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 - Holiday Provider for South Korea. [\#156](https://github.com/azuyalabs/yasumi/pull/156) ([blood72](https://github.com/blood72))
 - Translation for the Easter holiday for the 'fr_FR' locale [\#146](https://github.com/azuyalabs/yasumi/pull/146) ([pioc92](https://github.com/pioc92))
 - Translation for the Pentecost holiday for the 'fr_FR' locale [\#145](https://github.com/azuyalabs/yasumi/pull/145) ([pioc92](https://github.com/pioc92))
-- Late Summer Bank Holiday in United Kingdom prior to 1965 [\#161](https://github.com/azuyalabs/yasumi/pull/161) ([c960657](https://github.com/c960657))
+- Late Summer Bank Holiday in the United Kingdom prior to 1965 [\#161](https://github.com/azuyalabs/yasumi/pull/161) ([c960657](https://github.com/c960657))
 - Observance holidays for Sweden [\#172](https://github.com/azuyalabs/yasumi/pull/172) ([c960657](https://github.com/c960657))
 - Created a special subclass of Holiday for substitute holidays [\#162](https://github.com/azuyalabs/yasumi/pull/162) ([c960657](https://github.com/c960657))
 - Added additional code style fixers and aligning StyleCI settings with PHP-CS.
@@ -169,13 +191,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 ### Fixed
 
 - "Bridge Day" for Japan takes two days in 2019. Currently, the code only allows for 1 bridge day at a maximum. [\#141](https://github.com/azuyalabs/yasumi/pull/141) ([cookie-maker](https://github.com/cookie-maker))
-- Tests for Bremen, Lower Saxony and Schleswig Holstein (Germany) also celebrated Reformation Day in 2017. The unit tests were failing as it didn't account for that.
+- Tests for Bremen, Lower Saxony and Schleswig-Holstein (Germany) also celebrated Reformation Day in 2017. The unit tests were failing as it didn't account for that.
 - Changed the USA Provider to check all holidays for potential substitute holidays, not just New Year's Day, Independence Day, and Christmas Day. [\#140](https://github.com/azuyalabs/yasumi/pull/140) ([jagers](https://github.com/jagers))
 - Adjusted tests for the 'next' and 'previous' methods to avoid actually exceeding the year boundaries.
 - Deprecation warning for the package mikey179/vfStream. Composer 2.0 requires package names to not contain any upper case characters. [\#135](https://github.com/azuyalabs/yasumi/pull/135) ([IceShack](https://github.com/IceShack))
 - Incorrect comment about weekends in India [\#126](https://github.com/azuyalabs/yasumi/pull/126) ([c960657](https://github.com/c960657))
 - Correction to the test of New Year's Day in the United Kingdom. It has been identified as a Bank Holiday only since 1975 (not from 1974).
-  
+
 ### Removed
 
 - Duplicate definition of newYearsDay [\#125](https://github.com/azuyalabs/yasumi/pull/125) ([c960657](https://github.com/c960657))
@@ -211,7 +233,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 ### Fixed
 
 - Translation for Russia showed in English (except New Year's Day) as the proper locale was not in place.
-- Fixed issue for summer time in Denmark in 1980. By default summertime in Denmark is set for the last day of March since 1980, however in 1980 itself, it started on April, 6th.
+- Fixed issue for summertime in Denmark in 1980. By default, summertime in Denmark is set for the last day of March since 1980, however in 1980 itself, it started on April, 6th.
 - Fixed spelling issue in the Swedish translation. [\#97](https://github.com/azuyalabs/yasumi/pull/97) ([c960657](https://github.com/c960657))
 - Fixed spelling issues in the Danish translation. [\#96](https://github.com/azuyalabs/yasumi/pull/96) ([c960657](https://github.com/c960657))
 - Fixed German Easter Sunday and Pentecost Sunday holidays (not nationwide, only in Brandenburg). [\#100](https://github.com/azuyalabs/yasumi/pull/100) ([TalonTR](https://github.com/TalonTR))
@@ -224,7 +246,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 
 ### Added
 
-- Added a function that can remove a holiday from the holidays providers (i.e. country/state) list of holidays. This function can be helpful in cases where an existing holiday provider class can be extended but some holidays are not part of the original (extended) provider.
+- Added a function that can remove a holiday from the holidays providers (i.e. country/state) list of holidays. This function can be helpful in cases where an existing holiday provider class can be extended, but some holidays are not part of the original (extended) provider.
 - Changed various functions that have a date parameter to support now objects implementing the DateTimeInterface and objects of the DateTimeImmutable type.
 - Added support for countries where the weekend definition (start and end day) differs from the global definition (Saturday and Sunday).
 - Holiday Provider for Russia. [\#72](https://github.com/azuyalabs/yasumi/pull/72) ([lukosius](https://github.com/lukosius))
@@ -268,7 +290,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 
 - Made `calculate` method public and use of proper camel casing. [\#73](https://github.com/azuyalabs/yasumi/pull/73) ([patrickreck](https://github.com/patrickreck))
 - Upgraded Faker Library to version 1.7
-- Renamed the holiday type NATIONAL to OFFICIAL. Sub regions may have official holidays, and the name NATIONAL doesn't suit these situations. [\#65](https://github.com/azuyalabs/yasumi/pull/65)
+- Renamed the holiday type NATIONAL to OFFICIAL. Sub-regions may have official holidays, and the name NATIONAL doesn't suit these situations. [\#65](https://github.com/azuyalabs/yasumi/pull/65)
 - Upgraded PHP-CS-Fixer to version 2.6
 
 ### Fixed
@@ -375,7 +397,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 
 ### Fixed
 
-- Fixed issue for Sweden as All Saints Day was always calculated to be on November 1st. However the holiday has always
+- Fixed issue for Sweden as All Saints Day was always calculated to be on November 1st. However, the holiday has always
   been celebrated on a Saturday (between October 31 and November 6th).
 - Fixed the getProviders as it was not able to load Holiday Providers defined in (sub) regions [\#5879133](https://github.com/azuyalabs/yasumi/commit/58791330ccf5c13b1626885921534c32866b7faf) ([R2c](https://github.com/R2c))
 - Fixed issue that it was possible for the AbstractProvider class to be loaded as a Holiday Provider [\#9678bc4](https://github.com/azuyalabs/yasumi/commit/9678bc490e34980404ad5dc5b3d45a3c76a3ca0f) ([R2c](https://github.com/R2c))
@@ -436,11 +458,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 ### Changed
 
 - Updated some English, Italian, French and Dutch translations.
-- Moved all other holiday calculations in Netherlands and France to individual methods.
+- Moved all other holiday calculations in the Netherlands and France to individual methods.
 
 ### Fixed
 
-- For Japan substituted holidays had same date as the original holidays.
+- For Japan substituted holidays had the same date as the original holidays.
 
 ### Removed
 
@@ -450,3 +472,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/) and this 
 ## [1.0.0] - 2015-04-21
 
 - Initial Release
+
+[Unreleased]: https://github.com/azuyalabs/yasumi/compare/2.4.0...HEAD
+[2.4.0]: https://github.com/azuyalabs/yasumi/compare/2.3.0...2.4.0
+[2.3.0]: https://github.com/azuyalabs/yasumi/compare/2.2.0...2.3.0
+[2.2.0]: https://github.com/azuyalabs/yasumi/compare/2.1.0...2.2.0
+[2.1.0]: https://github.com/azuyalabs/yasumi/compare/2.0.0...2.1.0
+[2.0.0]: https://github.com/azuyalabs/yasumi/compare/1.8.0...2.0.0
+[1.8.0]: https://github.com/azuyalabs/yasumi/compare/1.7.0...1.8.0
+[1.7.0]: https://github.com/azuyalabs/yasumi/compare/1.6.1...1.7.0
+[1.6.1]: https://github.com/azuyalabs/yasumi/compare/1.6.1...1.6.0
+[1.6.0]: https://github.com/azuyalabs/yasumi/compare/1.5.0...1.6.0
+[1.5.0]: https://github.com/azuyalabs/yasumi/compare/1.4.0...1.5.0
+[1.4.0]: https://github.com/azuyalabs/yasumi/compare/1.3.0...1.4.0
+[1.3.0]: https://github.com/azuyalabs/yasumi/compare/1.2.0...1.3.0
+[1.2.0]: https://github.com/azuyalabs/yasumi/compare/1.1.0...1.2.0
+[1.1.0]: https://github.com/azuyalabs/yasumi/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/azuyalabs/yasumi/releases/tag/1.0.0

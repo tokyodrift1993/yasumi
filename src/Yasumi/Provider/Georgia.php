@@ -63,10 +63,19 @@ class Georgia extends AbstractProvider
         $this->addStGeorgesDay();
     }
 
+    public function getSources(): array
+    {
+        return [
+            'https://en.wikipedia.org/wiki/Public_holidays_in_Georgia_(country)',
+            'https://ka.wikipedia.org/wiki/%E1%83%A3%E1%83%A5%E1%83%9B%E1%83%94_%E1%83%93%E1%83%A6%E1%83%94%E1%83%94%E1%83%91%E1%83%98_%E1%83%A1%E1%83%90%E1%83%A5%E1%83%90%E1%83%A0%E1%83%97%E1%83%95%E1%83%94%E1%83%9A%E1%83%9D%E1%83%A8%E1%83%98',
+            'https://xmf.wikipedia.org/wiki/%E1%83%9D%E1%83%A4%E1%83%98%E1%83%AA%E1%83%98%E1%83%90%E1%83%9A%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%A3%E1%83%A5%E1%83%95%E1%83%98_%E1%83%93%E1%83%A6%E1%83%90%E1%83%9A%E1%83%94%E1%83%A4%E1%83%98_%E1%83%A1%E1%83%90%E1%83%A5%E1%83%9D%E1%83%A0%E1%83%97%E1%83%A3%E1%83%9D%E1%83%A1',
+        ];
+    }
+
     /**
      * @throws \Exception
      */
-    public function calculateEaster(int $year, string $timezone): \DateTime
+    protected function calculateEaster(int $year, string $timezone): \DateTime
     {
         return $this->calculateOrthodoxEaster($year, $timezone);
     }
@@ -77,7 +86,7 @@ class Georgia extends AbstractProvider
      */
     private function addOrthodoxChristmasDay(): void
     {
-        $date = new \DateTime("{$this->year}-01-07", new \DateTimeZone($this->timezone));
+        $date = new \DateTime("$this->year-01-07", new \DateTimeZone($this->timezone));
 
         $this->addHoliday(new Holiday('orthodoxChristmasDay', [
             'en' => 'Orthodox Christmas Day',
@@ -92,7 +101,7 @@ class Georgia extends AbstractProvider
     private function addIndependenceDay(): void
     {
         if ($this->year >= self::PROCLAMATION_OF_INDEPENDENCE_YEAR) {
-            $date = new \DateTime("{$this->year}-05-26", new \DateTimeZone($this->timezone));
+            $date = new \DateTime("$this->year-05-26", new \DateTimeZone($this->timezone));
 
             $this->addHoliday(new Holiday('independenceDay', [
                 'en' => 'Independence Day',
@@ -108,7 +117,7 @@ class Georgia extends AbstractProvider
     private function addUnityDay(): void
     {
         if ($this->year >= self::APRIL_NINE_TRAGEDY_YEAR) {
-            $date = new \DateTime("{$this->year}-04-09", new \DateTimeZone($this->timezone));
+            $date = new \DateTime("$this->year-04-09", new \DateTimeZone($this->timezone));
 
             $this->addHoliday(new Holiday('unityDay', [
                 'en' => 'National Unity Day',
@@ -123,7 +132,7 @@ class Georgia extends AbstractProvider
      */
     private function addMothersDay(): void
     {
-        $date = new \DateTime("{$this->year}-03-03", new \DateTimeZone($this->timezone));
+        $date = new \DateTime("$this->year-03-03", new \DateTimeZone($this->timezone));
 
         $this->addHoliday(new Holiday('mothersDay', [
             'en' => 'Mothers Day',
@@ -137,7 +146,7 @@ class Georgia extends AbstractProvider
      */
     private function addVictoryDay(): void
     {
-        $date = new \DateTime("{$this->year}-05-09", new \DateTimeZone($this->timezone));
+        $date = new \DateTime("$this->year-05-09", new \DateTimeZone($this->timezone));
 
         $this->addHoliday(new Holiday('victoryDay', [
             'en' => 'Day of Victory over Fascism',
@@ -151,7 +160,7 @@ class Georgia extends AbstractProvider
      */
     private function addStAndrewsDay(): void
     {
-        $date = new \DateTime("{$this->year}-05-12", new \DateTimeZone($this->timezone));
+        $date = new \DateTime("$this->year-05-12", new \DateTimeZone($this->timezone));
 
         $this->addHoliday(new Holiday('stAndrewsDay', [
             'en' => 'Saint Andrew the First-Called Day',
@@ -165,7 +174,7 @@ class Georgia extends AbstractProvider
      */
     private function addOrthodoxEpiphanyDay(): void
     {
-        $date = new \DateTime("{$this->year}-01-19", new \DateTimeZone($this->timezone));
+        $date = new \DateTime("$this->year-01-19", new \DateTimeZone($this->timezone));
 
         $this->addHoliday(new Holiday('orthodoxEpiphanyDay', [
             'en' => 'Orthodox Epiphany Day',
@@ -179,7 +188,7 @@ class Georgia extends AbstractProvider
      */
     private function addStMarysDay(): void
     {
-        $date = new \DateTime("{$this->year}-08-28", new \DateTimeZone($this->timezone));
+        $date = new \DateTime("$this->year-08-28", new \DateTimeZone($this->timezone));
 
         $this->addHoliday(new Holiday('stMarysDay', [
             'en' => 'Saint Marys Day',
@@ -193,7 +202,7 @@ class Georgia extends AbstractProvider
      */
     private function addMtskhetobaDay(): void
     {
-        $date = new \DateTime("{$this->year}-10-14", new \DateTimeZone($this->timezone));
+        $date = new \DateTime("$this->year-10-14", new \DateTimeZone($this->timezone));
 
         $this->addHoliday(new Holiday('mtskhetobaDay', [
             'en' => 'Day of Svetitskhoveli Cathedral',
@@ -207,7 +216,7 @@ class Georgia extends AbstractProvider
      */
     private function addStGeorgesDay(): void
     {
-        $date = new \DateTime("{$this->year}-11-23", new \DateTimeZone($this->timezone));
+        $date = new \DateTime("$this->year-11-23", new \DateTimeZone($this->timezone));
 
         $this->addHoliday(new Holiday('stGeorgesDay', [
             'en' => 'Saint Georges Day',

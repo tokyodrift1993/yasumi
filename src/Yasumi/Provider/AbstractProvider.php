@@ -114,7 +114,7 @@ abstract class AbstractProvider implements ProviderInterface, Countable, Iterato
     ) {
         $this->clearHolidays();
 
-        $this->year = $year ?: \getdate()['year'];
+        $this->year = $year ?: getdate()['year'];
         $this->locale = $locale ?? 'en_US';
         $this->globalTranslations = $globalTranslations;
 
@@ -134,7 +134,7 @@ abstract class AbstractProvider implements ProviderInterface, Countable, Iterato
         }
 
         $this->holidays[$holiday->getKey()] = $holiday;
-        \uasort($this->holidays, [__CLASS__, 'compareDates']);
+        uasort($this->holidays, [__CLASS__, 'compareDates']);
     }
 
     /**
@@ -181,23 +181,11 @@ abstract class AbstractProvider implements ProviderInterface, Countable, Iterato
     public function isHoliday(\DateTimeInterface $date): bool
     {
         // Check if given date is a holiday or not
-        if (\in_array($date->format('Y-m-d'), \array_values($this->getHolidayDates()), true)) {
+        if (\in_array($date->format('Y-m-d'), array_values($this->getHolidayDates()), true)) {
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Gets all of the holiday dates defined by this holiday provider (for the given year).
-     *
-     * @return array list of all holiday dates defined for the given year
-     */
-    public function getHolidayDates(): array
-    {
-        return \array_map(static function ($holiday) {
-            return (string) $holiday;
-        }, $this->holidays);
     }
 
     /**
@@ -268,7 +256,7 @@ abstract class AbstractProvider implements ProviderInterface, Countable, Iterato
      */
     public function count(): int
     {
-        $names = \array_map(static function ($holiday) {
+        $names = array_map(static function ($holiday) {
             if ($holiday instanceof SubstituteHoliday) {
                 return $holiday->getSubstitutedHoliday()->getKey();
             }
@@ -276,7 +264,7 @@ abstract class AbstractProvider implements ProviderInterface, Countable, Iterato
             return $holiday->getKey();
         }, $this->getHolidays());
 
-        return \count(\array_unique($names));
+        return \count(array_unique($names));
     }
 
     /**
@@ -296,7 +284,7 @@ abstract class AbstractProvider implements ProviderInterface, Countable, Iterato
      */
     public function getHolidayNames(): array
     {
-        return \array_keys($this->holidays);
+        return array_keys($this->holidays);
     }
 
     /**
@@ -424,29 +412,15 @@ abstract class AbstractProvider implements ProviderInterface, Countable, Iterato
     }
 
     /**
-     * Clear all holidays.
+     * Gets all of the holiday dates defined by this holiday provider (for the given year).
+     *
+     * @return array list of all holiday dates defined for the given year
      */
-    protected function clearHolidays(): void
+    protected function getHolidayDates(): array
     {
-        $this->holidays = [];
-    }
-
-    /**
-     * Checks whether the given holiday is not empty.
-     *
-     * @param string $key key of the holiday to be checked
-     *
-     * @return true upon success, otherwise an InvalidArgumentException is thrown
-     *
-     * @throws InvalidArgumentException an InvalidArgumentException is thrown if the given holiday parameter is empty
-     */
-    protected function isHolidayKeyNotEmpty(string $key): bool
-    {
-        if (empty($key)) {
-            throw new InvalidArgumentException('Holiday key can not be blank.');
-        }
-
-        return true;
+        return array_map(static function ($holiday) {
+            return (string) $holiday;
+        }, $this->holidays);
     }
 
     /**
@@ -464,6 +438,32 @@ abstract class AbstractProvider implements ProviderInterface, Countable, Iterato
     protected function isHolidayNameNotEmpty(string $key): bool
     {
         return $this->isHolidayKeyNotEmpty($key);
+    }
+
+    /**
+     * Clear all holidays.
+     */
+    private function clearHolidays(): void
+    {
+        $this->holidays = [];
+    }
+
+    /**
+     * Checks whether the given holiday is not empty.
+     *
+     * @param string $key key of the holiday to be checked
+     *
+     * @return true upon success, otherwise an InvalidArgumentException is thrown
+     *
+     * @throws InvalidArgumentException an InvalidArgumentException is thrown if the given holiday parameter is empty
+     */
+    private function isHolidayKeyNotEmpty(string $key): bool
+    {
+        if (empty($key)) {
+            throw new InvalidArgumentException('Holiday key can not be blank.');
+        }
+
+        return true;
     }
 
     /**

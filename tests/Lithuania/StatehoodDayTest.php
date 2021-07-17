@@ -21,14 +21,14 @@ use Exception;
 use ReflectionException;
 use Yasumi\Holiday;
 use Yasumi\Provider\Lithuania;
-use Yasumi\tests\YasumiTestCaseInterface;
+use Yasumi\tests\HolidayTestCase;
 
 /**
  * Class containing tests for Statehood Day day in Lithuania.
  *
  * @author Gedas Lukošius <gedas@lukosius.me>
  */
-class StatehoodDayTest extends LithuaniaBaseTestCase implements YasumiTestCaseInterface
+class StatehoodDayTest extends LithuaniaBaseTestCase implements HolidayTestCase
 {
     /**
      * The name of the holiday to be tested.
@@ -63,7 +63,7 @@ class StatehoodDayTest extends LithuaniaBaseTestCase implements YasumiTestCaseIn
             self::REGION,
             self::HOLIDAY,
             $year,
-            new DateTime("{$year}-07-06", new DateTimeZone(self::TIMEZONE))
+            new DateTime("$year-07-06", new DateTimeZone(self::TIMEZONE))
         );
     }
 

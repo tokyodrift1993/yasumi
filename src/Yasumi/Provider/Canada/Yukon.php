@@ -24,7 +24,7 @@ use Yasumi\Provider\DateTimeZoneFactory;
 /**
  * Provider for all holidays in Yukon (Canada).
  *
- * Manitoba is a territory of Canada.
+ * Yukon is a province of Canada.
  *
  * @see https://en.wikipedia.org/wiki/Yukon
  */
@@ -66,7 +66,7 @@ class Yukon extends Canada
      * @throws UnknownLocaleException
      * @throws \Exception
      */
-    protected function calculateDiscoveryDay(): void
+    private function calculateDiscoveryDay(): void
     {
         if ($this->year < 1897) {
             return;
@@ -90,7 +90,7 @@ class Yukon extends Canada
      * @throws UnknownLocaleException
      * @throws \Exception
      */
-    protected function calculateHeritageDay(): void
+    private function calculateHeritageDay(): void
     {
         if ($this->year < 2009) {
             return;

@@ -19,9 +19,9 @@ use DateTime;
 use Exception;
 use ReflectionException;
 use Yasumi\Holiday;
-use Yasumi\tests\YasumiTestCaseInterface;
+use Yasumi\tests\HolidayTestCase;
 
-class OrthodoxChristmasDayTest extends GeorgiaBaseTestCase implements YasumiTestCaseInterface
+class OrthodoxChristmasDayTest extends GeorgiaBaseTestCase implements HolidayTestCase
 {
     /**
      * The name of the holiday to be tested.
@@ -55,7 +55,7 @@ class OrthodoxChristmasDayTest extends GeorgiaBaseTestCase implements YasumiTest
      *
      * @throws ReflectionException
      */
-    public function testTranslation()
+    public function testTranslation(): void
     {
         $this->assertTranslatedHolidayName(
             self::REGION,
@@ -70,7 +70,7 @@ class OrthodoxChristmasDayTest extends GeorgiaBaseTestCase implements YasumiTest
      *
      * @throws ReflectionException
      */
-    public function testHolidayType()
+    public function testHolidayType(): void
     {
         $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_OFFICIAL);
     }

@@ -16,11 +16,12 @@ namespace Yasumi\tests\Canada\Yukon;
 
 use ReflectionException;
 use Yasumi\Holiday;
+use Yasumi\tests\ProviderTestCase;
 
 /**
  * Class for testing holidays in Yukon.
  */
-class YukonTest extends YukonBaseTestCase
+class YukonTest extends YukonBaseTestCase implements ProviderTestCase
 {
     /**
      * @var int year random year number used for all tests in this Test Case
@@ -51,7 +52,7 @@ class YukonTest extends YukonBaseTestCase
             $holidays[] = 'yukonHeritageDay';
         }
 
-        if (1996 >= $this->year) {
+        if (1996 <= $this->year) {
             $holidays[] = 'nationalIndigenousPeoplesDay';
         }
 
@@ -104,5 +105,13 @@ class YukonTest extends YukonBaseTestCase
     public function testOtherHolidays(): void
     {
         $this->assertDefinedHolidays([], self::REGION, $this->year, Holiday::TYPE_OTHER);
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public function testSources(): void
+    {
+        $this->assertSources(self::REGION, 1);
     }
 }

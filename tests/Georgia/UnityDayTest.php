@@ -20,9 +20,9 @@ use DateTimeZone;
 use Exception;
 use ReflectionException;
 use Yasumi\Holiday;
-use Yasumi\tests\YasumiTestCaseInterface;
+use Yasumi\tests\HolidayTestCase;
 
-class UnityDayTest extends GeorgiaBaseTestCase implements YasumiTestCaseInterface
+class UnityDayTest extends GeorgiaBaseTestCase implements HolidayTestCase
 {
     /**
      * The name of the holiday to be tested.
@@ -40,7 +40,7 @@ class UnityDayTest extends GeorgiaBaseTestCase implements YasumiTestCaseInterfac
             self::REGION,
             self::HOLIDAY,
             $year,
-            new DateTime("{$year}-04-09", new DateTimeZone(self::TIMEZONE))
+            new DateTime("$year-04-09", new DateTimeZone(self::TIMEZONE))
         );
     }
 
@@ -49,7 +49,7 @@ class UnityDayTest extends GeorgiaBaseTestCase implements YasumiTestCaseInterfac
      *
      * @throws ReflectionException
      */
-    public function testTranslation()
+    public function testTranslation(): void
     {
         $year = 2019;
 
@@ -66,7 +66,7 @@ class UnityDayTest extends GeorgiaBaseTestCase implements YasumiTestCaseInterfac
      *
      * @throws ReflectionException
      */
-    public function testHolidayType()
+    public function testHolidayType(): void
     {
         $year = 2019;
 

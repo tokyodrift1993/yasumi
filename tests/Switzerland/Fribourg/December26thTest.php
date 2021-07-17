@@ -19,12 +19,12 @@ use DateTimeZone;
 use Exception;
 use ReflectionException;
 use Yasumi\Holiday;
-use Yasumi\tests\YasumiTestCaseInterface;
+use Yasumi\tests\HolidayTestCase;
 
 /**
  * Class for testing December 26th in Fribourg (Switzerland).
  */
-class December26thTest extends FribourgBaseTestCase implements YasumiTestCaseInterface
+class December26thTest extends FribourgBaseTestCase implements HolidayTestCase
 {
     /**
      * The name of the holiday.
@@ -44,7 +44,7 @@ class December26thTest extends FribourgBaseTestCase implements YasumiTestCaseInt
             self::REGION,
             self::HOLIDAY,
             $year,
-            new DateTime("${year}-12-26", new DateTimeZone(self::TIMEZONE))
+            new DateTime("$year-12-26", new DateTimeZone(self::TIMEZONE))
         );
     }
 

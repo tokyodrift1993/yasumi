@@ -24,7 +24,7 @@ use Yasumi\Provider\DateTimeZoneFactory;
 /**
  * Provider for all holidays in Alberta (Canada).
  *
- * Manitoba is a province of Canada.
+ * Alberta is a province of Canada.
  *
  * @see https://en.wikipedia.org/wiki/Alberta
  */
@@ -65,7 +65,7 @@ class Alberta extends Canada
      * @throws UnknownLocaleException
      * @throws \Exception
      */
-    protected function calculateHeritageDay(): void
+    private function calculateHeritageDay(): void
     {
         if ($this->year < 1879) {
             return;

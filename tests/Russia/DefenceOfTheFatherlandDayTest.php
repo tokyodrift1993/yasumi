@@ -20,14 +20,14 @@ use Exception;
 use ReflectionException;
 use Yasumi\Holiday;
 use Yasumi\Provider\Russia;
-use Yasumi\tests\YasumiTestCaseInterface;
+use Yasumi\tests\HolidayTestCase;
 
 /**
  * Class containing tests for Defence of the Fatherland day in Russia.
  *
  * @author Gedas Lukošius <gedas@lukosius.me>
  */
-class DefenceOfTheFatherlandDayTest extends RussiaBaseTestCase implements YasumiTestCaseInterface
+class DefenceOfTheFatherlandDayTest extends RussiaBaseTestCase implements HolidayTestCase
 {
     /**
      * The name of the holiday to be tested.
@@ -62,7 +62,7 @@ class DefenceOfTheFatherlandDayTest extends RussiaBaseTestCase implements Yasumi
             self::REGION,
             self::HOLIDAY,
             $year,
-            new DateTime("{$year}-02-23", new DateTimeZone(self::TIMEZONE))
+            new DateTime("$year-02-23", new DateTimeZone(self::TIMEZONE))
         );
     }
 

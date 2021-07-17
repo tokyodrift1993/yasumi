@@ -68,7 +68,7 @@ class SouthKorea extends AbstractProvider
             2020 => '2020-1-25', 2021 => '2021-2-12', 2022 => '2022-2-1', 2023 => '2023-1-22', 2024 => '2024-2-10',
             2025 => '2025-1-29', 2026 => '2026-2-17', 2027 => '2027-2-7', 2028 => '2028-1-27', 2029 => '2029-2-13',
             2030 => '2030-2-3', 2031 => '2031-1-23', 2032 => '2032-2-11', 2033 => '2033-1-31', 2034 => '2034-2-19',
-            2035 => '2035-2-8', 2036 => '2036-1-28', 2037 => '2037-2-15', 2038 => '2038-2-4', 2039 => '2037-1-24',
+            2035 => '2035-2-8', 2036 => '2036-1-28', 2037 => '2037-2-15', 2038 => '2038-2-4', 2039 => '2039-1-24',
             2040 => '2040-2-12', 2041 => '2041-2-1', 2042 => '2042-1-22', 2043 => '2043-2-10', 2044 => '2044-1-30',
             2045 => '2045-2-17', 2046 => '2046-2-6', 2047 => '2047-1-26', 2048 => '2048-2-14', 2049 => '2049-2-2',
             2050 => '2050-1-23',
@@ -152,6 +152,14 @@ class SouthKorea extends AbstractProvider
         $this->calculateSubstituteHolidays();
     }
 
+    public function getSources(): array
+    {
+        return [
+            'https://en.wikipedia.org/wiki/Public_holidays_in_South_Korea',
+            'https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B3%B5%ED%9C%B4%EC%9D%BC',
+        ];
+    }
+
     /**
      * New Year's Day. New Year's Day is held on January 1st and established since 1950.
      * From the enactment of the First Law to 1998, there was a two or three-day break in the New Year.
@@ -160,7 +168,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateNewYearsDay(): void
+    private function calculateNewYearsDay(): void
     {
         if ($this->year >= 1950) {
             $this->addHoliday($this->newYearsDay($this->year, $this->timezone, $this->locale));
@@ -191,7 +199,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateSeollal(): void
+    private function calculateSeollal(): void
     {
         if ($this->year >= 1985 && isset(self::LUNAR_HOLIDAY['seollal'][$this->year])) {
             $seollal = new DateTime(self::LUNAR_HOLIDAY['seollal'][$this->year], DateTimeZoneFactory::getDateTimeZone($this->timezone));
@@ -229,7 +237,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateBuddhasBirthday(): void
+    private function calculateBuddhasBirthday(): void
     {
         if ($this->year >= 1975 && isset(self::LUNAR_HOLIDAY['buddhasBirthday'][$this->year])) {
             $this->addHoliday(new Holiday(
@@ -251,7 +259,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateChuseok(): void
+    private function calculateChuseok(): void
     {
         if ($this->year >= 1949 && isset(self::LUNAR_HOLIDAY['chuseok'][$this->year])) {
             // Chuseok
@@ -292,7 +300,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateIndependenceMovementDay(): void
+    private function calculateIndependenceMovementDay(): void
     {
         if ($this->year >= 1949) {
             $this->addHoliday(new Holiday(
@@ -311,7 +319,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateArborDay(): void
+    private function calculateArborDay(): void
     {
         if (($this->year >= 1949 && $this->year < 1960) || ($this->year > 1960 && $this->year < 2006)) {
             $this->addHoliday(new Holiday(
@@ -330,7 +338,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateChildrensDay(): void
+    private function calculateChildrensDay(): void
     {
         if ($this->year >= 1970) {
             $this->addHoliday(new Holiday(
@@ -349,7 +357,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateMemorialDay(): void
+    private function calculateMemorialDay(): void
     {
         if ($this->year >= 1966) {
             $this->addHoliday(new Holiday(
@@ -371,7 +379,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateConstitutionDay(): void
+    private function calculateConstitutionDay(): void
     {
         if ($this->year >= 1949 && $this->year < 2008) {
             $this->addHoliday(new Holiday(
@@ -390,7 +398,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateLiberationDay(): void
+    private function calculateLiberationDay(): void
     {
         if ($this->year >= 1949) {
             $this->addHoliday(new Holiday(
@@ -409,7 +417,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateArmedForcesDay(): void
+    private function calculateArmedForcesDay(): void
     {
         if ($this->year >= 1956 && $this->year <= 1990) {
             $this->addHoliday(new Holiday(
@@ -428,7 +436,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateNationalFoundationDay(): void
+    private function calculateNationalFoundationDay(): void
     {
         if ($this->year >= 1949) {
             $this->addHoliday(new Holiday(
@@ -447,7 +455,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateHangulDay(): void
+    private function calculateHangulDay(): void
     {
         if (($this->year >= 1949 && $this->year <= 1990) || $this->year > 2012) {
             $this->addHoliday(new Holiday(
@@ -470,7 +478,7 @@ class SouthKorea extends AbstractProvider
      *
      * @throws \Exception
      */
-    public function calculateSubstituteHolidays(): void
+    private function calculateSubstituteHolidays(): void
     {
         if ($this->year <= 2013) {
             return;
@@ -487,7 +495,7 @@ class SouthKorea extends AbstractProvider
         // Loop through all holidays
         foreach ($holidays as $key => $holiday) {
             // Get list of holiday dates except this
-            $holidayDates = \array_map(static function ($holiday) use ($key) {
+            $holidayDates = array_map(static function ($holiday) use ($key) {
                 return $holiday->getKey() === $key ? false : (string) $holiday;
             }, $holidays);
 
@@ -506,7 +514,6 @@ class SouthKorea extends AbstractProvider
                     || (6 === (int) $date->format('w') && 'childrensDay' === $key)
                     || \in_array($date, $holidayDates, false)) {
                     $date->add(new DateInterval('P1D'));
-                    continue;
                 }
 
                 // Add a new holiday that is substituting the original holiday

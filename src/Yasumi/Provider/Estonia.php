@@ -64,6 +64,14 @@ class Estonia extends AbstractProvider
         $this->addHoliday($this->secondChristmasDay($this->year, $this->timezone, $this->locale));
     }
 
+    public function getSources(): array
+    {
+        return [
+            'https://en.wikipedia.org/wiki/Public_holidays_in_Estonia',
+            'https://et.wikipedia.org/wiki/Eesti_riigip%C3%BChad',
+        ];
+    }
+
     /**
      * @throws \InvalidArgumentException
      * @throws \Exception
@@ -74,7 +82,7 @@ class Estonia extends AbstractProvider
             $this->addHoliday(new Holiday('independenceDay', [
                 'en' => 'Independence Day',
                 'et' => 'Iseseisvuspäev',
-            ], new \DateTime("{$this->year}-02-24", new \DateTimeZone($this->timezone))));
+            ], new \DateTime("$this->year-02-24", new \DateTimeZone($this->timezone))));
         }
     }
 
@@ -88,7 +96,7 @@ class Estonia extends AbstractProvider
             $this->addHoliday(new Holiday('victoryDay', [
                 'en' => 'Victory Day',
                 'et' => 'Võidupüha',
-            ], new \DateTime("{$this->year}-06-23", new \DateTimeZone($this->timezone))));
+            ], new \DateTime("$this->year-06-23", new \DateTimeZone($this->timezone))));
         }
     }
 
@@ -102,7 +110,7 @@ class Estonia extends AbstractProvider
             $this->addHoliday(new Holiday('restorationOfIndependenceDay', [
                 'en' => 'Day of Restoration of Independence',
                 'et' => 'Taasiseseisvumispäev',
-            ], new \DateTime("{$this->year}-08-20", new \DateTimeZone($this->timezone))));
+            ], new \DateTime("$this->year-08-20", new \DateTimeZone($this->timezone))));
         }
     }
 }

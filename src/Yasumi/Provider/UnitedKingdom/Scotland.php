@@ -69,6 +69,37 @@ class Scotland extends UnitedKingdom
         $this->calculateChristmasHolidays(Holiday::TYPE_BANK);
     }
 
+    public function getSources(): array
+    {
+        return ['https://en.wikipedia.org/wiki/Public_and_bank_holidays_in_Scotland'];
+    }
+
+    /**
+     * The Summer Bank holiday, also known as the Late Summer bank holiday, is a time for people in the United Kingdom
+     * to have a day off work or school. In Scotland it falls on the first Monday of August.
+     *
+     * @see https://www.timeanddate.com/holidays/uk/summer-bank-holiday
+     *
+     * @throws InvalidDateException
+     * @throws \InvalidArgumentException
+     * @throws UnknownLocaleException
+     * @throws \Exception
+     */
+    protected function calculateSummerBankHoliday(): void
+    {
+        if ($this->year < 1871) {
+            return;
+        }
+
+        $this->addHoliday(new Holiday(
+            'summerBankHoliday',
+            ['en' => 'August Bank Holiday'],
+            new DateTime("first monday of august $this->year", DateTimeZoneFactory::getDateTimeZone($this->timezone)),
+            $this->locale,
+            Holiday::TYPE_BANK
+        ));
+    }
+
     /**
      * New Year's Day is a public holiday in the United Kingdom on January 1 each year. It marks
      * the start of the New Year in the Gregorian calendar. For many people have a quiet day on
@@ -77,7 +108,6 @@ class Scotland extends UnitedKingdom
      * In Scotland, January 2 is also a bank holiday. If January 2 falls on a Saturday, the following Monday is a bank holiday.
      * If New Years Day falls on a Saturday, the following Monday and Tuesday are bank holidays.
      *
-     * @see https://en.wikipedia.org/wiki/Public_holidays_in_Scotland
      * @see https://www.timeanddate.com/holidays/uk/new-year-day
      *
      * @throws InvalidDateException
@@ -85,7 +115,7 @@ class Scotland extends UnitedKingdom
      * @throws UnknownLocaleException
      * @throws \Exception
      */
-    protected function calculateNewYearsHolidays(): void
+    private function calculateNewYearsHolidays(): void
     {
         // Before 1871 it was not an observed or statutory holiday
         if ($this->year < 1871) {
@@ -132,33 +162,6 @@ class Scotland extends UnitedKingdom
                 $type
             ));
         }
-    }
-
-    /**
-     * The Summer Bank holiday, also known as the Late Summer bank holiday, is a time for people in the United Kingdom
-     * to have a day off work or school. In Scotland it falls on the first Monday of August.
-     *
-     * @see https://www.timeanddate.com/holidays/uk/summer-bank-holiday
-     * @see https://en.wikipedia.org/wiki/Public_holidays_in_Scotland
-     *
-     * @throws InvalidDateException
-     * @throws \InvalidArgumentException
-     * @throws UnknownLocaleException
-     * @throws \Exception
-     */
-    protected function calculateSummerBankHoliday(): void
-    {
-        if ($this->year < 1871) {
-            return;
-        }
-
-        $this->addHoliday(new Holiday(
-            'summerBankHoliday',
-            ['en' => 'August Bank Holiday'],
-            new DateTime("first monday of august $this->year", DateTimeZoneFactory::getDateTimeZone($this->timezone)),
-            $this->locale,
-            Holiday::TYPE_BANK
-        ));
     }
 
     /**

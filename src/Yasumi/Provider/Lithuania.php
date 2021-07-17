@@ -80,6 +80,14 @@ class Lithuania extends AbstractProvider
         $this->addHoliday($this->secondChristmasDay($this->year, $this->timezone, $this->locale));
     }
 
+    public function getSources(): array
+    {
+        return [
+            'https://en.wikipedia.org/wiki/Public_holidays_in_Lithuania',
+            'https://lt.wikipedia.org/wiki/S%C4%85ra%C5%A1as:Lietuvos_%C5%A1vent%C4%97s',
+        ];
+    }
+
     /**
      * The Act of Reinstating Independence of Lithuania was signed on February 16, 1918.
      *
@@ -92,7 +100,7 @@ class Lithuania extends AbstractProvider
             $this->addHoliday(new Holiday('restorationOfTheStateOfLithuaniaDay', [
                 'en' => 'Day of Restoration of the State of Lithuania',
                 'lt' => 'Lietuvos valstybės atkūrimo diena',
-            ], new \DateTime("{$this->year}-02-16", new \DateTimeZone($this->timezone))));
+            ], new \DateTime("$this->year-02-16", new \DateTimeZone($this->timezone))));
         }
     }
 
@@ -108,7 +116,7 @@ class Lithuania extends AbstractProvider
             $this->addHoliday(new Holiday('restorationOfIndependenceOfLithuaniaDay', [
                 'en' => 'Day of Restoration of Independence of Lithuania',
                 'lt' => 'Lietuvos nepriklausomybės atkūrimo diena',
-            ], new \DateTime("{$this->year}-03-11", new \DateTimeZone($this->timezone))));
+            ], new \DateTime("$this->year-03-11", new \DateTimeZone($this->timezone))));
         }
     }
 
@@ -125,7 +133,7 @@ class Lithuania extends AbstractProvider
             $this->addHoliday(new Holiday('statehoodDay', [
                 'en' => 'Statehood Day (Lithuania)',
                 'lt' => 'Valstybės (Lietuvos karaliaus Mindaugo karūnavimo) diena',
-            ], new \DateTime("{$this->year}-07-06", new \DateTimeZone($this->timezone)), $this->locale));
+            ], new \DateTime("$this->year-07-06", new \DateTimeZone($this->timezone)), $this->locale));
         }
     }
 
